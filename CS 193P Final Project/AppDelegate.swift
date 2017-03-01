@@ -11,8 +11,41 @@ import CoreData
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
+    
+    let clientId = "4275d7c3c3864d7988c42a7d282aaaa4"
+    let callbackURL = "cponcede-cs193p-project-spotify://callback"
+    let tokenSwapURL = ""
+    let tokenRefreshServiceURL = ""
 
     var window: UIWindow?
+
+    func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+        print("IN AppDelegate method")
+        if SPTAuth.defaultInstance().canHandle(url) {
+            SPTAuth.defaultInstance().handleAuthCallback(withTriggeredAuthURL: url, callback: { (error, session) -> Void in
+                if session == nil {
+                    print("SPOTIFY AUTH ERROR")
+                    print(error)
+                    print (url)
+                    return
+                }
+                print("SAVING TO USER DEFAULTS")
+                let userDefaults = UserDefaults.standard
+                userDefaults.set(true, forKey: "spotifyEnabled")
+                
+                let sessionData = NSKeyedArchiver.archivedData(withRootObject: session)
+                userDefaults.set(sessionData, forKey: "spotifySession")
+                
+                userDefaults.synchronize()
+                
+                NotificationCenter.default.post(name: NSNotification.Name.init(rawValue: "spotifyLoginSuccessful"), object: nil)
+                
+            })
+        } else {
+            print (url)
+        }
+        return false
+    }
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {

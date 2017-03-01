@@ -13,6 +13,11 @@
 		95204FE31E66750100EF62C0 /* CS_193P_Final_Project.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 95204FE11E66750100EF62C0 /* CS_193P_Final_Project.xcdatamodeld */; };
 		95204FE51E66750100EF62C0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 95204FE41E66750100EF62C0 /* Assets.xcassets */; };
 		95204FE81E66750100EF62C0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 95204FE61E66750100EF62C0 /* LaunchScreen.storyboard */; };
+		95204FF31E6685EE00EF62C0 /* SpotifyAudioPlayback.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95204FF01E6685EE00EF62C0 /* SpotifyAudioPlayback.framework */; };
+		95204FF41E6685EE00EF62C0 /* SpotifyAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95204FF11E6685EE00EF62C0 /* SpotifyAuthentication.framework */; };
+		95204FF51E6685EE00EF62C0 /* SpotifyMetadata.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95204FF21E6685EE00EF62C0 /* SpotifyMetadata.framework */; };
+		95204FF71E6687BF00EF62C0 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95204FF61E6687BF00EF62C0 /* AVFoundation.framework */; };
+		95204FF91E6687CC00EF62C0 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95204FF81E6687CC00EF62C0 /* SystemConfiguration.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +29,12 @@
 		95204FE41E66750100EF62C0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		95204FE71E66750100EF62C0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		95204FE91E66750100EF62C0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		95204FF01E6685EE00EF62C0 /* SpotifyAudioPlayback.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SpotifyAudioPlayback.framework; sourceTree = "<group>"; };
+		95204FF11E6685EE00EF62C0 /* SpotifyAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SpotifyAuthentication.framework; sourceTree = "<group>"; };
+		95204FF21E6685EE00EF62C0 /* SpotifyMetadata.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SpotifyMetadata.framework; sourceTree = "<group>"; };
+		95204FF61E6687BF00EF62C0 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		95204FF81E6687CC00EF62C0 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		95204FFA1E6689E000EF62C0 /* CS 193P Final Project-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CS 193P Final Project-Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +42,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				95204FF91E6687CC00EF62C0 /* SystemConfiguration.framework in Frameworks */,
+				95204FF71E6687BF00EF62C0 /* AVFoundation.framework in Frameworks */,
+				95204FF31E6685EE00EF62C0 /* SpotifyAudioPlayback.framework in Frameworks */,
+				95204FF51E6685EE00EF62C0 /* SpotifyMetadata.framework in Frameworks */,
+				95204FF41E6685EE00EF62C0 /* SpotifyAuthentication.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -40,6 +56,7 @@
 		95204FCE1E66750000EF62C0 = {
 			isa = PBXGroup;
 			children = (
+				95204FEF1E66859100EF62C0 /* Frameworks */,
 				95204FD91E66750100EF62C0 /* CS 193P Final Project */,
 				95204FD81E66750100EF62C0 /* Products */,
 			);
@@ -63,8 +80,21 @@
 				95204FE61E66750100EF62C0 /* LaunchScreen.storyboard */,
 				95204FE91E66750100EF62C0 /* Info.plist */,
 				95204FE11E66750100EF62C0 /* CS_193P_Final_Project.xcdatamodeld */,
+				95204FFA1E6689E000EF62C0 /* CS 193P Final Project-Bridging-Header.h */,
 			);
 			path = "CS 193P Final Project";
+			sourceTree = "<group>";
+		};
+		95204FEF1E66859100EF62C0 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				95204FF81E6687CC00EF62C0 /* SystemConfiguration.framework */,
+				95204FF61E6687BF00EF62C0 /* AVFoundation.framework */,
+				95204FF01E6685EE00EF62C0 /* SpotifyAudioPlayback.framework */,
+				95204FF11E6685EE00EF62C0 /* SpotifyAuthentication.framework */,
+				95204FF21E6685EE00EF62C0 /* SpotifyMetadata.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -100,6 +130,7 @@
 					95204FD61E66750000EF62C0 = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = V986P5755S;
+						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -265,11 +296,19 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = V986P5755S;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = "CS 193P Final Project/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = "edu.stanford.cs193p.cponcede.CS-193P-Final-Project";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "CS 193P Final Project/CS 193P Final Project-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -278,11 +317,18 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = V986P5755S;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = "CS 193P Final Project/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = "edu.stanford.cs193p.cponcede.CS-193P-Final-Project";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "CS 193P Final Project/CS 193P Final Project-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
