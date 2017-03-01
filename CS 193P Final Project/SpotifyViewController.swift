@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class SpotifyViewController: UIViewController {
     
     let clientId = "4275d7c3c3864d7988c42a7d282aaaa4"
     let callbackURL = "cponcede-cs193p-project-spotify://callback"
@@ -16,7 +16,6 @@ class ViewController: UIViewController {
     let tokenRefreshServiceURL = ""
     
     var session : SPTSession!
-    var playlistNames: [String]?
 
     @IBOutlet weak var loginButton: UIButton!
     
@@ -37,7 +36,8 @@ class ViewController: UIViewController {
             NSURLConnection.sendAsynchronousRequest(request!, queue: OperationQueue(), completionHandler: { (response: URLResponse?, data: Data?, error: Error?) in
                 do {
                     // TODO: Debug this and get playlists appearing.
-                    if let jsonResult = try JSONSerialization.data(withJSONObject: data!, options: JSONSerialization.WritingOptions.init(rawValue: 0)) as? NSDictionary {
+                    print("About to try to decode response")
+                    if let jsonResult = try? JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.init(rawValue: 0)) {
                         print(jsonResult)
                     }
                 } catch let error as Error {
