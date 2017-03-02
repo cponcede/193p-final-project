@@ -14,6 +14,7 @@ class SpotifyViewController: UIViewController {
     let callbackURL = "cponcede-cs193p-project-spotify://callback"
     let tokenSwapURL = ""
     let tokenRefreshServiceURL = ""
+    let scopes = [SPTAuthStreamingScope, SPTAuthUserLibraryReadScope, SPTAuthPlaylistReadPrivateScope, SPTAuthPlaylistReadCollaborativeScope]
     
     var session : SPTSession!
 
@@ -90,8 +91,8 @@ class SpotifyViewController: UIViewController {
             print ("NO SAVED SESSION")
             SPTAuth.defaultInstance().clientID = clientId
             SPTAuth.defaultInstance().redirectURL = URL.init(string: callbackURL)
-            SPTAuth.defaultInstance().requestedScopes = [SPTAuthUserLibraryReadScope]
-            let loginURL = SPTAuth.loginURL(forClientId: clientId, withRedirectURL: URL.init(string: callbackURL), scopes: [SPTAuthUserLibraryReadScope], responseType: "token")
+            SPTAuth.defaultInstance().requestedScopes = scopes
+            let loginURL = SPTAuth.loginURL(forClientId: clientId, withRedirectURL: URL.init(string: callbackURL), scopes: scopes, responseType: "token")
             UIApplication.shared.open(loginURL!)
             
         }

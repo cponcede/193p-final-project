@@ -18,6 +18,8 @@ class SpotifyTableViewController: UITableViewController {
     let numSections = 2
     let numShortcuts = 4
     
+    var spotifyPlaylists: SPTPlaylistList?
+    
     var session : SPTSession!
 
     override func viewDidLoad() {
@@ -43,7 +45,12 @@ class SpotifyTableViewController: UITableViewController {
                         print("Refreshed Spotify auth token successfully")
                         self.retrieveUserLibrary()
                     } else {
-                        print("Error refreshing Spotify auth token")
+                        print("Error refreshing Spotify auth token. Creating new one.")
+                        SPTAuth.defaultInstance().clientID = self.clientId
+                        SPTAuth.defaultInstance().redirectURL = URL.init(string: self.callbackURL)
+                        SPTAuth.defaultInstance().requestedScopes = [SPTAuthUserLibraryReadScope]
+                        let loginURL = SPTAuth.loginURL(forClientId: self.clientId, withRedirectURL: URL.init(string: self.callbackURL), scopes: [SPTAuthUserLibraryReadScope], responseType: "token")
+                        UIApplication.shared.open(loginURL!)
                     }
                 })
             } else {
@@ -63,6 +70,99 @@ class SpotifyTableViewController: UITableViewController {
         }
     }
     
+    func getMorePlaylists(sptPlaylists: SPTListPage, destinationViewController: SpotifyPlaylistsTableViewController) {
+        if sptPlaylists.hasNextPage {
+            sptPlaylists.requestNextPage(withAccessToken: self.session.accessToken, callback: { (error, playlists) in
+                if (error == nil) {
+                    let newPlaylists = playlists as! SPTListPage
+                    for playlist in newPlaylists.items {
+                        let partialPlaylist = playlist as! SPTPartialPlaylist
+                        let title = partialPlaylist.name
+                        destinationViewController.numPlaylists += 1
+                        if partialPlaylist.images.count > 0 {
+                            if let artwork = partialPlaylist.images[0] as? SPTImage {
+                                let artworkURL = artwork.imageURL
+                                if let artworkData = try? Data.init(contentsOf: artworkURL!) {
+                                    let artworkImage = UIImage(data: artworkData)
+                                    destinationViewController.playlists.append(Playlist(artwork: artworkImage, title: title))
+                                }
+                            }
+                        } else {
+                            // Set default image
+                            let path =
+                            destinationViewController.playlists.append(Playlist(artwork: UIImage.init(contentsOfFile: "/Users/cponcede/Developer/CS 193P Final Project/CS 193P Final Project/Images/NoPhotoDefault.png"), title: title))
+                            print("No playlist image, Skipping for now.")
+                        }
+                        
+                    }
+                    print("Adding \(sptPlaylists.items.count) playlists")
+                    //destinationViewController.playlists.append(newPlaylists)
+                    if newPlaylists.hasNextPage {
+                        self.getMorePlaylists(sptPlaylists: newPlaylists, destinationViewController: destinationViewController)
+                    } else {
+                        destinationViewController.doneSettingPlaylists = true
+                    }
+                    } else {
+                    print("Error retrieving spotify playlists")
+                }
+            })
+        }
+        
+    }
+    
+    func getUserPlaylists(destinationViewController: SpotifyPlaylistsTableViewController) {
+            SPTPlaylistList.playlists(forUser: session.canonicalUsername, withAccessToken: session.accessToken, callback: { (error, playlists) in
+                if (error == nil) {
+                    let sptPlaylists = playlists as! SPTListPage
+                    print("Adding \(sptPlaylists.items.count) playlists")
+                    for playlist in sptPlaylists.items {
+                        let partialPlaylist = playlist as! SPTPartialPlaylist
+                        let title = partialPlaylist.name
+                        destinationViewController.numPlaylists += 1
+                        if partialPlaylist.images.count > 0 {
+                            if let artwork = partialPlaylist.images[0] as? SPTImage {
+                                let artworkURL = artwork.imageURL
+                                if let artworkData = try? Data.init(contentsOf: artworkURL!) {
+                                    let artworkImage = UIImage(data: artworkData)
+                                    destinationViewController.playlists.append(Playlist(artwork: artworkImage, title: title))
+                                }
+                            }
+                        } else {
+                            destinationViewController.playlists.append(Playlist(artwork: UIImage.init(contentsOfFile: "/Users/cponcede/Developer/CS 193P Final Project/CS 193P Final Project/Images/NoPhotoDefault.png"), title: title))
+                            print("No playlist image, Skipping for now.")
+                        }
+                        
+                    }
+                    //destinationViewController.playlists.append(sptPlaylists)
+                    if sptPlaylists.hasNextPage {
+                        self.getMorePlaylists(sptPlaylists: sptPlaylists, destinationViewController: destinationViewController)
+                    } else {
+                        destinationViewController.doneSettingPlaylists = true
+                    }
+                    
+                } else {
+                    print("Error retrieving spotify playlists")
+                }
+            })
+            /*
+            let request = try SPTPlaylistList.createRequestForGettingPlaylists(forUser: self.session.canonicalUsername, withAccessToken: self.session.accessToken)
+            NSURLConnection.sendAsynchronousRequest(request, queue: OperationQueue(), completionHandler: { (response: URLResponse?, data: Data?, error: Error?) in
+                // TODO: Debug this and get playlists appearing.
+                SPTPlaylistList.playlists(forUser: <#T##String!#>, withAccessToken: <#T##String!#>, callback: <#T##SPTRequestCallback!##SPTRequestCallback!##(Error?, Any?) -> Void#>)
+                if let jsonResult = try? JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.init(rawValue: 0)) {
+                    //bluetooself.userPlaylists = []
+                    print(jsonResult)
+                }
+                
+            })
+         
+        } catch {
+            print ("Error while retrieving user's Spotify playlists")
+            return
+        }
+    */
+    }
+    
     func updateAfterLogin() {
         self.session = SPTAuth.defaultInstance().session
         retrieveUserLibrary()
@@ -74,14 +174,12 @@ class SpotifyTableViewController: UITableViewController {
         do {
             request = try SPTYourMusic.createRequestForCurrentUsersSavedTracks(withAccessToken: session.accessToken)
             NSURLConnection.sendAsynchronousRequest(request!, queue: OperationQueue(), completionHandler: { (response: URLResponse?, data: Data?, error: Error?) in
-                do {
-                    // TODO: Debug this and get playlists appearing.
-                    print("About to try to decode response")
-                    if let jsonResult = try? JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.init(rawValue: 0)) {
-                        print(jsonResult)
-                    }
-                } catch let error as Error {
-                    print(error.localizedDescription)
+                // TODO: Debug this and get playlists appearing.
+                print("About to try to decode response")
+                if let jsonResult = try? JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.init(rawValue: 0)) {
+                    //print(jsonResult)
+                } else {
+                    print(error!.localizedDescription)
                 }
                 
             })
@@ -138,6 +236,24 @@ class SpotifyTableViewController: UITableViewController {
             }
         }
         return tableView.dequeueReusableCell(withIdentifier: "recent", for: indexPath)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let cell = sender as? UITableViewCell {
+            let id = cell.reuseIdentifier
+            if (id == "playlists") {
+                var destinationViewController = segue.destination
+                if let navigationController = destinationViewController as? UINavigationController {
+                    destinationViewController = navigationController.visibleViewController ?? destinationViewController
+                }
+                if let playlistsTableViewController = destinationViewController as? SpotifyPlaylistsTableViewController {
+                    //playlistsTableViewController.playlists = getUserPlaylists()
+                    getUserPlaylists(destinationViewController: playlistsTableViewController)
+                    print ("SEGUE WORKED!")
+                }
+                
+            }
+        }
     }
 
     /*
