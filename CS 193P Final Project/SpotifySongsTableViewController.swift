@@ -10,7 +10,7 @@ import UIKit
 
 class SpotifySongsTableViewController: UITableViewController {
     
-    var session : SPTSession!
+    var authData: SpotifyAuthenticationData!
     
     var songs: [Song] = []
     
@@ -99,7 +99,7 @@ class SpotifySongsTableViewController: UITableViewController {
                 }
                 if let playSongViewController = destinationViewController as? PlaySongViewController {
                     //playlistsTableViewController.playlists = getUserPlaylists()
-                    playSongViewController.session = self.session
+                    playSongViewController.authData = self.authData
                     playSongViewController.song = songs[tableView.indexPath(for: cell)!.row]
                 }
             }

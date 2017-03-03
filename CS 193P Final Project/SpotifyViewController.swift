@@ -27,7 +27,6 @@ class SpotifyViewController: UIViewController {
     }
     
     func retrieveUserLibrary() {
-        print("IN RETRIVE USER LIBRARY")
         var request : URLRequest?
         do {
             request = try SPTYourMusic.createRequestForCurrentUsersSavedTracks(withAccessToken: session.accessToken)

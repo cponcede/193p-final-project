@@ -21,11 +21,19 @@ class SpotifyTableViewController: UITableViewController {
     var spotifyPlaylists: SPTPlaylistList?
     
     var session : SPTSession!
+    
+    var authData = SpotifyAuthenticationData()
+    
+    func updateAfterLogin() {
+        self.session = SPTAuth.defaultInstance().session
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Spotify"
         print("IN VDL")
+        authData.getNewSession()
+        /*
         NotificationCenter.default.addObserver(self, selector: Selector.init("updateAfterLogin"), name: NSNotification.Name.init(rawValue: "spotifyLoginSuccessful") , object: nil)
         
         let userDefaults = UserDefaults.standard
@@ -66,11 +74,12 @@ class SpotifyTableViewController: UITableViewController {
             let loginURL = SPTAuth.loginURL(forClientId: clientId, withRedirectURL: URL.init(string: callbackURL), scopes: [SPTAuthUserLibraryReadScope], responseType: "token")
             UIApplication.shared.open(loginURL!)
         }
+         */
     }
     
     func getMorePlaylists(sptPlaylists: SPTListPage, destinationViewController: SpotifyPlaylistsTableViewController) {
         if sptPlaylists.hasNextPage {
-            sptPlaylists.requestNextPage(withAccessToken: self.session.accessToken, callback: { (error, playlists) in
+            sptPlaylists.requestNextPage(withAccessToken: self.authData.session.accessToken, callback: { (error, playlists) in
                 if (error == nil) {
                     let newPlaylists = playlists as! SPTListPage
                     for playlist in newPlaylists.items {
@@ -143,13 +152,9 @@ class SpotifyTableViewController: UITableViewController {
             })
     }
     
-    func updateAfterLogin() {
-        self.session = SPTAuth.defaultInstance().session
-    }
-    
     func getMoreSongs(currentPage: SPTListPage, destinationViewController: SpotifySongsTableViewController) {
         if currentPage.hasNextPage {
-            currentPage.requestNextPage(withAccessToken: self.session.accessToken, callback: {
+            currentPage.requestNextPage(withAccessToken: self.authData.session.accessToken, callback: {
                 (error, data) in
                 if (error == nil) {
                     if let songs = data as? SPTListPage {
@@ -186,7 +191,7 @@ class SpotifyTableViewController: UITableViewController {
     
     func retrieveUserLibrary(destinationViewController: SpotifySongsTableViewController) {
         print("IN RETRIVE USER LIBRARY")
-        SPTYourMusic.savedTracksForUser(withAccessToken: self.session.accessToken, callback: {
+        SPTYourMusic.savedTracksForUser(withAccessToken: self.authData.session.accessToken, callback: {
             (error, data) in
             if (error == nil) {
                 if let songs = data as? SPTListPage {
@@ -273,7 +278,7 @@ class SpotifyTableViewController: UITableViewController {
                 }
                 if let playlistsTableViewController = destinationViewController as? SpotifyPlaylistsTableViewController {
                     //playlistsTableViewController.playlists = getUserPlaylists()
-                    playlistsTableViewController.session = self.session
+                    playlistsTableViewController.authData = self.authData
                     getUserPlaylists(destinationViewController: playlistsTableViewController)
                     print ("SEGUE WORKED!")
                 }
@@ -286,7 +291,7 @@ class SpotifyTableViewController: UITableViewController {
                 if let songsTableViewController = destinationViewController as? SpotifySongsTableViewController {
                     //playlistsTableViewController.playlists = getUserPlaylists()
                     songsTableViewController.title = "Saved Tracks"
-                    songsTableViewController.session = self.session
+                    songsTableViewController.authData = self.authData
                     retrieveUserLibrary(destinationViewController: songsTableViewController)
                 }
                 

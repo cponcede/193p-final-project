@@ -11,7 +11,7 @@ import UIKit
 
 class SpotifyPlaylistsTableViewController: UITableViewController {
     
-    var session : SPTSession!
+    var authData: SpotifyAuthenticationData!
     
     var playlists: [Playlist] = []
     

@@ -15,7 +15,10 @@ class PlaySongViewController: UIViewController {
             startPlayingSong()
         }
     }
-    var session: SPTSession?
+    
+    var player: SPTAudioStreamingController?
+    
+    var authData: SpotifyAuthenticationData!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,7 +27,7 @@ class PlaySongViewController: UIViewController {
     
     func startPlayingSong() {
         if player == nil {
-            player = SPTAudioStreamingController(clientId: session.)
+            player = SPTAudioStreamingController.sharedInstance()
         }
         
     }
