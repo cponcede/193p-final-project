@@ -84,13 +84,13 @@ class SpotifyTableViewController: UITableViewController {
                                 let artworkURL = artwork.imageURL
                                 if let artworkData = try? Data.init(contentsOf: artworkURL!) {
                                     let artworkImage = UIImage(data: artworkData)
-                                    destinationViewController.playlists.append(Playlist(artwork: artworkImage, title: title))
+                                    destinationViewController.playlists.append(Playlist(artworkImage: artworkImage, title: title))
                                 }
                             }
                         } else {
                             // Set default image
                             let path =
-                            destinationViewController.playlists.append(Playlist(artwork: UIImage.init(contentsOfFile: "/Users/cponcede/Developer/CS 193P Final Project/CS 193P Final Project/Images/NoPhotoDefault.png"), title: title))
+                            destinationViewController.playlists.append(Playlist(artworkImage: UIImage.init(contentsOfFile: "/Users/cponcede/Developer/CS 193P Final Project/CS 193P Final Project/Images/NoPhotoDefault.png"), title: title))
                             print("No playlist image, Skipping for now.")
                         }
                         
@@ -124,11 +124,11 @@ class SpotifyTableViewController: UITableViewController {
                                 let artworkURL = artwork.imageURL
                                 if let artworkData = try? Data.init(contentsOf: artworkURL!) {
                                     let artworkImage = UIImage(data: artworkData)
-                                    destinationViewController.playlists.append(Playlist(artwork: artworkImage, title: title))
+                                    destinationViewController.playlists.append(Playlist(artworkImage: artworkImage, title: title))
                                 }
                             }
                         } else {
-                            destinationViewController.playlists.append(Playlist(artwork: UIImage.init(contentsOfFile: "/Users/cponcede/Developer/CS 193P Final Project/CS 193P Final Project/Images/NoPhotoDefault.png"), title: title))
+                            destinationViewController.playlists.append(Playlist(artworkImage: UIImage.init(contentsOfFile: "/Users/cponcede/Developer/CS 193P Final Project/CS 193P Final Project/Images/NoPhotoDefault.png"), title: title))
                             print("No playlist image, Skipping for now.")
                         }
                         

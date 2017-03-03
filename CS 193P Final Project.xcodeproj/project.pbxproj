@@ -24,6 +24,7 @@
 		954EDC511E6784F90045B25E /* SpotifyPlaylistsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954EDC501E6784F90045B25E /* SpotifyPlaylistsTableViewController.swift */; };
 		954EDC531E67AC0C0045B25E /* TitleAndImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954EDC521E67AC0C0045B25E /* TitleAndImageTableViewCell.swift */; };
 		954EDC551E67AFAC0045B25E /* SpotifySongsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954EDC541E67AFAC0045B25E /* SpotifySongsTableViewController.swift */; };
+		95BFCED91E68DCAE00B15DB1 /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95BFCED81E68DCAE00B15DB1 /* Song.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,6 +48,7 @@
 		954EDC501E6784F90045B25E /* SpotifyPlaylistsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotifyPlaylistsTableViewController.swift; sourceTree = "<group>"; };
 		954EDC521E67AC0C0045B25E /* TitleAndImageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleAndImageTableViewCell.swift; sourceTree = "<group>"; };
 		954EDC541E67AFAC0045B25E /* SpotifySongsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotifySongsTableViewController.swift; sourceTree = "<group>"; };
+		95BFCED81E68DCAE00B15DB1 /* Song.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +92,7 @@
 				95204FDC1E66750100EF62C0 /* SpotifyViewController.swift */,
 				95204FDE1E66750100EF62C0 /* Main.storyboard */,
 				954AFA2A1E67CB6B0085B378 /* Playlist.swift */,
+				95BFCED81E68DCAE00B15DB1 /* Song.swift */,
 				954EDC541E67AFAC0045B25E /* SpotifySongsTableViewController.swift */,
 				954EDC521E67AC0C0045B25E /* TitleAndImageTableViewCell.swift */,
 				954EDC501E6784F90045B25E /* SpotifyPlaylistsTableViewController.swift */,
@@ -190,6 +193,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				95BFCED91E68DCAE00B15DB1 /* Song.swift in Sources */,
 				954EDC531E67AC0C0045B25E /* TitleAndImageTableViewCell.swift in Sources */,
 				95204FDD1E66750100EF62C0 /* SpotifyViewController.swift in Sources */,
 				954EDC511E6784F90045B25E /* SpotifyPlaylistsTableViewController.swift in Sources */,

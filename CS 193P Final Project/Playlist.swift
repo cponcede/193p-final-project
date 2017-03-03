@@ -11,7 +11,7 @@ import UIKit
 
 struct Playlist {
     
-    var artwork: UIImage?
+    var artworkImage: UIImage?
     var title: String?
     
 }

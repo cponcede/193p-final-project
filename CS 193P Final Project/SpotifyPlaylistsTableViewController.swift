@@ -13,27 +13,29 @@ class SpotifyPlaylistsTableViewController: UITableViewController {
     
     var playlists: [Playlist] = []
     
+    var imageViewConstraints: [NSLayoutConstraint]?
+    
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     
     var numPlaylists = 0
     
     var doneSettingPlaylists = false {
         didSet {
+            self.tableView.tableHeaderView?.frame = CGRect(x: 0, y: 0, width: tableView.frame.width, height: 0)
+            self.tableView.tableHeaderView = self.tableView.tableHeaderView // necessary to really set the frame
             spinner.stopAnimating()
             spinner.isHidden = true
-            print("PLAYLISTS SET IN PLAYLISTS MVC")
-            print(playlists)
-            for item in playlists {
-                print (item.title)
-            }
             tableView.reloadData()
         }
     }
-
+    
     override func viewDidLoad() {
-        tableView.rowHeight = UITableViewAutomaticDimension
         super.viewDidLoad()
+        tableView.separatorStyle = UITableViewCellSeparatorStyle.none
+        tableView.estimatedRowHeight = tableView.rowHeight
+        tableView.rowHeight = UITableViewAutomaticDimension
         spinner.startAnimating()
+        print(tableView.center)
         self.title = "Spotify Playlists"
     }
 
@@ -53,9 +55,19 @@ class SpotifyPlaylistsTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "playlistCell")
         if let customCell = cell as? TitleAndImageTableViewCell {
             customCell.titleLabel.text = playlists[indexPath.row].title
-            customCell.entityImageView?.image = playlists[indexPath.row].artwork
-            customCell.setNeedsDisplay()
-            print(customCell.constraints)
+            customCell.entityImageView.image = playlists[indexPath.row].artworkImage
+            // customCell.setNeedsDisplay()
+            /*
+            print(customCell.entityImageView.constraints)
+            if self.imageViewConstraints == nil && !customCell.entityImageView.constraints.isEmpty {
+                print("Setting imageViewConstraints")
+                self.imageViewConstraints = customCell.entityImageView.constraints
+            } else {
+                print(self.imageViewConstraints!)
+                customCell.entityImageView.removeConstraints(customCell.entityImageView.constraints)
+                customCell.entityImageView.addConstraints(self.imageViewConstraints!)
+            }
+ */
             return customCell
         }
         print("RETURNING WRONG CELL")
