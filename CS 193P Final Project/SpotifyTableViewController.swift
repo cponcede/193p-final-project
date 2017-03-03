@@ -10,23 +10,13 @@ import UIKit
 
 class SpotifyTableViewController: UITableViewController {
     
-    let clientId = "4275d7c3c3864d7988c42a7d282aaaa4"
-    let callbackURL = "cponcede-cs193p-project-spotify://callback"
-    let tokenSwapURL = ""
-    let tokenRefreshServiceURL = ""
-    
     let numSections = 2
     let numShortcuts = 4
     
     var spotifyPlaylists: SPTPlaylistList?
     
-    var session : SPTSession!
-    
     var authData = SpotifyAuthenticationData()
     
-    func updateAfterLogin() {
-        self.session = SPTAuth.defaultInstance().session
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -117,7 +107,7 @@ class SpotifyTableViewController: UITableViewController {
     }
     
     func getUserPlaylists(destinationViewController: SpotifyPlaylistsTableViewController) {
-            SPTPlaylistList.playlists(forUser: session.canonicalUsername, withAccessToken: session.accessToken, callback: { (error, playlists) in
+            SPTPlaylistList.playlists(forUser: authData.session.canonicalUsername, withAccessToken: authData.session.accessToken, callback: { (error, playlists) in
                 if (error == nil) {
                     let sptPlaylists = playlists as! SPTListPage
                     print("Adding \(sptPlaylists.items.count) playlists")

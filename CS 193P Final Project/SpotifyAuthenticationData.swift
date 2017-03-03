@@ -62,4 +62,8 @@ class SpotifyAuthenticationData {
         
     }
     
+    func updateAfterLogin() {
+        self.session = SPTAuth.defaultInstance().session
+    }
+    
 }

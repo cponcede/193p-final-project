@@ -16,7 +16,6 @@ class SpotifySongsTableViewController: UITableViewController {
     
     var songsDoneLoading = false {
         didSet {
-            print(songs)
             tableView.reloadData()
             return
         }
@@ -97,7 +96,7 @@ class SpotifySongsTableViewController: UITableViewController {
                 if let navigationController = destinationViewController as? UINavigationController {
                     destinationViewController = navigationController.visibleViewController ?? destinationViewController
                 }
-                if let playSongViewController = destinationViewController as? PlaySongViewController {
+                if let playSongViewController = destinationViewController as? SpotifyPlaySongViewController {
                     //playlistsTableViewController.playlists = getUserPlaylists()
                     playSongViewController.authData = self.authData
                     playSongViewController.song = songs[tableView.indexPath(for: cell)!.row]

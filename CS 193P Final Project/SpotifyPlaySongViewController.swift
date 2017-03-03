@@ -6,12 +6,15 @@
 //  Copyright © 2017 Stanford University. All rights reserved.
 //
 
+import AVFoundation
 import UIKit
 
-class PlaySongViewController: UIViewController {
+class SpotifyPlaySongViewController: UIViewController {
     
     var song: Song? {
         didSet {
+            print("SONG SET")
+            print(song)
             startPlayingSong()
         }
     }
@@ -28,9 +31,25 @@ class PlaySongViewController: UIViewController {
     func startPlayingSong() {
         if player == nil {
             player = SPTAudioStreamingController.sharedInstance()
+            try? player?.start(withClientId: authData.clientId)
         }
-        
+        if player?.initialized == false {
+            print("player not init")
+        }
+
+        print(authData.session.accessToken)
+        if (player?.loggedIn)! {
+            player?.playSpotifyURI(song?.spotifyURL?.absoluteString, startingWith: 0, startingWithPosition: TimeInterval.init(0), callback: { (error) in
+                if error != nil {
+                    print("SpotifyPlaySongViewController: Error playing song.")
+                }
+            })
+        } else {
+            print("SpotifyPlaySongViewController: Error while logging into player.")
+        }
+    
     }
+    
 
     /*
     // MARK: - Navigation
