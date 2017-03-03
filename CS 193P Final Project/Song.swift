@@ -12,5 +12,5 @@ struct Song {
     var title: String?
     var artist: String?
     var albumTitle: String?
-    var spotifyURL: String?
+    var spotifyURL: URL?
 }

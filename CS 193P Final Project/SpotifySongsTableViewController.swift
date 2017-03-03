@@ -9,6 +9,18 @@
 import UIKit
 
 class SpotifySongsTableViewController: UITableViewController {
+    
+    var session : SPTSession!
+    
+    var songs: [Song] = []
+    
+    var songsDoneLoading = false {
+        didSet {
+            print(songs)
+            tableView.reloadData()
+            return
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,24 +35,21 @@ class SpotifySongsTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        return songs.count
     }
 
-    /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "songCell", for: indexPath)
 
-        // Configure the cell...
+        cell.textLabel?.text = songs[indexPath.row].title
+        cell.detailTextLabel?.text = songs[indexPath.row].artist
 
         return cell
     }
-    */
 
     /*
     // Override to support conditional editing of the table view.
@@ -77,14 +86,24 @@ class SpotifySongsTableViewController: UITableViewController {
     }
     */
 
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if let cell = sender as? UITableViewCell {
+            let id = cell.reuseIdentifier
+            if (id == "songCell") {
+                var destinationViewController = segue.destination
+                if let navigationController = destinationViewController as? UINavigationController {
+                    destinationViewController = navigationController.visibleViewController ?? destinationViewController
+                }
+                if let playSongViewController = destinationViewController as? PlaySongViewController {
+                    //playlistsTableViewController.playlists = getUserPlaylists()
+                    playSongViewController.session = self.session
+                    playSongViewController.song = songs[tableView.indexPath(for: cell)!.row]
+                }
+            }
+        }
     }
-    */
 
 }

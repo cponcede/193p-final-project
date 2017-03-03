@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CS 193P Final Project/SpotifyPlaylistsTableViewController.swift"
-            timestampString = "510187923.397362"
+            timestampString = "510204386.998556"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "18"
-            endingLineNumber = "18"
+            startingLineNumber = "20"
+            endingLineNumber = "20"
             landmarkName = "SpotifyPlaylistsTableViewController"
             landmarkType = "3">
             <Locations>
@@ -167,11 +167,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CS 193P Final Project/SpotifyPlaylistsTableViewController.swift"
-            timestampString = "510193660.978342"
+            timestampString = "510204386.998556"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "57"
-            endingLineNumber = "57"
+            startingLineNumber = "58"
+            endingLineNumber = "58"
             landmarkName = "tableView(_:cellForRowAt:)"
             landmarkType = "7">
          </BreakpointContent>

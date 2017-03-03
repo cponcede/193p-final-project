@@ -43,7 +43,6 @@ class SpotifyTableViewController: UITableViewController {
                         userDefaults.synchronize()
                         self.session = session
                         print("Refreshed Spotify auth token successfully")
-                        self.retrieveUserLibrary()
                     } else {
                         print("Error refreshing Spotify auth token. Creating new one.")
                         SPTAuth.defaultInstance().clientID = self.clientId
@@ -57,7 +56,6 @@ class SpotifyTableViewController: UITableViewController {
                 print("Session valid")
                 // Display user's library
                 self.session = session
-                self.retrieveUserLibrary()
             }
             return
         } else {
@@ -89,7 +87,6 @@ class SpotifyTableViewController: UITableViewController {
                             }
                         } else {
                             // Set default image
-                            let path =
                             destinationViewController.playlists.append(Playlist(artworkImage: UIImage.init(contentsOfFile: "/Users/cponcede/Developer/CS 193P Final Project/CS 193P Final Project/Images/NoPhotoDefault.png"), title: title))
                             print("No playlist image, Skipping for now.")
                         }
@@ -144,51 +141,79 @@ class SpotifyTableViewController: UITableViewController {
                     print("Error retrieving spotify playlists")
                 }
             })
-            /*
-            let request = try SPTPlaylistList.createRequestForGettingPlaylists(forUser: self.session.canonicalUsername, withAccessToken: self.session.accessToken)
-            NSURLConnection.sendAsynchronousRequest(request, queue: OperationQueue(), completionHandler: { (response: URLResponse?, data: Data?, error: Error?) in
-                // TODO: Debug this and get playlists appearing.
-                SPTPlaylistList.playlists(forUser: <#T##String!#>, withAccessToken: <#T##String!#>, callback: <#T##SPTRequestCallback!##SPTRequestCallback!##(Error?, Any?) -> Void#>)
-                if let jsonResult = try? JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.init(rawValue: 0)) {
-                    //bluetooself.userPlaylists = []
-                    print(jsonResult)
-                }
-                
-            })
-         
-        } catch {
-            print ("Error while retrieving user's Spotify playlists")
-            return
-        }
-    */
     }
     
     func updateAfterLogin() {
         self.session = SPTAuth.defaultInstance().session
-        retrieveUserLibrary()
     }
     
-    func retrieveUserLibrary() {
-        print("IN RETRIVE USER LIBRARY")
-        var request : URLRequest?
-        do {
-            request = try SPTYourMusic.createRequestForCurrentUsersSavedTracks(withAccessToken: session.accessToken)
-            NSURLConnection.sendAsynchronousRequest(request!, queue: OperationQueue(), completionHandler: { (response: URLResponse?, data: Data?, error: Error?) in
-                // TODO: Debug this and get playlists appearing.
-                print("About to try to decode response")
-                if let jsonResult = try? JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.init(rawValue: 0)) {
-                    //print(jsonResult)
+    func getMoreSongs(currentPage: SPTListPage, destinationViewController: SpotifySongsTableViewController) {
+        if currentPage.hasNextPage {
+            currentPage.requestNextPage(withAccessToken: self.session.accessToken, callback: {
+                (error, data) in
+                if (error == nil) {
+                    if let songs = data as? SPTListPage {
+                        
+                        for item in songs.items {
+                            if let song = item as? SPTPartialTrack {
+                                let title = song.name
+                                let album = (song.album as! SPTPartialAlbum).name
+                                var artists: [String] = []
+                                for artist in song.artists {
+                                    let artistName = (artist as! SPTPartialArtist).name
+                                    artists.append(artistName!)
+                                }
+                                let artistString = artists.joined(separator: " + ")
+                                
+                                let spotifyURL = song.playableUri
+                                destinationViewController.songs.append(Song(title: title, artist: artistString, albumTitle: album, spotifyURL: spotifyURL))
+                            }
+                        }
+                        self.getMoreSongs(currentPage: songs, destinationViewController: destinationViewController)
+                    }
                 } else {
-                    print(error!.localizedDescription)
+                    print("Error retrieving saved tracks for user")
+                    return
                 }
-                
             })
-        } catch {
-            print("Erorr generating library request")
-            return
+            
+            
+        } else {
+            // Set flag to done
+            destinationViewController.songsDoneLoading = true
         }
-        
-        
+    }
+    
+    func retrieveUserLibrary(destinationViewController: SpotifySongsTableViewController) {
+        print("IN RETRIVE USER LIBRARY")
+        SPTYourMusic.savedTracksForUser(withAccessToken: self.session.accessToken, callback: {
+            (error, data) in
+            if (error == nil) {
+                if let songs = data as? SPTListPage {
+                    
+                    for item in songs.items {
+                        if let song = item as? SPTPartialTrack {
+                            let title = song.name
+                            let album = (song.album as! SPTPartialAlbum).name
+                            var artists: [String] = []
+                            for artist in song.artists {
+                                let artistName = (artist as! SPTPartialArtist).name
+                                artists.append(artistName!)
+                            }
+                            let artistString = artists.joined(separator: " + ")
+                            
+                            let spotifyURL = song.playableUri
+                            destinationViewController.songs.append(Song(title: title, artist: artistString, albumTitle: album, spotifyURL: spotifyURL))
+                        }
+                    }
+                    self.getMoreSongs(currentPage: songs, destinationViewController: destinationViewController)
+                }
+            } else {
+                print("Error retrieving saved tracks for user")
+                return
+            }
+            
+        })
     }
 
 
@@ -248,8 +273,21 @@ class SpotifyTableViewController: UITableViewController {
                 }
                 if let playlistsTableViewController = destinationViewController as? SpotifyPlaylistsTableViewController {
                     //playlistsTableViewController.playlists = getUserPlaylists()
+                    playlistsTableViewController.session = self.session
                     getUserPlaylists(destinationViewController: playlistsTableViewController)
                     print ("SEGUE WORKED!")
+                }
+                
+            } else if (id == "songs") {
+                var destinationViewController = segue.destination
+                if let navigationController = destinationViewController as? UINavigationController {
+                    destinationViewController = navigationController.visibleViewController ?? destinationViewController
+                }
+                if let songsTableViewController = destinationViewController as? SpotifySongsTableViewController {
+                    //playlistsTableViewController.playlists = getUserPlaylists()
+                    songsTableViewController.title = "Saved Tracks"
+                    songsTableViewController.session = self.session
+                    retrieveUserLibrary(destinationViewController: songsTableViewController)
                 }
                 
             }

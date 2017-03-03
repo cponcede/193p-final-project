@@ -11,6 +11,8 @@ import UIKit
 
 class SpotifyPlaylistsTableViewController: UITableViewController {
     
+    var session : SPTSession!
+    
     var playlists: [Playlist] = []
     
     var imageViewConstraints: [NSLayoutConstraint]?
@@ -31,7 +33,6 @@ class SpotifyPlaylistsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.separatorStyle = UITableViewCellSeparatorStyle.none
         tableView.estimatedRowHeight = tableView.rowHeight
         tableView.rowHeight = UITableViewAutomaticDimension
         spinner.startAnimating()

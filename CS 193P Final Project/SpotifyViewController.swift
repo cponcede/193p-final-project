@@ -19,14 +19,11 @@ class SpotifyViewController: UIViewController {
     var session : SPTSession!
 
     @IBOutlet weak var loginButton: UIButton!
-    
-    @IBAction func loginWithSpotify(_ sender: UIButton) {
-    }
+
     
     func updateAfterLogin() {
         loginButton.isHidden = true
         self.session = SPTAuth.defaultInstance().session
-        retrieveUserLibrary()
     }
     
     func retrieveUserLibrary() {
