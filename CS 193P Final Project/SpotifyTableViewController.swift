@@ -161,7 +161,7 @@ class SpotifyTableViewController: UITableViewController {
                                 let artistString = artists.joined(separator: " + ")
                                 
                                 let spotifyURL = song.playableUri
-                                destinationViewController.songs.append(Song(title: title, artist: artistString, albumTitle: album, spotifyURL: spotifyURL))
+                                destinationViewController.songs.insert((Song(title: title, artist: artistString, albumTitle: album, spotifyURL: spotifyURL)), at: 0)
                             }
                         }
                         self.getMoreSongs(currentPage: songs, destinationViewController: destinationViewController)

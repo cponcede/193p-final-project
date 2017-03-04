@@ -17,8 +17,13 @@ class SpotifyAuthenticationData {
     
     var session : SPTSession!
     
+    @objc public func updateAfterLogin() {
+        self.session = SPTAuth.defaultInstance().session
+    }
+    
+    
     func getNewSession() {
-        NotificationCenter.default.addObserver(self, selector: Selector.init("updateAfterLogin"), name: NSNotification.Name.init(rawValue: "spotifyLoginSuccessful") , object: nil)
+        NotificationCenter.default.addObserver(self, selector: Selector("updateAfterLogin"), name: NSNotification.Name.init(rawValue: "spotifyLoginSuccessful") , object: nil)
         
         let userDefaults = UserDefaults.standard
         if let sessionObj = userDefaults.value(forKey: "spotifySession") {
@@ -61,9 +66,4 @@ class SpotifyAuthenticationData {
 
         
     }
-    
-    func updateAfterLogin() {
-        self.session = SPTAuth.defaultInstance().session
-    }
-    
 }

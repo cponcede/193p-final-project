@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -168,20 +169,76 @@
                     <view key="view" contentMode="scaleToFill" id="PJC-wP-Rru">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wmw-qf-qNX">
+                                <rect key="frame" x="168" y="459" width="78" height="78"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Wmw-qf-qNX" secondAttribute="height" multiplier="1:1" id="VEu-NU-lY3"/>
+                                </constraints>
+                                <state key="normal" backgroundImage="Circled Play-50.png"/>
+                                <connections>
+                                    <action selector="play:" destination="9wa-cV-YGa" eventType="touchUpInside" id="lz1-e6-VKu"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OaN-fr-qzo">
+                                <rect key="frame" x="290" y="483" width="46" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="OaN-fr-qzo" secondAttribute="height" multiplier="23:15" id="Lf8-Cp-bFz"/>
+                                </constraints>
+                                <state key="normal" backgroundImage="End-64.png"/>
+                                <connections>
+                                    <action selector="skipSong:" destination="9wa-cV-YGa" eventType="touchUpInside" id="VWD-11-1m1"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OKr-6a-UBP">
+                                <rect key="frame" x="75" y="483" width="46" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="OKr-6a-UBP" secondAttribute="height" multiplier="23:15" id="JJF-1q-gSS"/>
+                                </constraints>
+                                <state key="normal" backgroundImage="Skip to Start-64.png"/>
+                                <connections>
+                                    <action selector="previousSong:" destination="9wa-cV-YGa" eventType="touchUpInside" id="jlp-oF-SvI"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cWd-44-kGy">
+                                <rect key="frame" x="168" y="459" width="78" height="78"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="cWd-44-kGy" secondAttribute="height" multiplier="1:1" id="VUa-yf-hvw"/>
+                                </constraints>
+                                <state key="normal" backgroundImage="Circled Pause-50.png"/>
+                                <connections>
+                                    <action selector="pause:" destination="9wa-cV-YGa" eventType="touchUpInside" id="cL5-ht-IoH"/>
+                                </connections>
+                            </button>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" misplaced="YES" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="guF-5X-0w8">
+                                <rect key="frame" x="32" y="429" width="351" height="2"/>
+                            </progressView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Ys9-nc-ZeT" firstAttribute="top" secondItem="cWd-44-kGy" secondAttribute="bottom" constant="100" id="7LZ-ls-dlJ"/>
+                            <constraint firstItem="cWd-44-kGy" firstAttribute="width" secondItem="Wmw-qf-qNX" secondAttribute="width" id="HTw-r7-SBP"/>
+                            <constraint firstItem="guF-5X-0w8" firstAttribute="leading" secondItem="PJC-wP-Rru" secondAttribute="leadingMargin" constant="10" id="IbY-1j-mG4"/>
+                            <constraint firstItem="OaN-fr-qzo" firstAttribute="centerY" secondItem="cWd-44-kGy" secondAttribute="centerY" id="K97-jo-YRT"/>
+                            <constraint firstItem="cWd-44-kGy" firstAttribute="top" secondItem="guF-5X-0w8" secondAttribute="bottom" constant="28" id="PoP-oj-rbP"/>
+                            <constraint firstItem="cWd-44-kGy" firstAttribute="centerY" secondItem="Wmw-qf-qNX" secondAttribute="centerY" id="aHV-6w-2AA"/>
+                            <constraint firstItem="cWd-44-kGy" firstAttribute="leading" secondItem="OKr-6a-UBP" secondAttribute="trailing" constant="50" id="aXv-oL-8dh"/>
+                            <constraint firstItem="cWd-44-kGy" firstAttribute="centerX" secondItem="guF-5X-0w8" secondAttribute="centerX" id="ave-6u-r0b"/>
+                            <constraint firstItem="OaN-fr-qzo" firstAttribute="leading" secondItem="cWd-44-kGy" secondAttribute="trailing" constant="50" id="eWs-TI-vit"/>
+                            <constraint firstItem="cWd-44-kGy" firstAttribute="centerX" secondItem="Wmw-qf-qNX" secondAttribute="centerX" id="h5f-T6-HE3"/>
+                            <constraint firstItem="OKr-6a-UBP" firstAttribute="centerY" secondItem="cWd-44-kGy" secondAttribute="centerY" id="jAn-KF-MJf"/>
+                            <constraint firstItem="cWd-44-kGy" firstAttribute="height" secondItem="Wmw-qf-qNX" secondAttribute="height" id="sLr-kg-255"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="guF-5X-0w8" secondAttribute="trailing" constant="10" id="uei-Zr-m6i"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="pauseButton" destination="cWd-44-kGy" id="ylh-m8-onh"/>
+                        <outlet property="playButton" destination="Wmw-qf-qNX" id="VGS-A5-5aa"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bxd-a8-cLk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3201" y="382"/>
-        </scene>
-        <!--AV Player View Controller-->
-        <scene sceneID="yva-HP-ooM">
-            <objects>
-                <avPlayerViewController videoGravity="AVLayerVideoGravityResizeAspect" id="PCS-D3-10V" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="VdK-Ba-8X7" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2897" y="1068"/>
+            <point key="canvasLocation" x="3200.0000000000005" y="381.52173913043481"/>
         </scene>
         <!--Spotify Playlists Table View Controller-->
         <scene sceneID="lcw-MI-lIy">
@@ -284,4 +341,10 @@
             </objects>
         </scene>
     </scenes>
+    <resources>
+        <image name="Circled Pause-50.png" width="50" height="50"/>
+        <image name="Circled Play-50.png" width="50" height="50"/>
+        <image name="End-64.png" width="64" height="64"/>
+        <image name="Skip to Start-64.png" width="64" height="64"/>
+    </resources>
 </document>
