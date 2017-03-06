@@ -11,6 +11,7 @@ import UIKit
 
 class SpotifyPlaySongViewController: UIViewController {
     
+    @IBOutlet weak var positionView: UIProgressView!
     
     @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var pauseButton: UIButton!
@@ -30,17 +31,29 @@ class SpotifyPlaySongViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
     }
     
     func login() {
-        //audioPlayer.queue = []
-        //audioPlayer.recents = []
-        //audioPlayer.queue.append(contentsOf: songs)
         audioPlayer.spotifyShouldStartPlaying = true
         audioPlayer.playlistIndex = self.playlistIndex
         audioPlayer.playlist = self.songs
         audioPlayer.playSpotify(authData: self.authData)
+        trackProgress()
+    }
+    
+    private func trackProgress() {
+        DispatchQueue.global(qos: .userInteractive).async {
+            while (true) {
+                if (self.audioPlayer.isPlaying != nil && self.audioPlayer.isPlaying == true) {
+                    DispatchQueue.main.sync {
+                        self.positionView.setProgress(Float(self.audioPlayer.getSongProgress()!), animated: true)
+                    }
+                    // TODO: figure out if this should be in a different queue
+                    usleep(1000)
+                }
+            }
+        }
+        
     }
     
     

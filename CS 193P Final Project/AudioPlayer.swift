@@ -19,6 +19,16 @@ class AudioPlayer : NSObject, SPTAudioStreamingDelegate, SPTAudioStreamingPlayba
     var authData: SpotifyAuthenticationData!
     var loggedIn = false
     var spotifyShouldStartPlaying = false
+    
+    var isPlaying : Bool? {
+        get {
+            if player == nil || player?.initialized == false || player?.playbackState == nil {
+                return false
+            }
+            return player?.playbackState.isPlaying
+        }
+    }
+
     var songPosition : TimeInterval? {
         get {
             if player == nil {
@@ -178,6 +188,16 @@ class AudioPlayer : NSObject, SPTAudioStreamingDelegate, SPTAudioStreamingPlayba
     
     func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didReceiveError error: Error!) {
         print("Error: \(error)")
+    }
+    
+    func getSongProgress() -> Double? {
+        if spotifyPlaying,
+            let position = player?.playbackState.position,
+            let duration = player?.metadata.currentTrack?.duration {
+                return (position as Double)/(duration as Double)
+        } else {
+            return nil
+        }
     }
     
     func printStats() {

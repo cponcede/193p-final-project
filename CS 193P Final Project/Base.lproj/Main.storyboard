@@ -224,6 +224,8 @@
                             <constraint firstItem="cWd-44-kGy" firstAttribute="centerY" secondItem="Wmw-qf-qNX" secondAttribute="centerY" id="aHV-6w-2AA"/>
                             <constraint firstItem="cWd-44-kGy" firstAttribute="leading" secondItem="OKr-6a-UBP" secondAttribute="trailing" constant="50" id="aXv-oL-8dh"/>
                             <constraint firstItem="cWd-44-kGy" firstAttribute="centerX" secondItem="guF-5X-0w8" secondAttribute="centerX" id="ave-6u-r0b"/>
+                            <constraint firstItem="cWd-44-kGy" firstAttribute="width" secondItem="OKr-6a-UBP" secondAttribute="width" id="d8C-VD-k0f"/>
+                            <constraint firstItem="cWd-44-kGy" firstAttribute="width" secondItem="OaN-fr-qzo" secondAttribute="width" id="dt7-cF-AXp"/>
                             <constraint firstItem="OaN-fr-qzo" firstAttribute="leading" secondItem="cWd-44-kGy" secondAttribute="trailing" constant="50" id="eWs-TI-vit"/>
                             <constraint firstItem="cWd-44-kGy" firstAttribute="centerX" secondItem="Wmw-qf-qNX" secondAttribute="centerX" id="h5f-T6-HE3"/>
                             <constraint firstItem="OKr-6a-UBP" firstAttribute="centerY" secondItem="cWd-44-kGy" secondAttribute="centerY" id="jAn-KF-MJf"/>
@@ -234,6 +236,7 @@
                     <connections>
                         <outlet property="pauseButton" destination="cWd-44-kGy" id="ylh-m8-onh"/>
                         <outlet property="playButton" destination="Wmw-qf-qNX" id="VGS-A5-5aa"/>
+                        <outlet property="positionView" destination="guF-5X-0w8" id="zCm-Yp-iEV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bxd-a8-cLk" userLabel="First Responder" sceneMemberID="firstResponder"/>
