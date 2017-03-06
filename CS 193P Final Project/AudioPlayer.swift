@@ -11,12 +11,23 @@ import Foundation
 class AudioPlayer : NSObject, SPTAudioStreamingDelegate, SPTAudioStreamingPlaybackDelegate {
     
     var queue : [Song] = []
+    var playlist : [Song] = []
+    var playlistIndex : Int!
     var recents : [String] = []
     var spotifyPlaying : Bool = false
     var player: SPTAudioStreamingController?
     var authData: SpotifyAuthenticationData!
     var loggedIn = false
     var spotifyShouldStartPlaying = false
+    var songPosition : TimeInterval? {
+        get {
+            if player == nil {
+                return nil
+            } else {
+                return player!.playbackState.position
+            }
+        }
+    }
     
     func login(_ authData: SpotifyAuthenticationData!) {
         if player == nil {
@@ -35,6 +46,39 @@ class AudioPlayer : NSObject, SPTAudioStreamingDelegate, SPTAudioStreamingPlayba
         spotifyShouldStartPlaying = true
     }
     
+    
+    func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didStartPlayingTrack trackUri: String!) {
+        print("in didStartPlayingTrack for track \(playlist[playlistIndex].title)")
+        
+        if !queue.isEmpty {
+            player?.queueSpotifyURI(queue.remove(at: 0).spotifyURL!.absoluteString, callback: {(error) in
+                if error != nil {
+                    print("Audio Player: Error while queueing")
+                    print(error)
+                }
+            })
+        } else {
+            player?.queueSpotifyURI(playlist[(self.playlistIndex! + 1)%playlist.count].spotifyURL!.absoluteString, callback: {
+                (error) in
+                if error != nil {
+                    print("Audio Player: Error while queueing from playlist")
+                    print(error)
+                }
+            })
+            self.playlistIndex = (self.playlistIndex! + 1)%playlist.count
+        }
+    }
+    
+    func audioStreamingDidPopQueue(_ audioStreaming: SPTAudioStreamingController!) {
+        print("queue popped")
+    }
+    
+    
+    func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didStopPlayingTrack trackUri: String!) {
+        print("In did Stop Playing Track")
+        
+    }
+    
     func skipNext() {
         if spotifyPlaying {
             print("SKIP")
@@ -49,48 +93,24 @@ class AudioPlayer : NSObject, SPTAudioStreamingDelegate, SPTAudioStreamingPlayba
         
     }
     
-    func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didStartPlayingTrack trackUri: String!) {
-        print("in didStartPlayingTrack")
-        recents.append(trackUri)
-        self.printStats()
-        if !queue.isEmpty {
-            player?.queueSpotifyURI(queue.remove(at: 0).spotifyURL!.absoluteString, callback: {(error) in
-                if error != nil {
-                    print ("error while queueing")
-                }
-            })
-        }
-    }
-    
-    func audioStreamingDidPopQueue(_ audioStreaming: SPTAudioStreamingController!) {
-        print("queue popped")
-    }
-    
-    
-    func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didStopPlayingTrack trackUri: String!) {
-        print("In did Stop Playing Track")
-        
-    }
-    
     
     func skipPrev() {
         if spotifyPlaying {
             let time = player?.playbackState.position
-            if time != nil && time! < TimeInterval.init(2) && recents.count > 1 {
-                print("Skip to new song")
-                // Update recents and queue
-                recents.removeLast()
-                print("recents = \(recents)")
-                queue.insert(Song(title: player!.metadata.currentTrack?.name,
-                                  artist: player!.metadata.currentTrack?.artistName,
-                                  albumTitle: player!.metadata.currentTrack?.albumName,
-                                  spotifyURL: URL(string: player!.metadata.currentTrack!.uri)), at: 0)
+            if time != nil && time! < TimeInterval.init(2) {
                 
-                player?.playSpotifyURI(recents.removeLast(), startingWith: 0, startingWithPosition: TimeInterval.init(0), callback: { (error) in
+                print("Skip to new song")
+                self.playlistIndex = (self.playlistIndex - 2)
+                if self.playlistIndex < 0 {
+                    self.playlistIndex = self.playlist.count - 1
+                }
+
+                player?.playSpotifyURI(self.playlist[playlistIndex].spotifyURL!.absoluteString, startingWith: 0, startingWithPosition: TimeInterval.init(0), callback: {
+                    (error) in
                     if error != nil {
-                        print("Error in skip prev")
+                        print("Error in skip prev (prev song) for Spotify song")
                     } else {
-                        self.printStats()
+                        //self.printStats()
                     }
                 })
 
@@ -98,9 +118,9 @@ class AudioPlayer : NSObject, SPTAudioStreamingDelegate, SPTAudioStreamingPlayba
                 print("seek")
                 player?.seek(to: TimeInterval.init(0), callback: { (error) in
                     if error != nil {
-                        print("AudioPlayer: Error in skipPrev for Spotify song.")
+                        print("AudioPlayer: Error in skipPrev (seek) for Spotify song.")
                     } else {
-                        self.printStats()
+                        //self.printStats()
                     }
                 })
             }
@@ -135,7 +155,8 @@ class AudioPlayer : NSObject, SPTAudioStreamingDelegate, SPTAudioStreamingPlayba
     
     func playSpotifySong() {
         self.spotifyPlaying = true
-        player?.playSpotifyURI(queue.remove(at: 0).spotifyURL?.absoluteString, startingWith: 0, startingWithPosition: TimeInterval.init(0), callback: { (error) in
+        player?.playSpotifyURI(playlist[playlistIndex].spotifyURL?.absoluteString, startingWith: 0, startingWithPosition: TimeInterval.init(0), callback: {
+            (error) in
             if error != nil {
                 print("AudioPlayer: Error in playSpotifySong.")
             }

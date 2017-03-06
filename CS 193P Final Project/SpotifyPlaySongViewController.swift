@@ -25,6 +25,8 @@ class SpotifyPlaySongViewController: UIViewController {
     var audioPlayer = AudioPlayer()
     
     var authData: SpotifyAuthenticationData!
+    
+    var playlistIndex : Int!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,10 +34,12 @@ class SpotifyPlaySongViewController: UIViewController {
     }
     
     func login() {
-        audioPlayer.queue = []
-        audioPlayer.recents = []
-        audioPlayer.queue.append(contentsOf: songs)
+        //audioPlayer.queue = []
+        //audioPlayer.recents = []
+        //audioPlayer.queue.append(contentsOf: songs)
         audioPlayer.spotifyShouldStartPlaying = true
+        audioPlayer.playlistIndex = self.playlistIndex
+        audioPlayer.playlist = self.songs
         audioPlayer.playSpotify(authData: self.authData)
     }
     

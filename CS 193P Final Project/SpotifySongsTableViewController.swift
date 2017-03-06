@@ -100,7 +100,8 @@ class SpotifySongsTableViewController: UITableViewController {
                     //playlistsTableViewController.playlists = getUserPlaylists()
                     playSongViewController.authData = self.authData
                     let row = tableView.indexPath(for: cell)!.row
-                    playSongViewController.songs = Array(songs[row..<songs.count])
+                    playSongViewController.playlistIndex = row
+                    playSongViewController.songs = self.songs
                 }
             }
         }
