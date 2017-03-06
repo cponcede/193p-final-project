@@ -11,6 +11,7 @@ import UIKit
 
 class SpotifyPlaySongViewController: UIViewController {
     
+    @IBOutlet weak var albumImageView: UIImageView!
     @IBOutlet weak var currTimeLabel: UILabel!
     @IBOutlet weak var songTitleLabel: UILabel!
     @IBOutlet weak var maxTimeLabel: UILabel!
@@ -54,28 +55,33 @@ class SpotifyPlaySongViewController: UIViewController {
     
     private func trackProgress() {
         DispatchQueue.global(qos: .userInteractive).async {
-            var songDisplayInitialized = false
             while (true) {
                 if (self.audioPlayer.isPlaying != nil && self.audioPlayer.isPlaying == true) {
                     if let (songProgress, songTime) = self.audioPlayer.getSongProgress() {
                         if songProgress == nil || songTime == nil {
-                            usleep(300)
+                            usleep(100)
                             continue
                         }
                         let duration = (self.audioPlayer.player?.metadata.currentTrack?.duration)!
                         var minutes = self.sanitizeTimeString(String(Int(floor(duration/60))))
                         var seconds = self.sanitizeTimeString(String(Int(round(duration - Double(minutes)! * 60))))
+                        let albumURL = self.audioPlayer.player?.metadata.currentTrack?.albumCoverArtURL
+                        let artworkData = try? Data.init(contentsOf: URL.init(string: albumURL!)!)
                         DispatchQueue.main.async {
                             self.songTitleLabel.text = self.audioPlayer.player?.metadata.currentTrack?.name
                             
                             
                             self.maxTimeLabel.text = "\(minutes):\(seconds)"
                             self.positionView.setProgress(Float(songProgress), animated: true)
-                            print(Int(songTime))
                             minutes = self.sanitizeTimeString(String(Int(floor(songTime/60))))
                             seconds = self.sanitizeTimeString(String(Int(floor(songTime - Double(minutes)!*60))))
                             self.currTimeLabel.text = "\(minutes):\(seconds)"
-                            songDisplayInitialized = true
+                            
+                            if artworkData != nil {
+                                self.albumImageView.image = UIImage(data: artworkData!)
+                            } else {
+                                self.albumImageView.image = UIImage.init(contentsOfFile: "/Users/cponcede/Developer/CS 193P Final Project/CS 193P Final Project/Images/NoPhotoDefault.png")
+                            }
                         }
                         
                     }
