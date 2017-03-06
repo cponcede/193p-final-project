@@ -102,6 +102,7 @@ class SpotifySongsTableViewController: UITableViewController {
                     let row = tableView.indexPath(for: cell)!.row
                     playSongViewController.playlistIndex = row
                     playSongViewController.songs = self.songs
+                    playSongViewController.title = self.title
                 }
             }
         }
