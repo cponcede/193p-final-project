@@ -10,6 +10,8 @@ import Foundation
 
 class AudioPlayer : NSObject, SPTAudioStreamingDelegate, SPTAudioStreamingPlaybackDelegate {
     
+    private let MAX_PREV_TIME = TimeInterval.init(3)
+    
     var queue : [Song] = []
     var playlist : [Song] = []
     var playlistIndex : Int!
@@ -58,7 +60,7 @@ class AudioPlayer : NSObject, SPTAudioStreamingDelegate, SPTAudioStreamingPlayba
     
     
     func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didStartPlayingTrack trackUri: String!) {
-        print("in didStartPlayingTrack for track \(playlist[playlistIndex].title)")
+        print("in didStartPlayingTrack for track \(playlist[playlistIndex].title) and index \(playlistIndex)")
         
         if !queue.isEmpty {
             player?.queueSpotifyURI(queue.remove(at: 0).spotifyURL!.absoluteString, callback: {(error) in
@@ -107,12 +109,12 @@ class AudioPlayer : NSObject, SPTAudioStreamingDelegate, SPTAudioStreamingPlayba
     func skipPrev() {
         if spotifyPlaying {
             let time = player?.playbackState.position
-            if time != nil && time! < TimeInterval.init(2) {
+            if time != nil && time! < MAX_PREV_TIME {
                 
                 print("Skip to new song")
                 self.playlistIndex = (self.playlistIndex - 2)
                 if self.playlistIndex < 0 {
-                    self.playlistIndex = self.playlist.count - 1
+                    self.playlistIndex = self.playlist.count + self.playlistIndex
                 }
 
                 player?.playSpotifyURI(self.playlist[playlistIndex].spotifyURL!.absoluteString, startingWith: 0, startingWithPosition: TimeInterval.init(0), callback: {

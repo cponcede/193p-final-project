@@ -61,6 +61,7 @@ class SpotifyPlaySongViewController: UIViewController {
     
     @IBAction func skipSong(_ sender: UIButton) {
         audioPlayer.skipNext()
+        usleep(200)
     }
     
     
