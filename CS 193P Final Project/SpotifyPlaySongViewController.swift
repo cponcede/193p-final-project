@@ -45,8 +45,10 @@ class SpotifyPlaySongViewController: UIViewController {
         DispatchQueue.global(qos: .userInteractive).async {
             while (true) {
                 if (self.audioPlayer.isPlaying != nil && self.audioPlayer.isPlaying == true) {
-                    DispatchQueue.main.sync {
-                        self.positionView.setProgress(Float(self.audioPlayer.getSongProgress()!), animated: true)
+                    if let songProgress = self.audioPlayer.getSongProgress() {
+                        DispatchQueue.main.sync {
+                            self.positionView.setProgress(Float(songProgress), animated: true)
+                        }
                     }
                     // TODO: figure out if this should be in a different queue
                     usleep(1000)

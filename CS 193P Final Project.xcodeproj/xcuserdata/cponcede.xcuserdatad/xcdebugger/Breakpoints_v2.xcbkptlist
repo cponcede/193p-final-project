@@ -19,7 +19,7 @@
             landmarkType = "7">
             <Locations>
                <Location
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "CS_193P_Final_Project.AppDelegate.application (__ObjC.UIApplication, open : Foundation.URL, sourceApplication : Swift.Optional&lt;Swift.String&gt;, annotation : Any) -&gt; Swift.Bool"
@@ -34,7 +34,7 @@
                   offsetFromSymbolStart = "935">
                </Location>
                <Location
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "CS_193P_Final_Project.AppDelegate.(application (__ObjC.UIApplication, open : Foundation.URL, sourceApplication : Swift.Optional&lt;Swift.String&gt;, annotation : Any) -&gt; Swift.Bool).(closure #1)"
@@ -67,7 +67,7 @@
             landmarkType = "3">
             <Locations>
                <Location
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "CS_193P_Final_Project.SpotifyPlaylistsTableViewController.numPlaylists.getter : Swift.Int"
@@ -82,7 +82,7 @@
                   offsetFromSymbolStart = "19">
                </Location>
                <Location
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "CS_193P_Final_Project.SpotifyPlaylistsTableViewController.numPlaylists.setter : Swift.Int"
@@ -97,7 +97,7 @@
                   offsetFromSymbolStart = "23">
                </Location>
                <Location
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "CS_193P_Final_Project.SpotifyPlaylistsTableViewController.init (style : __C.UITableViewStyle) -&gt; CS_193P_Final_Project.SpotifyPlaylistsTableViewController"
@@ -112,7 +112,7 @@
                   offsetFromSymbolStart = "126">
                </Location>
                <Location
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "CS_193P_Final_Project.SpotifyPlaylistsTableViewController.init (nibName : Swift.Optional&lt;Swift.String&gt;, bundle : Swift.Optional&lt;__ObjC.Bundle&gt;) -&gt; CS_193P_Final_Project.SpotifyPlaylistsTableViewController"
@@ -127,7 +127,7 @@
                   offsetFromSymbolStart = "196">
                </Location>
                <Location
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "CS_193P_Final_Project.SpotifyPlaylistsTableViewController.init (coder : __ObjC.NSCoder) -&gt; Swift.Optional&lt;CS_193P_Final_Project.SpotifyPlaylistsTableViewController&gt;"
@@ -190,6 +190,18 @@
             endingLineNumber = "13"
             landmarkName = "SpotifyTableViewController"
             landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.SymbolicBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            symbolName = "UIViewAlertForUnsatisfiableConstraints"
+            moduleName = "">
+            <Locations>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
