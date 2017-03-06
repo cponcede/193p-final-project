@@ -35,7 +35,8 @@ class SpotifyPlaySongViewController: UIViewController {
         audioPlayer.queue = []
         audioPlayer.recents = []
         audioPlayer.queue.append(contentsOf: songs)
-        audioPlayer.loginToSpotify(authData: self.authData)
+        audioPlayer.spotifyShouldStartPlaying = true
+        audioPlayer.playSpotify(authData: self.authData)
     }
     
     

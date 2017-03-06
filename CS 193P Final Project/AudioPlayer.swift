@@ -15,10 +15,10 @@ class AudioPlayer : NSObject, SPTAudioStreamingDelegate, SPTAudioStreamingPlayba
     var spotifyPlaying : Bool = false
     var player: SPTAudioStreamingController?
     var authData: SpotifyAuthenticationData!
+    var loggedIn = false
+    var spotifyShouldStartPlaying = false
     
-    var isPlaying: Bool = false
-    
-    func loginToSpotify(authData: SpotifyAuthenticationData!) {
+    func login(_ authData: SpotifyAuthenticationData!) {
         if player == nil {
             player = SPTAudioStreamingController.sharedInstance()
         }
@@ -27,15 +27,22 @@ class AudioPlayer : NSObject, SPTAudioStreamingDelegate, SPTAudioStreamingPlayba
         if player?.initialized == false {
             try? player?.start(withClientId: authData.clientId)
         }
-        
         player?.login(withAccessToken: authData.session.accessToken)
+    }
+    
+    func playSpotify(authData: SpotifyAuthenticationData!) {
+        login(authData)
+        spotifyShouldStartPlaying = true
     }
     
     func skipNext() {
         if spotifyPlaying {
-            player?.skipNext({ (error) in
+            print("SKIP")
+            player?.skipNext({(error) in
                 if error != nil {
-                    print("Erorr in skip next")
+                    print (error)
+                } else {
+                    self.printStats()
                 }
             })
         }
@@ -45,11 +52,18 @@ class AudioPlayer : NSObject, SPTAudioStreamingDelegate, SPTAudioStreamingPlayba
     func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didStartPlayingTrack trackUri: String!) {
         print("in didStartPlayingTrack")
         recents.append(trackUri)
-        player?.queueSpotifyURI(queue.remove(at: 0).spotifyURL!.absoluteString, callback: {(error) in
-            if error != nil {
-                print ("error while queueing")
-            }
-        })
+        self.printStats()
+        if !queue.isEmpty {
+            player?.queueSpotifyURI(queue.remove(at: 0).spotifyURL!.absoluteString, callback: {(error) in
+                if error != nil {
+                    print ("error while queueing")
+                }
+            })
+        }
+    }
+    
+    func audioStreamingDidPopQueue(_ audioStreaming: SPTAudioStreamingController!) {
+        print("queue popped")
     }
     
     
@@ -62,18 +76,21 @@ class AudioPlayer : NSObject, SPTAudioStreamingDelegate, SPTAudioStreamingPlayba
     func skipPrev() {
         if spotifyPlaying {
             let time = player?.playbackState.position
-            if time != nil && time! < TimeInterval.init(2) && !recents.isEmpty {
+            if time != nil && time! < TimeInterval.init(2) && recents.count > 1 {
                 print("Skip to new song")
+                // Update recents and queue
+                recents.removeLast()
+                print("recents = \(recents)")
                 queue.insert(Song(title: player!.metadata.currentTrack?.name,
                                   artist: player!.metadata.currentTrack?.artistName,
                                   albumTitle: player!.metadata.currentTrack?.albumName,
                                   spotifyURL: URL(string: player!.metadata.currentTrack!.uri)), at: 0)
+                
                 player?.playSpotifyURI(recents.removeLast(), startingWith: 0, startingWithPosition: TimeInterval.init(0), callback: { (error) in
                     if error != nil {
                         print("Error in skip prev")
                     } else {
-                        self.recents.append(self.queue[0].spotifyURL!.absoluteString)
-                        self.queue.remove(at: 0)
+                        self.printStats()
                     }
                 })
 
@@ -82,6 +99,8 @@ class AudioPlayer : NSObject, SPTAudioStreamingDelegate, SPTAudioStreamingPlayba
                 player?.seek(to: TimeInterval.init(0), callback: { (error) in
                     if error != nil {
                         print("AudioPlayer: Error in skipPrev for Spotify song.")
+                    } else {
+                        self.printStats()
                     }
                 })
             }
@@ -95,8 +114,6 @@ class AudioPlayer : NSObject, SPTAudioStreamingDelegate, SPTAudioStreamingPlayba
                 if error != nil {
                     print("Error in pause")
                     print(error)
-                } else {
-                    self.isPlaying = true
                 }
             })
         }
@@ -109,8 +126,6 @@ class AudioPlayer : NSObject, SPTAudioStreamingDelegate, SPTAudioStreamingPlayba
                 if error != nil {
                     print("Error in pause")
                     print(error)
-                } else {
-                    self.isPlaying = false
                 }
             })
         }
@@ -120,19 +135,19 @@ class AudioPlayer : NSObject, SPTAudioStreamingDelegate, SPTAudioStreamingPlayba
     
     func playSpotifySong() {
         self.spotifyPlaying = true
-        player?.playSpotifyURI(queue[0].spotifyURL?.absoluteString, startingWith: 0, startingWithPosition: TimeInterval.init(0), callback: { (error) in
+        player?.playSpotifyURI(queue.remove(at: 0).spotifyURL?.absoluteString, startingWith: 0, startingWithPosition: TimeInterval.init(0), callback: { (error) in
             if error != nil {
-                print("SpotifyPlaySongViewController: Error playing song.")
-            } else {
-                self.recents.append(self.queue[0].spotifyURL!.absoluteString)
-                self.queue.remove(at: 0)
+                print("AudioPlayer: Error in playSpotifySong.")
             }
         })
     }
     
     func audioStreamingDidLogin(_ audioStreaming: SPTAudioStreamingController!) {
         print("login successful")
-        playSpotifySong()
+        self.loggedIn = true
+        if self.spotifyShouldStartPlaying {
+            playSpotifySong()
+        }
 
     }
     
@@ -142,5 +157,14 @@ class AudioPlayer : NSObject, SPTAudioStreamingDelegate, SPTAudioStreamingPlayba
     
     func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didReceiveError error: Error!) {
         print("Error: \(error)")
+    }
+    
+    func printStats() {
+        if queue.isEmpty {
+            print ("EMPTY QUEUE")
+        } else {
+            print("\(queue[0].title) is next")
+        }
+        print("\(recents.count) RECENTS")
     }
 }

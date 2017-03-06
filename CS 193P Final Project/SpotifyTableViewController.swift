@@ -205,6 +205,7 @@ class SpotifyTableViewController: UITableViewController {
                 }
             } else {
                 print("Error retrieving saved tracks for user")
+                print(error)
                 return
             }
             
