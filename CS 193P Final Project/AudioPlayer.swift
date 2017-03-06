@@ -192,11 +192,11 @@ class AudioPlayer : NSObject, SPTAudioStreamingDelegate, SPTAudioStreamingPlayba
         print("Error: \(error)")
     }
     
-    func getSongProgress() -> Double? {
+    func getSongProgress() -> (Double, Double)? {
         if spotifyPlaying,
             let position = player?.playbackState.position,
             let duration = player?.metadata.currentTrack?.duration {
-                return (position as Double)/(duration as Double)
+                return ((position as Double)/(duration as Double), position as Double)
         } else {
             return nil
         }

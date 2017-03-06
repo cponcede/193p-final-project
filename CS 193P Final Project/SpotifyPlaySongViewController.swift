@@ -11,6 +11,10 @@ import UIKit
 
 class SpotifyPlaySongViewController: UIViewController {
     
+    @IBOutlet weak var currTimeLabel: UILabel!
+    @IBOutlet weak var songTitleLabel: UILabel!
+    @IBOutlet weak var maxTimeLabel: UILabel!
+    
     @IBOutlet weak var positionView: UIProgressView!
     
     @IBOutlet weak var playButton: UIButton!
@@ -41,14 +45,39 @@ class SpotifyPlaySongViewController: UIViewController {
         trackProgress()
     }
     
+    func sanitizeTimeString(_ input : String) -> String {
+        if input.characters.count == 1 {
+            return "0\(input)"
+        }
+        return input
+    }
+    
     private func trackProgress() {
         DispatchQueue.global(qos: .userInteractive).async {
+            var songDisplayInitialized = false
             while (true) {
                 if (self.audioPlayer.isPlaying != nil && self.audioPlayer.isPlaying == true) {
-                    if let songProgress = self.audioPlayer.getSongProgress() {
-                        DispatchQueue.main.sync {
-                            self.positionView.setProgress(Float(songProgress), animated: true)
+                    if let (songProgress, songTime) = self.audioPlayer.getSongProgress() {
+                        if songProgress == nil || songTime == nil {
+                            usleep(300)
+                            continue
                         }
+                        let duration = (self.audioPlayer.player?.metadata.currentTrack?.duration)!
+                        var minutes = self.sanitizeTimeString(String(Int(floor(duration/60))))
+                        var seconds = self.sanitizeTimeString(String(Int(round(duration - Double(minutes)! * 60))))
+                        DispatchQueue.main.async {
+                            self.songTitleLabel.text = self.audioPlayer.player?.metadata.currentTrack?.name
+                            
+                            
+                            self.maxTimeLabel.text = "\(minutes):\(seconds)"
+                            self.positionView.setProgress(Float(songProgress), animated: true)
+                            print(Int(songTime))
+                            minutes = self.sanitizeTimeString(String(Int(floor(songTime/60))))
+                            seconds = self.sanitizeTimeString(String(Int(floor(songTime - Double(minutes)!*60))))
+                            self.currTimeLabel.text = "\(minutes):\(seconds)"
+                            songDisplayInitialized = true
+                        }
+                        
                     }
                     // TODO: figure out if this should be in a different queue
                     usleep(1000)
