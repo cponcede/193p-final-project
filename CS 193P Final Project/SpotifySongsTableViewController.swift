@@ -92,7 +92,7 @@ class SpotifySongsTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let cell = sender as? UITableViewCell {
             let id = cell.reuseIdentifier
-            if (id == "songCell") {
+            if id == "songCell" && segue.identifier != "songOptionsSegue" {
                 var destinationViewController = segue.destination
                 if let navigationController = destinationViewController as? UINavigationController {
                     destinationViewController = navigationController.visibleViewController ?? destinationViewController
@@ -104,6 +104,10 @@ class SpotifySongsTableViewController: UITableViewController {
                     playSongViewController.playlistIndex = row
                     playSongViewController.songs = self.songs
                     playSongViewController.title = self.title
+                }
+            } else if segue.identifier == "songOptionsSeque" {
+                if let songOptionsViewController = segue.destination as? SongOptionsTableViewController {
+                    songOptionsViewController.songTitle = songs[tableView.indexPath(for: cell)!.row].title
                 }
             }
         }

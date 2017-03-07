@@ -165,7 +165,7 @@ class SpotifyPlaylistsTableViewController: UITableViewController {
                                 let artistString = artists.joined(separator: " + ")
                                 
                                 let spotifyURL = song.playableUri
-                                destinationViewController.songs.insert((Song(title: title, artist: artistString, albumTitle: album, spotifyURL: spotifyURL)), at: 0)
+                                destinationViewController.songs.append((Song(title: title, artist: artistString, albumTitle: album, spotifyURL: spotifyURL)))
                             }
                         }
                         self.getMorePlaylistSongs(destinationViewController: destinationViewController, currentPage: songs)
@@ -203,7 +203,7 @@ class SpotifyPlaylistsTableViewController: UITableViewController {
                             let artistString = artists.joined(separator: " + ")
                             
                             let spotifyURL = song.playableUri
-                            destinationViewController.songs.insert(Song(title: title, artist: artistString, albumTitle: album, spotifyURL: spotifyURL), at: 0)
+                            destinationViewController.songs.append(Song(title: title, artist: artistString, albumTitle: album, spotifyURL: spotifyURL))
                         }
                     }
                     self.getMorePlaylistSongs(destinationViewController: destinationViewController, currentPage: songs)
