@@ -13,5 +13,6 @@ struct Playlist {
     
     var artworkImage: UIImage?
     var title: String?
+    var spotifyUri : String?
     
 }

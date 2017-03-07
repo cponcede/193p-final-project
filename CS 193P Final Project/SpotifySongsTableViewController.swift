@@ -16,6 +16,7 @@ class SpotifySongsTableViewController: UITableViewController {
     
     var songsDoneLoading = false {
         didSet {
+            print("In didSet of songsDoneLoading")
             tableView.reloadData()
             return
         }

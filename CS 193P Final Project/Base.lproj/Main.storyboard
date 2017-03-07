@@ -305,7 +305,7 @@
                                 <rect key="frame" x="0.0" y="28" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Cgh-qL-WYb" id="tgg-EY-mVp">
-                                    <rect key="frame" x="0.0" y="0.0" width="381" height="44"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="381" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="By0-xO-DEs">
@@ -337,6 +337,7 @@
                                 <connections>
                                     <outlet property="entityImageView" destination="RIG-Fr-aN9" id="Nzw-aR-NlM"/>
                                     <outlet property="titleLabel" destination="Jd9-Tt-5pI" id="xc2-iG-HDm"/>
+                                    <segue destination="18f-sz-MIS" kind="show" identifier="showPlaylistSongs" id="xja-Ot-mFu"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -378,4 +379,7 @@
         <image name="End-64.png" width="64" height="64"/>
         <image name="Skip to Start-64.png" width="64" height="64"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="xja-Ot-mFu"/>
+    </inferredMetricsTieBreakers>
 </document>

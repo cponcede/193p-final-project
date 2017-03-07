@@ -81,12 +81,12 @@ class SpotifyTableViewController: UITableViewController {
                                 let artworkURL = artwork.imageURL
                                 if let artworkData = try? Data.init(contentsOf: artworkURL!) {
                                     let artworkImage = UIImage(data: artworkData)
-                                    destinationViewController.playlists.append(Playlist(artworkImage: artworkImage, title: title))
+                                    destinationViewController.playlists.append(Playlist(artworkImage: artworkImage, title: title, spotifyUri: partialPlaylist.uri.absoluteString))
                                 }
                             }
                         } else {
                             // Set default image
-                            destinationViewController.playlists.append(Playlist(artworkImage: UIImage.init(contentsOfFile: "/Users/cponcede/Developer/CS 193P Final Project/CS 193P Final Project/Images/NoPhotoDefault.png"), title: title))
+                            destinationViewController.playlists.append(Playlist(artworkImage: UIImage.init(contentsOfFile: "/Users/cponcede/Developer/CS 193P Final Project/CS 193P Final Project/Images/NoPhotoDefault.png"), title: title, spotifyUri: partialPlaylist.uri.absoluteString))
                             print("No playlist image, Skipping for now.")
                         }
                         
@@ -120,11 +120,11 @@ class SpotifyTableViewController: UITableViewController {
                                 let artworkURL = artwork.imageURL
                                 if let artworkData = try? Data.init(contentsOf: artworkURL!) {
                                     let artworkImage = UIImage(data: artworkData)
-                                    destinationViewController.playlists.append(Playlist(artworkImage: artworkImage, title: title))
+                                    destinationViewController.playlists.append(Playlist(artworkImage: artworkImage, title: title, spotifyUri: partialPlaylist.uri.absoluteString))
                                 }
                             }
                         } else {
-                            destinationViewController.playlists.append(Playlist(artworkImage: UIImage.init(contentsOfFile: "/Users/cponcede/Developer/CS 193P Final Project/CS 193P Final Project/Images/NoPhotoDefault.png"), title: title))
+                            destinationViewController.playlists.append(Playlist(artworkImage: UIImage.init(contentsOfFile: "/Users/cponcede/Developer/CS 193P Final Project/CS 193P Final Project/Images/NoPhotoDefault.png"), title: title, spotifyUri: partialPlaylist.uri.absoluteString))
                             print("No playlist image, Skipping for now.")
                         }
                         
@@ -198,7 +198,7 @@ class SpotifyTableViewController: UITableViewController {
                             let artistString = artists.joined(separator: " + ")
                             
                             let spotifyURL = song.playableUri
-                            destinationViewController.songs.append(Song(title: title, artist: artistString, albumTitle: album, spotifyURL: spotifyURL))
+                            destinationViewController.songs.insert(Song(title: title, artist: artistString, albumTitle: album, spotifyURL: spotifyURL), at: 0)
                         }
                     }
                     self.getMoreSongs(currentPage: songs, destinationViewController: destinationViewController)
