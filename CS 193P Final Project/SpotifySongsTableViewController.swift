@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SpotifySongsTableViewController: UITableViewController {
+class SpotifySongsTableViewController: UITableViewController, UIAlertViewDelegate {
     
     var authData: SpotifyAuthenticationData!
     
@@ -41,13 +41,35 @@ class SpotifySongsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return songs.count
     }
+    
+    func alertView(_ alertView: UIAlertView, clickedButtonAt buttonIndex: Int) {
+        if buttonIndex == 0 {
+            alertView.dismiss(withClickedButtonIndex: 0, animated: true)
+            print("QUEUE")
+        } else {
+            alertView.dismiss(withClickedButtonIndex: 1, animated: true)
+            print("CANCEL")
+        }
+    }
+    
+    func handleSwipe(recognizer: UISwipeGestureRecognizer) {
+        print("Queueing song")
+        if let cell = recognizer.view as? UITableViewCell {
+            let song = songs[tableView.indexPath(for: cell)!.row]
+            let alert = UIAlertView.init(title: "songQueued", message: "Queue \(song.title!)?", delegate: self, cancelButtonTitle: "OK", otherButtonTitles: "Cancel")
+            alert.show()
+        }
+        
+    }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "songCell", for: indexPath)
 
         cell.textLabel?.text = songs[indexPath.row].title
         cell.detailTextLabel?.text = songs[indexPath.row].artist
-
+        let recognizer = UISwipeGestureRecognizer.init(target: self, action: #selector(handleSwipe(recognizer:)))
+        recognizer.direction = UISwipeGestureRecognizerDirection.left
+        cell.addGestureRecognizer(recognizer)
         return cell
     }
 
