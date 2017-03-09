@@ -21,50 +21,7 @@ class SpotifyTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Spotify"
-        print("IN VDL")
         authData.getNewSession()
-        /*
-        NotificationCenter.default.addObserver(self, selector: Selector.init("updateAfterLogin"), name: NSNotification.Name.init(rawValue: "spotifyLoginSuccessful") , object: nil)
-        
-        let userDefaults = UserDefaults.standard
-        if let sessionObj = userDefaults.value(forKey: "spotifySession") {
-            print("FOUND SAVED SESSION")
-            let sessionDataObj = sessionObj as? Data
-            let session = NSKeyedUnarchiver.unarchiveObject(with: sessionDataObj!) as! SPTSession
-            if !session.isValid() {
-                
-                SPTAuth.defaultInstance().renewSession(session, callback: {
-                    error, session in
-                    if error == nil {
-                        let sessionDataObj = NSKeyedArchiver.archivedData(withRootObject: session)
-                        userDefaults.set(sessionDataObj, forKey: "spotifySession")
-                        userDefaults.synchronize()
-                        self.session = session
-                        print("Refreshed Spotify auth token successfully")
-                    } else {
-                        print("Error refreshing Spotify auth token. Creating new one.")
-                        SPTAuth.defaultInstance().clientID = self.clientId
-                        SPTAuth.defaultInstance().redirectURL = URL.init(string: self.callbackURL)
-                        SPTAuth.defaultInstance().requestedScopes = [SPTAuthUserLibraryReadScope]
-                        let loginURL = SPTAuth.loginURL(forClientId: self.clientId, withRedirectURL: URL.init(string: self.callbackURL), scopes: [SPTAuthUserLibraryReadScope], responseType: "token")
-                        UIApplication.shared.open(loginURL!)
-                    }
-                })
-            } else {
-                print("Session valid")
-                // Display user's library
-                self.session = session
-            }
-            return
-        } else {
-            print ("NO SAVED SESSION")
-            SPTAuth.defaultInstance().clientID = clientId
-            SPTAuth.defaultInstance().redirectURL = URL.init(string: callbackURL)
-            SPTAuth.defaultInstance().requestedScopes = [SPTAuthUserLibraryReadScope]
-            let loginURL = SPTAuth.loginURL(forClientId: clientId, withRedirectURL: URL.init(string: callbackURL), scopes: [SPTAuthUserLibraryReadScope], responseType: "token")
-            UIApplication.shared.open(loginURL!)
-        }
-         */
     }
     
     func getMorePlaylists(sptPlaylists: SPTListPage, destinationViewController: SpotifyPlaylistsTableViewController) {
@@ -76,20 +33,7 @@ class SpotifyTableViewController: UITableViewController {
                         let partialPlaylist = playlist as! SPTPartialPlaylist
                         let title = partialPlaylist.name
                         destinationViewController.numPlaylists += 1
-                        if partialPlaylist.images.count > 0 {
-                            if let artwork = partialPlaylist.images[0] as? SPTImage {
-                                let artworkURL = artwork.imageURL
-                                if let artworkData = try? Data.init(contentsOf: artworkURL!) {
-                                    let artworkImage = UIImage(data: artworkData)
-                                    destinationViewController.playlists.append(Playlist(artworkImage: artworkImage, title: title, spotifyUri: partialPlaylist.uri.absoluteString))
-                                }
-                            }
-                        } else {
-                            // Set default image
-                            destinationViewController.playlists.append(Playlist(artworkImage: UIImage.init(contentsOfFile: "/Users/cponcede/Developer/CS 193P Final Project/CS 193P Final Project/Images/NoPhotoDefault.png"), title: title, spotifyUri: partialPlaylist.uri.absoluteString))
-                            print("No playlist image, Skipping for now.")
-                        }
-                        
+                        destinationViewController.playlists.append(Playlist(title: title, spotifyUri: partialPlaylist.uri.absoluteString))
                     }
                     print("Adding \(sptPlaylists.items.count) playlists")
                     //destinationViewController.playlists.append(newPlaylists)
@@ -115,21 +59,9 @@ class SpotifyTableViewController: UITableViewController {
                         let partialPlaylist = playlist as! SPTPartialPlaylist
                         let title = partialPlaylist.name
                         destinationViewController.numPlaylists += 1
-                        if partialPlaylist.images.count > 0 {
-                            if let artwork = partialPlaylist.images[0] as? SPTImage {
-                                let artworkURL = artwork.imageURL
-                                if let artworkData = try? Data.init(contentsOf: artworkURL!) {
-                                    let artworkImage = UIImage(data: artworkData)
-                                    destinationViewController.playlists.append(Playlist(artworkImage: artworkImage, title: title, spotifyUri: partialPlaylist.uri.absoluteString))
-                                }
-                            }
-                        } else {
-                            destinationViewController.playlists.append(Playlist(artworkImage: UIImage.init(contentsOfFile: "/Users/cponcede/Developer/CS 193P Final Project/CS 193P Final Project/Images/NoPhotoDefault.png"), title: title, spotifyUri: partialPlaylist.uri.absoluteString))
-                            print("No playlist image, Skipping for now.")
-                        }
+                        destinationViewController.playlists.append(Playlist(title: title, spotifyUri: partialPlaylist.uri.absoluteString))
                         
                     }
-                    //destinationViewController.playlists.append(sptPlaylists)
                     if sptPlaylists.hasNextPage {
                         self.getMorePlaylists(sptPlaylists: sptPlaylists, destinationViewController: destinationViewController)
                     } else {

@@ -28,7 +28,7 @@ class SpotifyPlaySongViewController: UIViewController {
         }
     }
     
-    var audioPlayer = AudioPlayer()
+    var audioPlayer = AudioPlayer.sharedInstance
     
     var authData: SpotifyAuthenticationData!
     
@@ -36,6 +36,19 @@ class SpotifyPlaySongViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        if audioPlayer.currentlyPlaying != nil{
+            trackProgress()
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if audioPlayer.currentlyPlaying != nil {
+            print("Tracking progress in VWA")
+            self.title = audioPlayer.currentlyPlaying!.title
+            trackProgress()
+        } else {
+            print("No currently playing track in VWA")
+        }
     }
     
     func login() {

@@ -8,12 +8,29 @@
 
 import Foundation
 
+private let sharedAudioPlayer = AudioPlayer()
+
 class AudioPlayer : NSObject, SPTAudioStreamingDelegate, SPTAudioStreamingPlaybackDelegate {
+    
+    class var sharedInstance : AudioPlayer {
+        return sharedAudioPlayer
+    }
     
     private let MAX_PREV_TIME = TimeInterval.init(3)
     
     var queue : [Song] = []
-    var playlist : [Song] = []
+    var songMap = [String : Song]()
+    var playlist : [Song] = [] {
+        didSet {
+            songMap = [String : Song]()
+            for song in playlist {
+                let urlString = song.spotifyURL!.absoluteString
+                songMap[urlString] = song
+            }
+        }
+    }
+    var currentlyPlaying : Song?
+
     var playlistIndex : Int!
     var recents : [String] = []
     var spotifyPlaying : Bool = false
@@ -61,7 +78,7 @@ class AudioPlayer : NSObject, SPTAudioStreamingDelegate, SPTAudioStreamingPlayba
     
     func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didStartPlayingTrack trackUri: String!) {
         print("in didStartPlayingTrack for track \(playlist[playlistIndex].title) and index \(playlistIndex)")
-        
+        currentlyPlaying = songMap[trackUri]
         if !queue.isEmpty {
             player?.queueSpotifyURI(queue.remove(at: 0).spotifyURL!.absoluteString, callback: {(error) in
                 if error != nil {
@@ -162,6 +179,10 @@ class AudioPlayer : NSObject, SPTAudioStreamingDelegate, SPTAudioStreamingPlayba
             })
         }
         
+    }
+    
+    func queueSong(_ song: Song) {
+        queue.append(song)
     }
     
     

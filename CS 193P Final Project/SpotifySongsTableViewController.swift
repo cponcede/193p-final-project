@@ -12,7 +12,11 @@ class SpotifySongsTableViewController: UITableViewController, UIAlertViewDelegat
     
     var authData: SpotifyAuthenticationData!
     
+    var audioPlayer = AudioPlayer.sharedInstance
+    
     var songs: [Song] = []
+    
+    var songToQueue : Song?
     
     var songsDoneLoading = false {
         didSet {
@@ -45,18 +49,20 @@ class SpotifySongsTableViewController: UITableViewController, UIAlertViewDelegat
     func alertView(_ alertView: UIAlertView, clickedButtonAt buttonIndex: Int) {
         if buttonIndex == 0 {
             alertView.dismiss(withClickedButtonIndex: 0, animated: true)
+            audioPlayer.queueSong(songToQueue!)
             print("QUEUE")
         } else {
             alertView.dismiss(withClickedButtonIndex: 1, animated: true)
             print("CANCEL")
+            songToQueue = nil
         }
     }
     
     func handleSwipe(recognizer: UISwipeGestureRecognizer) {
         print("Queueing song")
         if let cell = recognizer.view as? UITableViewCell {
-            let song = songs[tableView.indexPath(for: cell)!.row]
-            let alert = UIAlertView.init(title: "songQueued", message: "Queue \(song.title!)?", delegate: self, cancelButtonTitle: "OK", otherButtonTitles: "Cancel")
+            songToQueue = songs[tableView.indexPath(for: cell)!.row]
+            let alert = UIAlertView.init(title: "songQueued", message: "Queue \(songToQueue!.title!)?", delegate: self, cancelButtonTitle: "OK", otherButtonTitles: "Cancel")
             alert.show()
         }
         

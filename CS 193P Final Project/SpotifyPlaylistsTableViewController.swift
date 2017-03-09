@@ -54,50 +54,10 @@ class SpotifyPlaylistsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         print("Loading cell")
         let cell = tableView.dequeueReusableCell(withIdentifier: "playlistCell")
-        if let customCell = cell as? TitleAndImageTableViewCell {
-            customCell.titleLabel.text = playlists[indexPath.row].title
-            customCell.entityImageView.image = playlists[indexPath.row].artworkImage
-            // customCell.setNeedsDisplay()
-            /*
-            print(customCell.entityImageView.constraints)
-            if self.imageViewConstraints == nil && !customCell.entityImageView.constraints.isEmpty {
-                print("Setting imageViewConstraints")
-                self.imageViewConstraints = customCell.entityImageView.constraints
-            } else {
-                print(self.imageViewConstraints!)
-                customCell.entityImageView.removeConstraints(customCell.entityImageView.constraints)
-                customCell.entityImageView.addConstraints(self.imageViewConstraints!)
-            }
- */
-            return customCell
-        }
-        print("RETURNING WRONG CELL")
+        cell?.textLabel?.text = playlists[indexPath.row].title
         return cell!
-        
-        /*
-        if let partialPlaylist = self.playlists[pageIndex].items[rowIndex] as? SPTPartialPlaylist,
-            let customCell = cell as? TitleAndImageTableViewCell {
-            customCell.titleLabel.text = partialPlaylist.name
-            if partialPlaylist.images.count > 0 {
-                if let artwork = partialPlaylist.images[0] as? SPTImage {
-                    let artworkURL = artwork.imageURL
-                    if let artworkData = try? Data.init(contentsOf: artworkURL!) {
-                        let artworkImage = UIImage(data: artworkData)
-                        customCell.entityImageView.image = artworkImage
-                    }
-                }
-            } else {
-                // Set default image
-                print("No playlist image")
-            }
-        } else {
-            print("COULD NOT CONVERT")
-        }
-        // Configure the cell...
-
-        return cell
-         */
     }
+    
     /*
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.dequeueReusableCell(withIdentifier: "playlistCell", for: indexPath) as? TitleAndImageTableViewCell
@@ -150,8 +110,7 @@ class SpotifyPlaylistsTableViewController: UITableViewController {
             currentPage.requestNextPage(withAccessToken: self.authData.session.accessToken, callback: {
                 (error, data) in
                 if (error == nil) {
-                    if let playlistSnapshot = data as? SPTPlaylistSnapshot,
-                    let songs = playlistSnapshot.firstTrackPage as? SPTListPage {
+                    if let songs = data as? SPTListPage {
                         
                         for item in songs.items {
                             if let song = item as? SPTPartialTrack {
@@ -172,6 +131,7 @@ class SpotifyPlaylistsTableViewController: UITableViewController {
                     }
                 } else {
                     print("Error retrieving saved tracks for user")
+                    print(error)
                     return
                 }
             })
@@ -179,6 +139,7 @@ class SpotifyPlaylistsTableViewController: UITableViewController {
             
         } else {
             // Set flag to done
+            print("Done loading playlist songs")
             destinationViewController.songsDoneLoading = true
         }
     }
@@ -213,7 +174,6 @@ class SpotifyPlaylistsTableViewController: UITableViewController {
             } else {
                 print("SpotifyPlaylistsTableViewController Error: playlist return error")
                 print(error)
-                return
             }
             
         })
@@ -236,7 +196,7 @@ class SpotifyPlaylistsTableViewController: UITableViewController {
                 if let songsTableViewController = destinationViewController as? SpotifySongsTableViewController {
                     print("About to segue")
                     songsTableViewController.authData = self.authData
-                    songsTableViewController.title = (cell as! TitleAndImageTableViewCell).titleLabel.text
+                    songsTableViewController.title = cell.textLabel?.text
                     songsTableViewController.songs = []
                     let row = tableView.indexPath(for: cell)!.row
                     getPlaylistSongs(destinationViewController: songsTableViewController, row: row)
