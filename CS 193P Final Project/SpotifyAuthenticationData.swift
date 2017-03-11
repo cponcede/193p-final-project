@@ -26,7 +26,10 @@ class SpotifyAuthenticationData {
             return session!.accessToken
         } else {
             getNewSession()
-            return getAccessToken()
+            while self.session == nil {
+                sleep(1)
+            }
+            return self.session!.accessToken
         }
     }
     
@@ -35,7 +38,10 @@ class SpotifyAuthenticationData {
             return session!.canonicalUsername
         } else {
             getNewSession()
-            return getCanonicalUsername()
+            while self.session == nil {
+                sleep(1)
+            }
+            return self.session!.canonicalUsername
         }
     }
     

@@ -11,6 +11,7 @@ import UIKit
 
 class SpotifyPlaySongViewController: UIViewController {
     
+    @IBOutlet weak var noSongPlayingView: UIView!
     @IBOutlet weak var albumImageView: UIImageView!
     @IBOutlet weak var currTimeLabel: UILabel!
     @IBOutlet weak var songTitleLabel: UILabel!
@@ -22,7 +23,7 @@ class SpotifyPlaySongViewController: UIViewController {
     @IBOutlet weak var pauseButton: UIButton!
     
     
-    var songs: [Song]! {
+    var songs: [Song]? {
         didSet {
             login()
         }
@@ -42,20 +43,27 @@ class SpotifyPlaySongViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        if audioPlayer.currentlyPlaying != nil {
-            
+        if (self.songs != nil && !self.songs!.isEmpty) || audioPlayer.currentlyPlaying != nil {
             print("Tracking progress in VWA")
+            noSongPlayingView.isHidden = true
+            if audioPlayer.isPlaying != nil && audioPlayer.isPlaying! {
+                self.pauseButton.isHidden = false
+                self.playButton.isHidden = true
+            } else {
+                self.pauseButton.isHidden = true
+                self.playButton.isHidden = false
+            }
             trackProgress()
         } else {
             print("No currently playing track in VWA")
-            songTitleLabel.text = "No track playing"
+            noSongPlayingView.isHidden = false
         }
     }
     
     func login() {
         audioPlayer.spotifyShouldStartPlaying = true
         audioPlayer.playlistIndex = self.playlistIndex
-        audioPlayer.playlist = self.songs
+        audioPlayer.playlist = self.songs!
         audioPlayer.playSpotify(authData: self.authData)
         trackProgress()
     }

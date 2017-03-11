@@ -24,19 +24,11 @@ class AudioPlayer : NSObject, SPTAudioStreamingDelegate, SPTAudioStreamingPlayba
         (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer
     
     var queue : [Song] = []
-    var songMap = [String : Song]()
-    var playlist : [Song] = [] {
-        didSet {
-            songMap = [String : Song]()
-            for song in playlist {
-                let urlString = song.spotifyURL!.absoluteString
-                songMap[urlString] = song
-            }
-        }
-    }
+    var playlist : [Song] = []
     
     
     var currentlyPlaying : Song?
+    var nextSongPlaying : Song?
 
     var playlistIndex : Int!
     var recents : [String] = []
@@ -110,8 +102,9 @@ class AudioPlayer : NSObject, SPTAudioStreamingDelegate, SPTAudioStreamingPlayba
     
     func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didStartPlayingTrack trackUri: String!) {
         print("in didStartPlayingTrack for track \(playlist[playlistIndex].title) and index \(playlistIndex)")
-        // printDatabaseStatistics()
-        self.currentlyPlaying = songMap[trackUri]
+        if self.currentlyPlaying == nil {
+            print ("currentlyPlaying is nil")
+        }
         // Save song play in core data
         container?.performBackgroundTask {[weak self] context in
             let (day, month, year) = self!.getCurrentDate()
@@ -119,18 +112,22 @@ class AudioPlayer : NSObject, SPTAudioStreamingDelegate, SPTAudioStreamingPlayba
             try? context.save()
         }
         if !queue.isEmpty {
+            self.nextSongPlaying = queue[0]
             player?.queueSpotifyURI(queue.remove(at: 0).spotifyURL!.absoluteString, callback: {(error) in
                 if error != nil {
                     print("Audio Player: Error while queueing")
                     print(error)
+                    self.nextSongPlaying = nil
                 }
             })
         } else {
+            self.nextSongPlaying = playlist[(self.playlistIndex! + 1)%playlist.count]
             player?.queueSpotifyURI(playlist[(self.playlistIndex! + 1)%playlist.count].spotifyURL!.absoluteString, callback: {
                 (error) in
                 if error != nil {
                     print("Audio Player: Error while queueing from playlist")
                     print(error)
+                    self.nextSongPlaying = nil
                 }
             })
             self.playlistIndex = (self.playlistIndex! + 1)%playlist.count
@@ -144,12 +141,14 @@ class AudioPlayer : NSObject, SPTAudioStreamingDelegate, SPTAudioStreamingPlayba
     
     func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didStopPlayingTrack trackUri: String!) {
         print("In did Stop Playing Track")
+        self.currentlyPlaying = self.nextSongPlaying
         
     }
     
     func skipNext() {
         if spotifyPlaying {
             print("SKIP")
+            self.currentlyPlaying = self.nextSongPlaying
             player?.skipNext({(error) in
                 if error != nil {
                     print (error)
@@ -172,7 +171,7 @@ class AudioPlayer : NSObject, SPTAudioStreamingDelegate, SPTAudioStreamingPlayba
                 if self.playlistIndex < 0 {
                     self.playlistIndex = self.playlist.count + self.playlistIndex
                 }
-
+                self.currentlyPlaying = self.playlist[playlistIndex]
                 player?.playSpotifyURI(self.playlist[playlistIndex].spotifyURL!.absoluteString, startingWith: 0, startingWithPosition: TimeInterval.init(0), callback: {
                     (error) in
                     if error != nil {
@@ -222,18 +221,22 @@ class AudioPlayer : NSObject, SPTAudioStreamingDelegate, SPTAudioStreamingPlayba
     
     func queueSong(_ song: Song) {
         if self.spotifyPlaying == true {
+            self.queue.append(song)
+            /*
             player?.queueSpotifyURI(queue.remove(at: 0).spotifyURL!.absoluteString, callback: {(error) in
                 if error != nil {
                     print("Audio Player: Error while queueing")
                     print(error)
                 }
             })
+             */
         }
     }
     
     
     func playSpotifySong() {
         self.spotifyPlaying = true
+        self.currentlyPlaying = playlist[playlistIndex]
         player?.playSpotifyURI(playlist[playlistIndex].spotifyURL?.absoluteString, startingWith: 0, startingWithPosition: TimeInterval.init(0), callback: {
             (error) in
             if error != nil {
