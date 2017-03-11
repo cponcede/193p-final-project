@@ -111,20 +111,23 @@ class SpotifyPlaylistsTableViewController: UITableViewController {
                 (error, data) in
                 if (error == nil) {
                     if let songs = data as? SPTListPage {
-                        
+                        if songs.items == nil {
+                            return
+                        }
                         for item in songs.items {
                             if let song = item as? SPTPartialTrack {
                                 let title = song.name
-                                let album = (song.album as! SPTPartialAlbum).name
+                                let album = song.album.name
                                 var artists: [String] = []
                                 for artist in song.artists {
                                     let artistName = (artist as! SPTPartialArtist).name
                                     artists.append(artistName!)
                                 }
                                 let artistString = artists.joined(separator: " + ")
+                                let artistId = (song.artists[0] as! SPTPartialArtist).identifier
                                 
                                 let spotifyURL = song.playableUri
-                                destinationViewController.songs.append((Song(title: title, artist: artistString, albumTitle: album, spotifyURL: spotifyURL)))
+                                destinationViewController.songs.append((Song(title: title, artist: artistString, artistId: artistId, albumTitle: album, spotifyURL: spotifyURL)))
                             }
                         }
                         self.getMorePlaylistSongs(destinationViewController: destinationViewController, currentPage: songs)
@@ -151,8 +154,11 @@ class SpotifyPlaylistsTableViewController: UITableViewController {
             (error, data) in
             if error == nil {
                 if let playlistSnapshot = data as? SPTPlaylistSnapshot,
-                    let songs = playlistSnapshot.firstTrackPage as? SPTListPage {
-                    for item in songs.items {
+                    let firstPage = (playlistSnapshot.firstTrackPage as? SPTListPage) {
+                    if firstPage.items == nil {
+                        return
+                    }
+                    for item in firstPage.items {
                         if let song = item as? SPTPartialTrack {
                             let title = song.name
                             let album = (song.album as! SPTPartialAlbum).name
@@ -162,12 +168,13 @@ class SpotifyPlaylistsTableViewController: UITableViewController {
                                 artists.append(artistName!)
                             }
                             let artistString = artists.joined(separator: " + ")
+                            let artistId = (song.artists[0] as! SPTPartialArtist).identifier
                             
                             let spotifyURL = song.playableUri
-                            destinationViewController.songs.append(Song(title: title, artist: artistString, albumTitle: album, spotifyURL: spotifyURL))
+                            destinationViewController.songs.append(Song(title: title, artist: artistString, artistId: artistId, albumTitle: album, spotifyURL: spotifyURL))
                         }
                     }
-                    self.getMorePlaylistSongs(destinationViewController: destinationViewController, currentPage: songs)
+                    self.getMorePlaylistSongs(destinationViewController: destinationViewController, currentPage: firstPage)
                 } else {
                     print("Error converting data to SPTListPage")
                 }

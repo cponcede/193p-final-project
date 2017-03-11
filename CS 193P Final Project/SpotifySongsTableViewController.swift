@@ -62,7 +62,7 @@ class SpotifySongsTableViewController: UITableViewController, UIAlertViewDelegat
         print("Queueing song")
         if let cell = recognizer.view as? UITableViewCell {
             songToQueue = songs[tableView.indexPath(for: cell)!.row]
-            let alert = UIAlertView.init(title: "songQueued", message: "Queue \(songToQueue!.title!)?", delegate: self, cancelButtonTitle: "OK", otherButtonTitles: "Cancel")
+            let alert = UIAlertView.init(title: "Queue song?", message: songToQueue!.title!, delegate: self, cancelButtonTitle: "OK", otherButtonTitles: "Cancel")
             alert.show()
         }
         

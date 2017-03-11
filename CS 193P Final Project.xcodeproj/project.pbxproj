@@ -33,6 +33,8 @@
 		95BCB1301E6916AE00C7DA38 /* SpotifyPlaySongViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95BCB12F1E6916AE00C7DA38 /* SpotifyPlaySongViewController.swift */; };
 		95BCB1321E691AA200C7DA38 /* SpotifyAuthenticationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95BCB1311E691AA200C7DA38 /* SpotifyAuthenticationData.swift */; };
 		95BFCED91E68DCAE00B15DB1 /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95BFCED81E68DCAE00B15DB1 /* Song.swift */; };
+		95E870AC1E747AB000595476 /* SongPlayCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E870AB1E747AB000595476 /* SongPlayCount.swift */; };
+		95E870AE1E747AD200595476 /* Artist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E870AD1E747AD200595476 /* Artist.swift */; };
 		95FEBD561E6A494A00820C28 /* Circled Pause-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 95FEBD541E6A494A00820C28 /* Circled Pause-50.png */; };
 		95FEBD571E6A494A00820C28 /* Circled Play-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 95FEBD551E6A494A00820C28 /* Circled Play-50.png */; };
 		95FEBD5A1E6A4B2C00820C28 /* Skip to Start-64.png in Resources */ = {isa = PBXBuildFile; fileRef = 95FEBD581E6A4B2C00820C28 /* Skip to Start-64.png */; };
@@ -69,6 +71,8 @@
 		95BCB12F1E6916AE00C7DA38 /* SpotifyPlaySongViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotifyPlaySongViewController.swift; sourceTree = "<group>"; };
 		95BCB1311E691AA200C7DA38 /* SpotifyAuthenticationData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotifyAuthenticationData.swift; sourceTree = "<group>"; };
 		95BFCED81E68DCAE00B15DB1 /* Song.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
+		95E870AB1E747AB000595476 /* SongPlayCount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongPlayCount.swift; sourceTree = "<group>"; };
+		95E870AD1E747AD200595476 /* Artist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Artist.swift; sourceTree = "<group>"; };
 		95FEBD541E6A494A00820C28 /* Circled Pause-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Circled Pause-50.png"; path = "../Images/Circled Pause-50.png"; sourceTree = "<group>"; };
 		95FEBD551E6A494A00820C28 /* Circled Play-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Circled Play-50.png"; path = "../Images/Circled Play-50.png"; sourceTree = "<group>"; };
 		95FEBD581E6A4B2C00820C28 /* Skip to Start-64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Skip to Start-64.png"; path = "../Images/Skip to Start-64.png"; sourceTree = "<group>"; };
@@ -128,6 +132,8 @@
 				95204FE61E66750100EF62C0 /* LaunchScreen.storyboard */,
 				95204FE91E66750100EF62C0 /* Info.plist */,
 				95204FE11E66750100EF62C0 /* CS_193P_Final_Project.xcdatamodeld */,
+				95E870AB1E747AB000595476 /* SongPlayCount.swift */,
+				95E870AD1E747AD200595476 /* Artist.swift */,
 				95204FFA1E6689E000EF62C0 /* CS 193P Final Project-Bridging-Header.h */,
 			);
 			path = "CS 193P Final Project";
@@ -252,8 +258,10 @@
 				95BCB1301E6916AE00C7DA38 /* SpotifyPlaySongViewController.swift in Sources */,
 				954EDC511E6784F90045B25E /* SpotifyPlaylistsTableViewController.swift in Sources */,
 				95204FFF1E66C50900EF62C0 /* SpotifyTableViewController.swift in Sources */,
+				95E870AE1E747AD200595476 /* Artist.swift in Sources */,
 				954EDC551E67AFAC0045B25E /* SpotifySongsTableViewController.swift in Sources */,
 				95BCB1321E691AA200C7DA38 /* SpotifyAuthenticationData.swift in Sources */,
+				95E870AC1E747AB000595476 /* SongPlayCount.swift in Sources */,
 				954AFA2B1E67CB6B0085B378 /* Playlist.swift in Sources */,
 				95204FE31E66750100EF62C0 /* CS_193P_Final_Project.xcdatamodeld in Sources */,
 				95204FDB1E66750100EF62C0 /* AppDelegate.swift in Sources */,

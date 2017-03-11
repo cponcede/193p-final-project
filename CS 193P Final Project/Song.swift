@@ -11,6 +11,7 @@ import Foundation
 struct Song {
     var title: String?
     var artist: String?
+    var artistId : String?
     var albumTitle: String?
     var spotifyURL: URL?
 }

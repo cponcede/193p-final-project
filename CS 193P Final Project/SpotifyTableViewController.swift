@@ -91,9 +91,10 @@ class SpotifyTableViewController: UITableViewController {
                                     artists.append(artistName!)
                                 }
                                 let artistString = artists.joined(separator: " + ")
+                                let artistId = (song.artists[0] as! SPTPartialArtist).identifier
                                 
                                 let spotifyURL = song.playableUri
-                                destinationViewController.songs.insert((Song(title: title, artist: artistString, albumTitle: album, spotifyURL: spotifyURL)), at: 0)
+                                destinationViewController.songs.insert((Song(title: title, artist: artistString, artistId: artistId, albumTitle: album, spotifyURL: spotifyURL)), at: 0)
                             }
                         }
                         self.getMoreSongs(currentPage: songs, destinationViewController: destinationViewController)
@@ -128,9 +129,10 @@ class SpotifyTableViewController: UITableViewController {
                                 artists.append(artistName!)
                             }
                             let artistString = artists.joined(separator: " + ")
+                            let artistId = (song.artists[0] as! SPTPartialArtist).identifier
                             
                             let spotifyURL = song.playableUri
-                            destinationViewController.songs.insert(Song(title: title, artist: artistString, albumTitle: album, spotifyURL: spotifyURL), at: 0)
+                            destinationViewController.songs.insert(Song(title: title, artist: artistString, artistId: artistId, albumTitle: album, spotifyURL: spotifyURL), at: 0)
                         }
                     }
                     self.getMoreSongs(currentPage: songs, destinationViewController: destinationViewController)

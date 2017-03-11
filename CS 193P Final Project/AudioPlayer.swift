@@ -6,6 +6,7 @@
 //  Copyright © 2017 Stanford University. All rights reserved.
 //
 
+import CoreData
 import Foundation
 
 private let sharedAudioPlayer = AudioPlayer()
@@ -18,6 +19,9 @@ class AudioPlayer : NSObject, SPTAudioStreamingDelegate, SPTAudioStreamingPlayba
     
     private let MAX_PREV_TIME = TimeInterval.init(3)
     
+    var container: NSPersistentContainer? =
+        (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer
+    
     var queue : [Song] = []
     var songMap = [String : Song]()
     var playlist : [Song] = [] {
@@ -29,6 +33,8 @@ class AudioPlayer : NSObject, SPTAudioStreamingDelegate, SPTAudioStreamingPlayba
             }
         }
     }
+    
+    
     var currentlyPlaying : Song?
 
     var playlistIndex : Int!
@@ -75,10 +81,25 @@ class AudioPlayer : NSObject, SPTAudioStreamingDelegate, SPTAudioStreamingPlayba
         spotifyShouldStartPlaying = true
     }
     
+    private func getCurrentDate() -> (Int, Int, Int) {
+        let date = Date()
+        let calendar = Calendar.current
+        let year = calendar.component(.year, from: date)
+        let month = calendar.component(.month, from: date)
+        let day = calendar.component(.day, from: date)
+        return (day, month, year)
+    }
+    
     
     func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didStartPlayingTrack trackUri: String!) {
         print("in didStartPlayingTrack for track \(playlist[playlistIndex].title) and index \(playlistIndex)")
         currentlyPlaying = songMap[trackUri]
+        // Save song play in core data
+        container?.performBackgroundTask {[weak self] context in
+            let (day, month, year) = self!.getCurrentDate()
+            _ = try? Artist.addPlayedSongToCoreData(artistId: self!.currentlyPlaying!.artistId!, songPlayed: self!.currentlyPlaying!, day: day, month: month, year: year, in: context)
+            try? context.save()
+        }
         if !queue.isEmpty {
             player?.queueSpotifyURI(queue.remove(at: 0).spotifyURL!.absoluteString, callback: {(error) in
                 if error != nil {
@@ -182,7 +203,14 @@ class AudioPlayer : NSObject, SPTAudioStreamingDelegate, SPTAudioStreamingPlayba
     }
     
     func queueSong(_ song: Song) {
-        queue.append(song)
+        if self.spotifyPlaying == true {
+            player?.queueSpotifyURI(queue.remove(at: 0).spotifyURL!.absoluteString, callback: {(error) in
+                if error != nil {
+                    print("Audio Player: Error while queueing")
+                    print(error)
+                }
+            })
+        }
     }
     
     
