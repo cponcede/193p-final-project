@@ -89,6 +89,7 @@ class SpotifyPlaySongViewController: UIViewController {
                         var seconds = self.sanitizeTimeString(String(Int(round(duration - Double(minutes)! * 60))))
                         let albumURL = self.audioPlayer.player?.metadata.currentTrack?.albumCoverArtURL
                         let artworkData = try? Data.init(contentsOf: URL.init(string: albumURL!)!)
+                        let isPlaying = self.audioPlayer.isPlaying
                         DispatchQueue.main.async {
                             self.songTitleLabel.text = self.audioPlayer.player?.metadata.currentTrack?.name
                             
@@ -103,6 +104,13 @@ class SpotifyPlaySongViewController: UIViewController {
                                 self.albumImageView.image = UIImage(data: artworkData!)
                             } else {
                                 self.albumImageView.image = UIImage.init(contentsOfFile: "/Users/cponcede/Developer/CS 193P Final Project/CS 193P Final Project/Images/NoPhotoDefault.png")
+                            }
+                            if isPlaying != nil && isPlaying! {
+                                self.pauseButton.isHidden = false
+                                self.playButton.isHidden = true
+                            } else {
+                                self.pauseButton.isHidden = true
+                                self.playButton.isHidden = false
                             }
                         }
                         

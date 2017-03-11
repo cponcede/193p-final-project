@@ -74,6 +74,29 @@ class AudioPlayer : NSObject, SPTAudioStreamingDelegate, SPTAudioStreamingPlayba
         spotifyShouldStartPlaying = true
     }
     
+    private func updateRecents(_ song : Song?) {
+        if song == nil {
+            return
+        }
+        if let returnVal =  UserDefaults.standard.value(forKey: "recents") as? Data {
+            if var decodedRecents = NSKeyedUnarchiver.unarchiveObject(with: returnVal) as? [Song] {
+                decodedRecents.insert(song!, at: 0)
+                if (decodedRecents.count > 100) {
+                    decodedRecents.removeLast()
+                }
+                let encodedData: Data = NSKeyedArchiver.archivedData(withRootObject: decodedRecents)
+                UserDefaults.standard.set(encodedData, forKey: "recents")
+            }
+        } else {
+            var recentSearches = Array<Song>()
+            recentSearches.append(song!)
+            let encodedData: Data = NSKeyedArchiver.archivedData(withRootObject: recentSearches)
+            UserDefaults.standard.set(encodedData, forKey: "recents")
+        }
+        UserDefaults.standard.synchronize()
+
+    }
+    
     // Function to get current date in Swift3 taken off of StackOverflow
     private func getCurrentDate() -> (Int, Int, Int) {
         let date = Date()
@@ -105,6 +128,7 @@ class AudioPlayer : NSObject, SPTAudioStreamingDelegate, SPTAudioStreamingPlayba
         if self.currentlyPlaying == nil {
             print ("currentlyPlaying is nil")
         }
+        updateRecents(self.currentlyPlaying)
         // Save song play in core data
         container?.performBackgroundTask {[weak self] context in
             let (day, month, year) = self!.getCurrentDate()

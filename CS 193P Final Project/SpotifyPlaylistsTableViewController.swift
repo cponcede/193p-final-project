@@ -127,7 +127,7 @@ class SpotifyPlaylistsTableViewController: UITableViewController {
                                 let artistId = (song.artists[0] as! SPTPartialArtist).identifier
                                 
                                 let spotifyURL = song.playableUri
-                                destinationViewController.songs.append((Song(title: title, artist: artistString, artistId: artistId, albumTitle: album, spotifyURL: spotifyURL)))
+                                destinationViewController.songs.append((Song.init(title: title, artist: artistString, artistId: artistId, albumTitle: album, spotifyURL: spotifyURL)))
                             }
                         }
                         self.getMorePlaylistSongs(destinationViewController: destinationViewController, currentPage: songs)
@@ -171,7 +171,7 @@ class SpotifyPlaylistsTableViewController: UITableViewController {
                             let artistId = (song.artists[0] as! SPTPartialArtist).identifier
                             
                             let spotifyURL = song.playableUri
-                            destinationViewController.songs.append(Song(title: title, artist: artistString, artistId: artistId, albumTitle: album, spotifyURL: spotifyURL))
+                            destinationViewController.songs.append(Song.init(title: title, artist: artistString, artistId: artistId, albumTitle: album, spotifyURL: spotifyURL))
                         }
                     }
                     self.getMorePlaylistSongs(destinationViewController: destinationViewController, currentPage: firstPage)

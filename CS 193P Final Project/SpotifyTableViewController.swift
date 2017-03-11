@@ -11,17 +11,42 @@ import UIKit
 class SpotifyTableViewController: UITableViewController {
     
     let numSections = 2
-    let numShortcuts = 4
+    let numShortcuts = 2
     
     var spotifyPlaylists: SPTPlaylistList?
     
     var authData = SpotifyAuthenticationData()
     
+    var recents : [Song] = []
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Spotify"
+        if let returnVal =  UserDefaults.standard.value(forKey: "recents") as? Data {
+            if let decodedRecents = NSKeyedUnarchiver.unarchiveObject(with: returnVal) as? [Song] {
+                self.recents = decodedRecents
+            }
+        }
+        if self.recents.isEmpty {
+            print("recents empty")
+        } else {
+            print(recents.count)
+        }
         authData.getNewSession()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if let returnVal =  UserDefaults.standard.value(forKey: "recents") as? Data {
+            if let decodedRecents = NSKeyedUnarchiver.unarchiveObject(with: returnVal) as? [Song] {
+                self.recents = decodedRecents
+            }
+        }
+        if self.recents.isEmpty {
+            print("recents empty")
+        }
+        tableView.reloadData()
     }
     
     func getMorePlaylists(sptPlaylists: SPTListPage, destinationViewController: SpotifyPlaylistsTableViewController) {
@@ -94,7 +119,7 @@ class SpotifyTableViewController: UITableViewController {
                                 let artistId = (song.artists[0] as! SPTPartialArtist).identifier
                                 
                                 let spotifyURL = song.playableUri
-                                destinationViewController.songs.insert((Song(title: title, artist: artistString, artistId: artistId, albumTitle: album, spotifyURL: spotifyURL)), at: 0)
+                                destinationViewController.songs.insert((Song.init(title: title, artist: artistString, artistId: artistId, albumTitle: album, spotifyURL: spotifyURL)), at: 0)
                             }
                         }
                         self.getMoreSongs(currentPage: songs, destinationViewController: destinationViewController)
@@ -132,7 +157,7 @@ class SpotifyTableViewController: UITableViewController {
                             let artistId = (song.artists[0] as! SPTPartialArtist).identifier
                             
                             let spotifyURL = song.playableUri
-                            destinationViewController.songs.insert(Song(title: title, artist: artistString, artistId: artistId, albumTitle: album, spotifyURL: spotifyURL), at: 0)
+                            destinationViewController.songs.insert(Song.init(title: title, artist: artistString, artistId: artistId, albumTitle: album, spotifyURL: spotifyURL), at: 0)
                         }
                     }
                     self.getMoreSongs(currentPage: songs, destinationViewController: destinationViewController)
@@ -166,7 +191,10 @@ class SpotifyTableViewController: UITableViewController {
         if section == 0 {
             return numShortcuts
         } else if section == 1 {
-            // TODO: Update with recents
+            let returnVal =  UserDefaults.standard.value(forKey: "recentSearches")
+            if let recentSearches = returnVal as? Array<String> {
+                return recentSearches.count
+            }
             return 0
         } else {
             return 0
@@ -182,15 +210,16 @@ class SpotifyTableViewController: UITableViewController {
                 return tableView.dequeueReusableCell(withIdentifier: "playlists", for: indexPath)
             case 1:
                 return tableView.dequeueReusableCell(withIdentifier: "songs", for: indexPath)
-            case 2:
-                return tableView.dequeueReusableCell(withIdentifier: "albums", for: indexPath)
-            case 3:
-                return tableView.dequeueReusableCell(withIdentifier: "artists", for: indexPath)
             default:
                 return tableView.dequeueReusableCell(withIdentifier: "recent", for: indexPath)
             }
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "recent", for: indexPath)
+            cell.textLabel?.text = recents[indexPath.row].title
+            cell.detailTextLabel?.text = recents[indexPath.row].artist
+            return cell
+            
         }
-        return tableView.dequeueReusableCell(withIdentifier: "recent", for: indexPath)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
