@@ -26,7 +26,7 @@ class SpotifyTableViewController: UITableViewController {
     
     func getMorePlaylists(sptPlaylists: SPTListPage, destinationViewController: SpotifyPlaylistsTableViewController) {
         if sptPlaylists.hasNextPage {
-            sptPlaylists.requestNextPage(withAccessToken: self.authData.session.accessToken, callback: { (error, playlists) in
+            sptPlaylists.requestNextPage(withAccessToken: self.authData.getAccessToken(), callback: { (error, playlists) in
                 if (error == nil) {
                     let newPlaylists = playlists as! SPTListPage
                     for playlist in newPlaylists.items {
@@ -51,7 +51,7 @@ class SpotifyTableViewController: UITableViewController {
     }
     
     func getUserPlaylists(destinationViewController: SpotifyPlaylistsTableViewController) {
-            SPTPlaylistList.playlists(forUser: authData.session.canonicalUsername, withAccessToken: authData.session.accessToken, callback: { (error, playlists) in
+            SPTPlaylistList.playlists(forUser: authData.getCanonicalUsername(), withAccessToken: authData.getAccessToken(), callback: { (error, playlists) in
                 if (error == nil) {
                     let sptPlaylists = playlists as! SPTListPage
                     print("Adding \(sptPlaylists.items.count) playlists")
@@ -76,7 +76,7 @@ class SpotifyTableViewController: UITableViewController {
     
     func getMoreSongs(currentPage: SPTListPage, destinationViewController: SpotifySongsTableViewController) {
         if currentPage.hasNextPage {
-            currentPage.requestNextPage(withAccessToken: self.authData.session.accessToken, callback: {
+            currentPage.requestNextPage(withAccessToken: self.authData.getAccessToken(), callback: {
                 (error, data) in
                 if (error == nil) {
                     if let songs = data as? SPTListPage {
@@ -114,7 +114,7 @@ class SpotifyTableViewController: UITableViewController {
     
     func retrieveUserLibrary(destinationViewController: SpotifySongsTableViewController) {
         print("IN RETRIVE USER LIBRARY")
-        SPTYourMusic.savedTracksForUser(withAccessToken: self.authData.session.accessToken, callback: {
+        SPTYourMusic.savedTracksForUser(withAccessToken: self.authData.getAccessToken(), callback: {
             (error, data) in
             if (error == nil) {
                 if let songs = data as? SPTListPage {

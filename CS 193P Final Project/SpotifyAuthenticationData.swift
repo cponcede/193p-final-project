@@ -15,10 +15,28 @@ class SpotifyAuthenticationData {
     let tokenSwapURL = ""
     let tokenRefreshServiceURL = ""
     
-    var session : SPTSession!
+    var session : SPTSession?
     
     @objc public func updateAfterLogin() {
         self.session = SPTAuth.defaultInstance().session
+    }
+    
+    func getAccessToken() -> String {
+        if session != nil {
+            return session!.accessToken
+        } else {
+            getNewSession()
+            return getAccessToken()
+        }
+    }
+    
+    func getCanonicalUsername() -> String {
+        if session != nil {
+            return session!.canonicalUsername
+        } else {
+            getNewSession()
+            return getCanonicalUsername()
+        }
     }
     
     

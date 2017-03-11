@@ -73,7 +73,7 @@ class AudioPlayer : NSObject, SPTAudioStreamingDelegate, SPTAudioStreamingPlayba
         if player?.initialized == false {
             try? player?.start(withClientId: authData.clientId)
         }
-        player?.login(withAccessToken: authData.session.accessToken)
+        player?.login(withAccessToken: authData.getAccessToken())
     }
     
     func playSpotify(authData: SpotifyAuthenticationData!) {
@@ -90,10 +90,26 @@ class AudioPlayer : NSObject, SPTAudioStreamingDelegate, SPTAudioStreamingPlayba
         return (day, month, year)
     }
     
+    private func printDatabaseStatistics() {
+        if let context = container?.viewContext {
+            context.perform {
+                print("STATS:")
+                let request: NSFetchRequest<Artist> = Artist.fetchRequest()
+                if let artistCount = (try? context.fetch(request))?.count {
+                    print("\(artistCount) unique artists")
+                }
+                if let songCount = try? context.count(for: SongPlayCount.fetchRequest()) {
+                    print ("\(songCount) unique SongPlayCount objects")
+                }
+            }
+        }
+    }
+    
     
     func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didStartPlayingTrack trackUri: String!) {
         print("in didStartPlayingTrack for track \(playlist[playlistIndex].title) and index \(playlistIndex)")
-        currentlyPlaying = songMap[trackUri]
+        printDatabaseStatistics()
+        self.currentlyPlaying = songMap[trackUri]
         // Save song play in core data
         container?.performBackgroundTask {[weak self] context in
             let (day, month, year) = self!.getCurrentDate()

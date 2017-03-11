@@ -107,7 +107,7 @@ class SpotifyPlaylistsTableViewController: UITableViewController {
     func getMorePlaylistSongs(destinationViewController : SpotifySongsTableViewController, currentPage : SPTListPage) {
         print("getMorePlaylistSongs")
         if currentPage.hasNextPage {
-            currentPage.requestNextPage(withAccessToken: self.authData.session.accessToken, callback: {
+            currentPage.requestNextPage(withAccessToken: self.authData.getAccessToken(), callback: {
                 (error, data) in
                 if (error == nil) {
                     if let songs = data as? SPTListPage {
@@ -150,7 +150,7 @@ class SpotifyPlaylistsTableViewController: UITableViewController {
     func getPlaylistSongs(destinationViewController : SpotifySongsTableViewController, row: Int) {
         print("getPlaylistSongs")
         let playlistUri = playlists[row].spotifyUri
-        SPTPlaylistSnapshot.playlist(withURI: URL(string: playlistUri!), accessToken: self.authData.session.accessToken, callback: {
+        SPTPlaylistSnapshot.playlist(withURI: URL(string: playlistUri!), accessToken: self.authData.getAccessToken(), callback: {
             (error, data) in
             if error == nil {
                 if let playlistSnapshot = data as? SPTPlaylistSnapshot,
