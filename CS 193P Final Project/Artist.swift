@@ -10,7 +10,7 @@ import UIKit
 
 import CoreData
 class Artist: NSManagedObject {
-    class func addPlayedSongToCoreData(artistId: String, songPlayed : Song, day: Int, month: Int, year: Int, in context: NSManagedObjectContext) throws -> Artist {
+    class func addPlayedSongToCoreData(artistName: String, artistId: String, songPlayed : Song, day: Int, month: Int, year: Int, in context: NSManagedObjectContext) throws -> Artist {
         let request : NSFetchRequest<Artist> = Artist.fetchRequest()
         request.predicate = NSPredicate(format: "identifier==%@", artistId)
         do {
@@ -18,6 +18,7 @@ class Artist: NSManagedObject {
             if matches.count > 0 {
                 assert(matches.count == 1, "Artist.addPlayedSongToCoreData -- database inconsistency")
                 let newSongData = try SongPlayCount.findOrCreateSongPlayCount(songPlayed, day: day, month: month, year: year, in: context)
+                matches[0].count = matches[0].count + 1
                 matches[0].addToSongs(newSongData)
                 return matches[0]
             }
@@ -27,6 +28,9 @@ class Artist: NSManagedObject {
         
         let artist = Artist(context: context)
         artist.identifier = artistId
+        artist.songs = NSSet.init()
+        artist.name = artistName
+        artist.count = 1
         let newSongData = try SongPlayCount.findOrCreateSongPlayCount(songPlayed, day: day, month: month, year: year, in: context)
         artist.addToSongs(newSongData)
         return artist

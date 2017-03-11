@@ -20,7 +20,6 @@
 		95204FF91E6687CC00EF62C0 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95204FF81E6687CC00EF62C0 /* SystemConfiguration.framework */; };
 		95204FFF1E66C50900EF62C0 /* SpotifyTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95204FFE1E66C50900EF62C0 /* SpotifyTableViewController.swift */; };
 		954AFA2B1E67CB6B0085B378 /* Playlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954AFA2A1E67CB6B0085B378 /* Playlist.swift */; };
-		954AFA2F1E67D8B90085B378 /* NoPhotoDefault.png in Resources */ = {isa = PBXBuildFile; fileRef = 954AFA2E1E67D8B90085B378 /* NoPhotoDefault.png */; };
 		954EDC511E6784F90045B25E /* SpotifyPlaylistsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954EDC501E6784F90045B25E /* SpotifyPlaylistsTableViewController.swift */; };
 		954EDC551E67AFAC0045B25E /* SpotifySongsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954EDC541E67AFAC0045B25E /* SpotifySongsTableViewController.swift */; };
 		9557B5651E6CE8E6003FF691 /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9557B5641E6CE8E6003FF691 /* AudioPlayer.swift */; };
@@ -29,12 +28,14 @@
 		957C50C91E7136F100FC1F0A /* spotify-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 957C50C81E7136F100FC1F0A /* spotify-icon.png */; };
 		957C50CB1E71396600FC1F0A /* Music Record-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 957C50CA1E71396600FC1F0A /* Music Record-50.png */; };
 		957C50CD1E713A9900FC1F0A /* music-record.png in Resources */ = {isa = PBXBuildFile; fileRef = 957C50CC1E713A9900FC1F0A /* music-record.png */; };
-		95BA3E891E6EB201006AF8B4 /* SongOptionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95BA3E881E6EB201006AF8B4 /* SongOptionsTableViewController.swift */; };
 		95BCB1301E6916AE00C7DA38 /* SpotifyPlaySongViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95BCB12F1E6916AE00C7DA38 /* SpotifyPlaySongViewController.swift */; };
 		95BCB1321E691AA200C7DA38 /* SpotifyAuthenticationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95BCB1311E691AA200C7DA38 /* SpotifyAuthenticationData.swift */; };
 		95BFCED91E68DCAE00B15DB1 /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95BFCED81E68DCAE00B15DB1 /* Song.swift */; };
 		95E870AC1E747AB000595476 /* SongPlayCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E870AB1E747AB000595476 /* SongPlayCount.swift */; };
 		95E870AE1E747AD200595476 /* Artist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E870AD1E747AD200595476 /* Artist.swift */; };
+		95E870B01E748CA400595476 /* ArtistsDataTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E870AF1E748CA400595476 /* ArtistsDataTableViewController.swift */; };
+		95E870B21E748EC700595476 /* FetchedResultsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E870B11E748EC700595476 /* FetchedResultsTableViewController.swift */; };
+		95E870B91E74967200595476 /* line-chart.png in Resources */ = {isa = PBXBuildFile; fileRef = 95E870B81E74967200595476 /* line-chart.png */; };
 		95FEBD561E6A494A00820C28 /* Circled Pause-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 95FEBD541E6A494A00820C28 /* Circled Pause-50.png */; };
 		95FEBD571E6A494A00820C28 /* Circled Play-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 95FEBD551E6A494A00820C28 /* Circled Play-50.png */; };
 		95FEBD5A1E6A4B2C00820C28 /* Skip to Start-64.png in Resources */ = {isa = PBXBuildFile; fileRef = 95FEBD581E6A4B2C00820C28 /* Skip to Start-64.png */; };
@@ -58,7 +59,6 @@
 		95204FFA1E6689E000EF62C0 /* CS 193P Final Project-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CS 193P Final Project-Bridging-Header.h"; sourceTree = "<group>"; };
 		95204FFE1E66C50900EF62C0 /* SpotifyTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotifyTableViewController.swift; sourceTree = "<group>"; };
 		954AFA2A1E67CB6B0085B378 /* Playlist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Playlist.swift; sourceTree = "<group>"; };
-		954AFA2E1E67D8B90085B378 /* NoPhotoDefault.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = NoPhotoDefault.png; path = Images/NoPhotoDefault.png; sourceTree = "<group>"; };
 		954EDC501E6784F90045B25E /* SpotifyPlaylistsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotifyPlaylistsTableViewController.swift; sourceTree = "<group>"; };
 		954EDC541E67AFAC0045B25E /* SpotifySongsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotifySongsTableViewController.swift; sourceTree = "<group>"; };
 		9557B5641E6CE8E6003FF691 /* AudioPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
@@ -67,12 +67,14 @@
 		957C50C81E7136F100FC1F0A /* spotify-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "spotify-icon.png"; path = "../Images/spotify-icon.png"; sourceTree = "<group>"; };
 		957C50CA1E71396600FC1F0A /* Music Record-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Music Record-50.png"; path = "Images/Music Record-50.png"; sourceTree = SOURCE_ROOT; };
 		957C50CC1E713A9900FC1F0A /* music-record.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "music-record.png"; path = "Images/music-record.png"; sourceTree = SOURCE_ROOT; };
-		95BA3E881E6EB201006AF8B4 /* SongOptionsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongOptionsTableViewController.swift; sourceTree = "<group>"; };
 		95BCB12F1E6916AE00C7DA38 /* SpotifyPlaySongViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotifyPlaySongViewController.swift; sourceTree = "<group>"; };
 		95BCB1311E691AA200C7DA38 /* SpotifyAuthenticationData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotifyAuthenticationData.swift; sourceTree = "<group>"; };
 		95BFCED81E68DCAE00B15DB1 /* Song.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
 		95E870AB1E747AB000595476 /* SongPlayCount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongPlayCount.swift; sourceTree = "<group>"; };
 		95E870AD1E747AD200595476 /* Artist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Artist.swift; sourceTree = "<group>"; };
+		95E870AF1E748CA400595476 /* ArtistsDataTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArtistsDataTableViewController.swift; sourceTree = "<group>"; };
+		95E870B11E748EC700595476 /* FetchedResultsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchedResultsTableViewController.swift; sourceTree = "<group>"; };
+		95E870B81E74967200595476 /* line-chart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "line-chart.png"; path = "Images/line-chart.png"; sourceTree = "<group>"; };
 		95FEBD541E6A494A00820C28 /* Circled Pause-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Circled Pause-50.png"; path = "../Images/Circled Pause-50.png"; sourceTree = "<group>"; };
 		95FEBD551E6A494A00820C28 /* Circled Play-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Circled Play-50.png"; path = "../Images/Circled Play-50.png"; sourceTree = "<group>"; };
 		95FEBD581E6A4B2C00820C28 /* Skip to Start-64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Skip to Start-64.png"; path = "../Images/Skip to Start-64.png"; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 		95204FCE1E66750000EF62C0 = {
 			isa = PBXGroup;
 			children = (
+				95E870B81E74967200595476 /* line-chart.png */,
 				95204FEF1E66859100EF62C0 /* Frameworks */,
 				95204FD91E66750100EF62C0 /* CS 193P Final Project */,
 				95204FD81E66750100EF62C0 /* Products */,
@@ -117,24 +120,13 @@
 			children = (
 				95FEBD5C1E6A4B4000820C28 /* Images */,
 				95204FDA1E66750100EF62C0 /* AppDelegate.swift */,
-				95204FDC1E66750100EF62C0 /* SpotifyViewController.swift */,
-				95BA3E881E6EB201006AF8B4 /* SongOptionsTableViewController.swift */,
-				95BCB1311E691AA200C7DA38 /* SpotifyAuthenticationData.swift */,
+				95E870B51E74929500595476 /* Statistics */,
+				95E870B41E74928900595476 /* Generic */,
+				95E870B31E74925E00595476 /* Spotify */,
 				95204FDE1E66750100EF62C0 /* Main.storyboard */,
-				95BCB12F1E6916AE00C7DA38 /* SpotifyPlaySongViewController.swift */,
-				9557B5641E6CE8E6003FF691 /* AudioPlayer.swift */,
-				954AFA2A1E67CB6B0085B378 /* Playlist.swift */,
-				95BFCED81E68DCAE00B15DB1 /* Song.swift */,
-				954EDC541E67AFAC0045B25E /* SpotifySongsTableViewController.swift */,
-				954EDC501E6784F90045B25E /* SpotifyPlaylistsTableViewController.swift */,
-				95204FFE1E66C50900EF62C0 /* SpotifyTableViewController.swift */,
 				95204FE41E66750100EF62C0 /* Assets.xcassets */,
 				95204FE61E66750100EF62C0 /* LaunchScreen.storyboard */,
 				95204FE91E66750100EF62C0 /* Info.plist */,
-				95204FE11E66750100EF62C0 /* CS_193P_Final_Project.xcdatamodeld */,
-				95E870AB1E747AB000595476 /* SongPlayCount.swift */,
-				95E870AD1E747AD200595476 /* Artist.swift */,
-				95204FFA1E6689E000EF62C0 /* CS 193P Final Project-Bridging-Header.h */,
 			);
 			path = "CS 193P Final Project";
 			sourceTree = "<group>";
@@ -151,6 +143,42 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		95E870B31E74925E00595476 /* Spotify */ = {
+			isa = PBXGroup;
+			children = (
+				95BCB12F1E6916AE00C7DA38 /* SpotifyPlaySongViewController.swift */,
+				95204FDC1E66750100EF62C0 /* SpotifyViewController.swift */,
+				95BCB1311E691AA200C7DA38 /* SpotifyAuthenticationData.swift */,
+				95204FFA1E6689E000EF62C0 /* CS 193P Final Project-Bridging-Header.h */,
+				954EDC541E67AFAC0045B25E /* SpotifySongsTableViewController.swift */,
+				954EDC501E6784F90045B25E /* SpotifyPlaylistsTableViewController.swift */,
+				95204FFE1E66C50900EF62C0 /* SpotifyTableViewController.swift */,
+			);
+			name = Spotify;
+			sourceTree = "<group>";
+		};
+		95E870B41E74928900595476 /* Generic */ = {
+			isa = PBXGroup;
+			children = (
+				9557B5641E6CE8E6003FF691 /* AudioPlayer.swift */,
+				954AFA2A1E67CB6B0085B378 /* Playlist.swift */,
+				95BFCED81E68DCAE00B15DB1 /* Song.swift */,
+			);
+			name = Generic;
+			sourceTree = "<group>";
+		};
+		95E870B51E74929500595476 /* Statistics */ = {
+			isa = PBXGroup;
+			children = (
+				95E870AF1E748CA400595476 /* ArtistsDataTableViewController.swift */,
+				95E870AB1E747AB000595476 /* SongPlayCount.swift */,
+				95E870AD1E747AD200595476 /* Artist.swift */,
+				95E870B11E748EC700595476 /* FetchedResultsTableViewController.swift */,
+				95204FE11E66750100EF62C0 /* CS_193P_Final_Project.xcdatamodeld */,
+			);
+			name = Statistics;
+			sourceTree = "<group>";
+		};
 		95FEBD5C1E6A4B4000820C28 /* Images */ = {
 			isa = PBXGroup;
 			children = (
@@ -163,7 +191,6 @@
 				95FEBD541E6A494A00820C28 /* Circled Pause-50.png */,
 				957C50CC1E713A9900FC1F0A /* music-record.png */,
 				95FEBD551E6A494A00820C28 /* Circled Play-50.png */,
-				954AFA2E1E67D8B90085B378 /* NoPhotoDefault.png */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -237,11 +264,11 @@
 				957C50CB1E71396600FC1F0A /* Music Record-50.png in Resources */,
 				95FEBD5B1E6A4B2C00820C28 /* End-64.png in Resources */,
 				957C50C71E712C4B00FC1F0A /* spotify-icon@3x.png in Resources */,
-				954AFA2F1E67D8B90085B378 /* NoPhotoDefault.png in Resources */,
 				95204FE51E66750100EF62C0 /* Assets.xcassets in Resources */,
 				95204FE01E66750100EF62C0 /* Main.storyboard in Resources */,
 				95FEBD561E6A494A00820C28 /* Circled Pause-50.png in Resources */,
 				957C50C91E7136F100FC1F0A /* spotify-icon.png in Resources */,
+				95E870B91E74967200595476 /* line-chart.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -253,7 +280,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				95BFCED91E68DCAE00B15DB1 /* Song.swift in Sources */,
-				95BA3E891E6EB201006AF8B4 /* SongOptionsTableViewController.swift in Sources */,
 				95204FDD1E66750100EF62C0 /* SpotifyViewController.swift in Sources */,
 				95BCB1301E6916AE00C7DA38 /* SpotifyPlaySongViewController.swift in Sources */,
 				954EDC511E6784F90045B25E /* SpotifyPlaylistsTableViewController.swift in Sources */,
@@ -263,8 +289,10 @@
 				95BCB1321E691AA200C7DA38 /* SpotifyAuthenticationData.swift in Sources */,
 				95E870AC1E747AB000595476 /* SongPlayCount.swift in Sources */,
 				954AFA2B1E67CB6B0085B378 /* Playlist.swift in Sources */,
+				95E870B01E748CA400595476 /* ArtistsDataTableViewController.swift in Sources */,
 				95204FE31E66750100EF62C0 /* CS_193P_Final_Project.xcdatamodeld in Sources */,
 				95204FDB1E66750100EF62C0 /* AppDelegate.swift in Sources */,
+				95E870B21E748EC700595476 /* FetchedResultsTableViewController.swift in Sources */,
 				9557B5651E6CE8E6003FF691 /* AudioPlayer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

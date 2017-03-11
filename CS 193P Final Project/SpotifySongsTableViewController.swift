@@ -133,10 +133,6 @@ class SpotifySongsTableViewController: UITableViewController, UIAlertViewDelegat
                     playSongViewController.songs = self.songs
                     playSongViewController.title = self.title
                 }
-            } else if segue.identifier == "songOptionsSeque" {
-                if let songOptionsViewController = segue.destination as? SongOptionsTableViewController {
-                    songOptionsViewController.songTitle = songs[tableView.indexPath(for: cell)!.row].title
-                }
             }
         }
     }

@@ -43,10 +43,12 @@ class SpotifyPlaySongViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         if audioPlayer.currentlyPlaying != nil {
+            
             print("Tracking progress in VWA")
             trackProgress()
         } else {
             print("No currently playing track in VWA")
+            songTitleLabel.text = "No track playing"
         }
     }
     

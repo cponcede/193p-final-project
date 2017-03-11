@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="11759" systemVersion="16C68" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Artist" representedClassName=".Artist" syncable="YES" codeGenerationType="category">
+        <attribute name="count" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="identifier" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="songs" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SongPlayCount" inverseName="artist" inverseEntity="SongPlayCount" syncable="YES"/>
@@ -16,6 +17,6 @@
     </entity>
     <elements>
         <element name="SongPlayCount" positionX="306" positionY="-810" width="128" height="148"/>
-        <element name="Artist" positionX="520" positionY="-792" width="128" height="88"/>
+        <element name="Artist" positionX="520" positionY="-792" width="128" height="103"/>
     </elements>
 </model>

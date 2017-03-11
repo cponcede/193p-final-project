@@ -1,6 +1,7 @@
 //
 //  AudioPlayer.swift
 //  CS 193P Final Project
+//  Portions of the Spotify login code are taken from the Spotify ios sdk tutorial
 //
 //  Created by Christopher Ponce de Leon on 3/5/17.
 //  Copyright © 2017 Stanford University. All rights reserved.
@@ -81,6 +82,7 @@ class AudioPlayer : NSObject, SPTAudioStreamingDelegate, SPTAudioStreamingPlayba
         spotifyShouldStartPlaying = true
     }
     
+    // Function to get current date in Swift3 taken off of StackOverflow
     private func getCurrentDate() -> (Int, Int, Int) {
         let date = Date()
         let calendar = Calendar.current
@@ -108,12 +110,12 @@ class AudioPlayer : NSObject, SPTAudioStreamingDelegate, SPTAudioStreamingPlayba
     
     func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didStartPlayingTrack trackUri: String!) {
         print("in didStartPlayingTrack for track \(playlist[playlistIndex].title) and index \(playlistIndex)")
-        printDatabaseStatistics()
+        // printDatabaseStatistics()
         self.currentlyPlaying = songMap[trackUri]
         // Save song play in core data
         container?.performBackgroundTask {[weak self] context in
             let (day, month, year) = self!.getCurrentDate()
-            _ = try? Artist.addPlayedSongToCoreData(artistId: self!.currentlyPlaying!.artistId!, songPlayed: self!.currentlyPlaying!, day: day, month: month, year: year, in: context)
+            _ = try? Artist.addPlayedSongToCoreData(artistName: self!.currentlyPlaying!.artist!, artistId: self!.currentlyPlaying!.artistId!, songPlayed: self!.currentlyPlaying!, day: day, month: month, year: year, in: context)
             try? context.save()
         }
         if !queue.isEmpty {
