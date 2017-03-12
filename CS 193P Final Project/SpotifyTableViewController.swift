@@ -17,7 +17,11 @@ class SpotifyTableViewController: UITableViewController {
     
     var authData = SpotifyAuthenticationData()
     
-    var recents : [Song] = []
+    var recents : [Song] = [] {
+        didSet {
+            tableView.reloadData()
+        }
+    }
     
 
     override func viewDidLoad() {
@@ -46,7 +50,6 @@ class SpotifyTableViewController: UITableViewController {
         if self.recents.isEmpty {
             print("recents empty")
         }
-        tableView.reloadData()
     }
     
     func getMorePlaylists(sptPlaylists: SPTListPage, destinationViewController: SpotifyPlaylistsTableViewController) {
@@ -191,11 +194,7 @@ class SpotifyTableViewController: UITableViewController {
         if section == 0 {
             return numShortcuts
         } else if section == 1 {
-            let returnVal =  UserDefaults.standard.value(forKey: "recentSearches")
-            if let recentSearches = returnVal as? Array<String> {
-                return recentSearches.count
-            }
-            return 0
+            return recents.count
         } else {
             return 0
         }
