@@ -19,6 +19,7 @@ class AudioPlayer : NSObject, SPTAudioStreamingDelegate, SPTAudioStreamingPlayba
     }
     
     private let MAX_PREV_TIME = TimeInterval.init(3)
+    private let MAX_NUM_RECENTS = 50
     
     var container: NSPersistentContainer? =
         (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer
@@ -80,8 +81,19 @@ class AudioPlayer : NSObject, SPTAudioStreamingDelegate, SPTAudioStreamingPlayba
         }
         if let returnVal =  UserDefaults.standard.value(forKey: "recents") as? Data {
             if var decodedRecents = NSKeyedUnarchiver.unarchiveObject(with: returnVal) as? [Song] {
+                // Ensure only one instance of each song appears in Recents
+                for (index, item) in decodedRecents.enumerated() {
+                    if index == decodedRecents.count {
+                        break
+                    }
+                    if item.spotifyURL == song?.spotifyURL {
+                        print("Removing")
+                        decodedRecents.remove(at: index)
+                        break
+                    }
+                }
                 decodedRecents.insert(song!, at: 0)
-                if (decodedRecents.count > 100) {
+                if (decodedRecents.count > MAX_NUM_RECENTS) {
                     decodedRecents.removeLast()
                 }
                 let encodedData: Data = NSKeyedArchiver.archivedData(withRootObject: decodedRecents)
@@ -122,6 +134,14 @@ class AudioPlayer : NSObject, SPTAudioStreamingDelegate, SPTAudioStreamingPlayba
         }
     }
     
+    private func savePlaybackData() {
+        container?.performBackgroundTask {[weak self] context in
+            let (day, month, year) = self!.getCurrentDate()
+            _ = try? Artist.addPlayedSongToCoreData(artistName: self!.currentlyPlaying!.artist!, artistId: self!.currentlyPlaying!.artistId!, songPlayed: self!.currentlyPlaying!, day: day, month: month, year: year, in: context)
+            try? context.save()
+        }
+    }
+    
     
     func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didStartPlayingTrack trackUri: String!) {
         print("in didStartPlayingTrack for track \(playlist[playlistIndex].title) and index \(playlistIndex)")
@@ -129,12 +149,7 @@ class AudioPlayer : NSObject, SPTAudioStreamingDelegate, SPTAudioStreamingPlayba
             print ("currentlyPlaying is nil")
         }
         updateRecents(self.currentlyPlaying)
-        // Save song play in core data
-        container?.performBackgroundTask {[weak self] context in
-            let (day, month, year) = self!.getCurrentDate()
-            _ = try? Artist.addPlayedSongToCoreData(artistName: self!.currentlyPlaying!.artist!, artistId: self!.currentlyPlaying!.artistId!, songPlayed: self!.currentlyPlaying!, day: day, month: month, year: year, in: context)
-            try? context.save()
-        }
+        savePlaybackData()
         if !queue.isEmpty {
             self.nextSongPlaying = queue[0]
             player?.queueSpotifyURI(queue.remove(at: 0).spotifyURL!.absoluteString, callback: {(error) in

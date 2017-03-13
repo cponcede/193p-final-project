@@ -126,7 +126,6 @@ class SpotifySongsTableViewController: UITableViewController, UIAlertViewDelegat
                     destinationViewController = navigationController.visibleViewController ?? destinationViewController
                 }
                 if let playSongViewController = destinationViewController as? SpotifyPlaySongViewController {
-                    //playlistsTableViewController.playlists = getUserPlaylists()
                     playSongViewController.authData = self.authData
                     let row = tableView.indexPath(for: cell)!.row
                     playSongViewController.playlistIndex = row

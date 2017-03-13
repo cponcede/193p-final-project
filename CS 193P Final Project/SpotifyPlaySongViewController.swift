@@ -25,6 +25,7 @@ class SpotifyPlaySongViewController: UIViewController {
     
     var songs: [Song]? {
         didSet {
+            print("Songs was set")
             login()
         }
     }
@@ -53,6 +54,7 @@ class SpotifyPlaySongViewController: UIViewController {
                 self.pauseButton.isHidden = true
                 self.playButton.isHidden = false
             }
+            
             trackProgress()
         } else {
             print("No currently playing track in VWA")
@@ -78,7 +80,9 @@ class SpotifyPlaySongViewController: UIViewController {
     private func trackProgress() {
         DispatchQueue.global(qos: .userInteractive).async {
             while (true) {
+                
                 if (self.audioPlayer.isPlaying != nil && self.audioPlayer.isPlaying == true) {
+                    print("tracking")
                     if let (songProgress, songTime) = self.audioPlayer.getSongProgress() {
                         if songProgress == nil || songTime == nil {
                             usleep(100)
@@ -114,9 +118,14 @@ class SpotifyPlaySongViewController: UIViewController {
                             }
                         }
                         
+                    } else {
+                        print("SpotifyPlaySongViewController: Error getting song progress")
                     }
                     // TODO: figure out if this should be in a different queue
                     usleep(1000)
+                }
+                else {
+                    print("Not tracking")
                 }
             }
         }

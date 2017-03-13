@@ -224,11 +224,11 @@ class SpotifyTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let cell = sender as? UITableViewCell {
             let id = cell.reuseIdentifier
+            var destinationViewController = segue.destination
+            if let navigationController = destinationViewController as? UINavigationController {
+                destinationViewController = navigationController.visibleViewController ?? destinationViewController
+            }
             if (id == "playlists") {
-                var destinationViewController = segue.destination
-                if let navigationController = destinationViewController as? UINavigationController {
-                    destinationViewController = navigationController.visibleViewController ?? destinationViewController
-                }
                 if let playlistsTableViewController = destinationViewController as? SpotifyPlaylistsTableViewController {
                     //playlistsTableViewController.playlists = getUserPlaylists()
                     playlistsTableViewController.authData = self.authData
@@ -237,10 +237,6 @@ class SpotifyTableViewController: UITableViewController {
                 }
                 
             } else if (id == "songs") {
-                var destinationViewController = segue.destination
-                if let navigationController = destinationViewController as? UINavigationController {
-                    destinationViewController = navigationController.visibleViewController ?? destinationViewController
-                }
                 if let songsTableViewController = destinationViewController as? SpotifySongsTableViewController {
                     //playlistsTableViewController.playlists = getUserPlaylists()
                     songsTableViewController.title = "Saved Tracks"
@@ -248,6 +244,15 @@ class SpotifyTableViewController: UITableViewController {
                     retrieveUserLibrary(destinationViewController: songsTableViewController)
                 }
                 
+            } else if (id == "recent") {
+                if let playSongViewController = destinationViewController as? SpotifyPlaySongViewController {
+                    print("in segue")
+                    playSongViewController.authData = self.authData
+                    let row = tableView.indexPath(for: cell)!.row
+                    playSongViewController.playlistIndex = row
+                    playSongViewController.songs = self.recents
+                    playSongViewController.title = "Recent songs"
+                }
             }
         }
     }
