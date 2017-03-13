@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		950822961E7624E700C3F37A /* ArtistStatisticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 950822951E7624E700C3F37A /* ArtistStatisticsViewController.swift */; };
 		95204FDB1E66750100EF62C0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95204FDA1E66750100EF62C0 /* AppDelegate.swift */; };
 		95204FDD1E66750100EF62C0 /* SpotifyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95204FDC1E66750100EF62C0 /* SpotifyViewController.swift */; };
 		95204FE01E66750100EF62C0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 95204FDE1E66750100EF62C0 /* Main.storyboard */; };
@@ -43,6 +44,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		950822951E7624E700C3F37A /* ArtistStatisticsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArtistStatisticsViewController.swift; sourceTree = "<group>"; };
 		95204FD71E66750100EF62C0 /* CS 193P Final Project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CS 193P Final Project.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		95204FDA1E66750100EF62C0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		95204FDC1E66750100EF62C0 /* SpotifyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyViewController.swift; sourceTree = "<group>"; };
@@ -74,7 +76,7 @@
 		95E870AD1E747AD200595476 /* Artist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Artist.swift; sourceTree = "<group>"; };
 		95E870AF1E748CA400595476 /* ArtistsDataTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArtistsDataTableViewController.swift; sourceTree = "<group>"; };
 		95E870B11E748EC700595476 /* FetchedResultsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchedResultsTableViewController.swift; sourceTree = "<group>"; };
-		95E870B81E74967200595476 /* line-chart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "line-chart.png"; path = "Images/line-chart.png"; sourceTree = "<group>"; };
+		95E870B81E74967200595476 /* line-chart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "line-chart.png"; path = "../Images/line-chart.png"; sourceTree = "<group>"; };
 		95FEBD541E6A494A00820C28 /* Circled Pause-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Circled Pause-50.png"; path = "../Images/Circled Pause-50.png"; sourceTree = "<group>"; };
 		95FEBD551E6A494A00820C28 /* Circled Play-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Circled Play-50.png"; path = "../Images/Circled Play-50.png"; sourceTree = "<group>"; };
 		95FEBD581E6A4B2C00820C28 /* Skip to Start-64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Skip to Start-64.png"; path = "../Images/Skip to Start-64.png"; sourceTree = "<group>"; };
@@ -100,7 +102,6 @@
 		95204FCE1E66750000EF62C0 = {
 			isa = PBXGroup;
 			children = (
-				95E870B81E74967200595476 /* line-chart.png */,
 				95204FEF1E66859100EF62C0 /* Frameworks */,
 				95204FD91E66750100EF62C0 /* CS 193P Final Project */,
 				95204FD81E66750100EF62C0 /* Products */,
@@ -171,6 +172,7 @@
 			isa = PBXGroup;
 			children = (
 				95E870AF1E748CA400595476 /* ArtistsDataTableViewController.swift */,
+				950822951E7624E700C3F37A /* ArtistStatisticsViewController.swift */,
 				95E870AB1E747AB000595476 /* SongPlayCount.swift */,
 				95E870AD1E747AD200595476 /* Artist.swift */,
 				95E870B11E748EC700595476 /* FetchedResultsTableViewController.swift */,
@@ -186,6 +188,7 @@
 				957C50C31E712C4B00FC1F0A /* spotify-icon@2x.png */,
 				957C50C41E712C4B00FC1F0A /* spotify-icon@3x.png */,
 				95FEBD581E6A4B2C00820C28 /* Skip to Start-64.png */,
+				95E870B81E74967200595476 /* line-chart.png */,
 				957C50CA1E71396600FC1F0A /* Music Record-50.png */,
 				95FEBD591E6A4B2C00820C28 /* End-64.png */,
 				95FEBD541E6A494A00820C28 /* Circled Pause-50.png */,
@@ -279,6 +282,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				950822961E7624E700C3F37A /* ArtistStatisticsViewController.swift in Sources */,
 				95BFCED91E68DCAE00B15DB1 /* Song.swift in Sources */,
 				95204FDD1E66750100EF62C0 /* SpotifyViewController.swift in Sources */,
 				95BCB1301E6916AE00C7DA38 /* SpotifyPlaySongViewController.swift in Sources */,
