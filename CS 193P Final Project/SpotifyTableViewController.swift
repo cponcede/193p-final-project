@@ -221,6 +221,13 @@ class SpotifyTableViewController: UITableViewController {
         }
     }
     
+    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        if let headerView = view as? UITableViewHeaderFooterView {
+            headerView.textLabel?.textColor = StyleConstants.headerColor
+            headerView.backgroundView?.backgroundColor = StyleConstants.headerBackgroundColor
+        }
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let cell = sender as? UITableViewCell {
             let id = cell.reuseIdentifier

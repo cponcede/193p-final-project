@@ -74,6 +74,13 @@ class SpotifySongsTableViewController: UITableViewController, UIAlertViewDelegat
         cell.addGestureRecognizer(recognizer)
         return cell
     }
+    
+    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        if let headerView = view as? UITableViewHeaderFooterView {
+            headerView.textLabel?.textColor = StyleConstants.headerColor
+            headerView.backgroundView?.backgroundColor = StyleConstants.headerBackgroundColor
+        }
+    }
 
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation

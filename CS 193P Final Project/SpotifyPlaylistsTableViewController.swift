@@ -17,16 +17,12 @@ class SpotifyPlaylistsTableViewController: UITableViewController {
     
     var imageViewConstraints: [NSLayoutConstraint]?
     
-    @IBOutlet weak var spinner: UIActivityIndicatorView!
-    
     var numPlaylists = 0
     
     var doneSettingPlaylists = false {
         didSet {
             self.tableView.tableHeaderView?.frame = CGRect(x: 0, y: 0, width: tableView.frame.width, height: 0)
             self.tableView.tableHeaderView = self.tableView.tableHeaderView // necessary to really set the frame
-            spinner.stopAnimating()
-            spinner.isHidden = true
             tableView.separatorStyle = UITableViewCellSeparatorStyle.singleLine
             tableView.reloadData()
         }
@@ -37,7 +33,6 @@ class SpotifyPlaylistsTableViewController: UITableViewController {
         tableView.estimatedRowHeight = tableView.rowHeight
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.separatorStyle = UITableViewCellSeparatorStyle.none
-        spinner.startAnimating()
         print(tableView.center)
         self.title = "Spotify Playlists"
     }
@@ -60,51 +55,13 @@ class SpotifyPlaylistsTableViewController: UITableViewController {
         return cell!
     }
     
-    /*
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "playlistCell", for: indexPath) as? TitleAndImageTableViewCell
-        cell?.titleLabel.text = playlists[indexPath.row].title
-        cell?.entityImageView?.image = playlists[indexPath.row].artwork
-        cell?.setNeedsDisplay()
-        cell?.isSelected = false
-        return
+    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        if let headerView = view as? UITableViewHeaderFooterView {
+            headerView.textLabel?.textColor = StyleConstants.headerColor
+            headerView.backgroundView?.backgroundColor = StyleConstants.headerBackgroundColor
+        }
     }
- */
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-     return true
-     }
-     */
+    
     
     func getMorePlaylistSongs(destinationViewController : SpotifySongsTableViewController, currentPage : SPTListPage) {
         print("getMorePlaylistSongs")

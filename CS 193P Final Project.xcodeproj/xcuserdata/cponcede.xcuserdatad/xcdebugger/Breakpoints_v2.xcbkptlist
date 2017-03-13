@@ -57,99 +57,6 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "CS 193P Final Project/SpotifyPlaylistsTableViewController.swift"
-            timestampString = "510204386.998556"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "20"
-            endingLineNumber = "20"
-            landmarkName = "SpotifyPlaylistsTableViewController"
-            landmarkType = "3">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "CS_193P_Final_Project.SpotifyPlaylistsTableViewController.numPlaylists.getter : Swift.Int"
-                  moduleName = "CS 193P Final Project"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/cponcede/Developer/CS%20193P%20Final%20Project/CS%20193P%20Final%20Project/SpotifyPlaylistsTableViewController.swift"
-                  timestampString = "510187926.034729"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "18"
-                  endingLineNumber = "18"
-                  offsetFromSymbolStart = "19">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "CS_193P_Final_Project.SpotifyPlaylistsTableViewController.numPlaylists.setter : Swift.Int"
-                  moduleName = "CS 193P Final Project"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/cponcede/Developer/CS%20193P%20Final%20Project/CS%20193P%20Final%20Project/SpotifyPlaylistsTableViewController.swift"
-                  timestampString = "510187926.03917"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "18"
-                  endingLineNumber = "18"
-                  offsetFromSymbolStart = "23">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "CS_193P_Final_Project.SpotifyPlaylistsTableViewController.init (style : __C.UITableViewStyle) -&gt; CS_193P_Final_Project.SpotifyPlaylistsTableViewController"
-                  moduleName = "CS 193P Final Project"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/cponcede/Developer/CS%20193P%20Final%20Project/CS%20193P%20Final%20Project/SpotifyPlaylistsTableViewController.swift"
-                  timestampString = "510187926.041904"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "18"
-                  endingLineNumber = "18"
-                  offsetFromSymbolStart = "126">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "CS_193P_Final_Project.SpotifyPlaylistsTableViewController.init (nibName : Swift.Optional&lt;Swift.String&gt;, bundle : Swift.Optional&lt;__ObjC.Bundle&gt;) -&gt; CS_193P_Final_Project.SpotifyPlaylistsTableViewController"
-                  moduleName = "CS 193P Final Project"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/cponcede/Developer/CS%20193P%20Final%20Project/CS%20193P%20Final%20Project/SpotifyPlaylistsTableViewController.swift"
-                  timestampString = "510187926.04393"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "18"
-                  endingLineNumber = "18"
-                  offsetFromSymbolStart = "196">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "CS_193P_Final_Project.SpotifyPlaylistsTableViewController.init (coder : __ObjC.NSCoder) -&gt; Swift.Optional&lt;CS_193P_Final_Project.SpotifyPlaylistsTableViewController&gt;"
-                  moduleName = "CS 193P Final Project"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/cponcede/Developer/CS%20193P%20Final%20Project/CS%20193P%20Final%20Project/SpotifyPlaylistsTableViewController.swift"
-                  timestampString = "510187926.045667"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "18"
-                  endingLineNumber = "18"
-                  offsetFromSymbolStart = "126">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "CS 193P Final Project/Artwork.swift"
             timestampString = "510191660.218978"
             startingColumnNumber = "9223372036854775807"
@@ -211,7 +118,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CS 193P Final Project/SpotifySongsTableViewController.swift"
-            timestampString = "511060675.703912"
+            timestampString = "511065067.365891"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "72"
