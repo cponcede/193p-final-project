@@ -27,6 +27,7 @@ class SpotifyPlaylistsTableViewController: UITableViewController {
             self.tableView.tableHeaderView = self.tableView.tableHeaderView // necessary to really set the frame
             spinner.stopAnimating()
             spinner.isHidden = true
+            tableView.separatorStyle = UITableViewCellSeparatorStyle.singleLine
             tableView.reloadData()
         }
     }
@@ -35,6 +36,7 @@ class SpotifyPlaylistsTableViewController: UITableViewController {
         super.viewDidLoad()
         tableView.estimatedRowHeight = tableView.rowHeight
         tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.separatorStyle = UITableViewCellSeparatorStyle.none
         spinner.startAnimating()
         print(tableView.center)
         self.title = "Spotify Playlists"
