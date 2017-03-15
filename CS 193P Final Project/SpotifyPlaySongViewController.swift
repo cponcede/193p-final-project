@@ -16,6 +16,7 @@ class SpotifyPlaySongViewController: UIViewController {
     @IBOutlet weak var currTimeLabel: UILabel!
     @IBOutlet weak var songTitleLabel: UILabel!
     @IBOutlet weak var maxTimeLabel: UILabel!
+    @IBOutlet weak var artistNameLabel: UILabel!
     
     @IBOutlet weak var positionView: UIProgressView!
     
@@ -96,7 +97,7 @@ class SpotifyPlaySongViewController: UIViewController {
                         let isPlaying = self.audioPlayer.isPlaying
                         DispatchQueue.main.async {
                             self.songTitleLabel.text = self.audioPlayer.player?.metadata.currentTrack?.name
-                            
+                            self.artistNameLabel.text = self.audioPlayer.player?.metadata.currentTrack?.artistName
                             
                             self.maxTimeLabel.text = "\(minutes):\(seconds)"
                             self.positionView.setProgress(Float(songProgress), animated: true)

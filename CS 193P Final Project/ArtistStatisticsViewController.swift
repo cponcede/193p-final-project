@@ -30,17 +30,21 @@ class ArtistStatisticsViewController: UIViewController {
     }
     
     // Map from year -> (Map from month -> (Map from day -> play count))
-    var yearlyData : [Int:[Int:[Int: Int]]]?{
-        didSet {
-            // print stats for now
-            // printStats()
-            self.view.setNeedsDisplay()
-        }
-    }
+    var songPlayStatistics = SongPlayStatistics()
     
     var artist : Artist? {
         didSet {
             print("Showing listening stats for \(artist!.name!)")
+            for item in (artist?.songs)! {
+                if let songPlayCount = item as? SongPlayCount {
+                    songPlayStatistics.setPlayCountForDate(year: Int(songPlayCount.year),
+                                                           month: Int(songPlayCount.month),
+                                                           day: Int(songPlayCount.day),
+                                                           count: Int(songPlayCount.count))
+                }
+            }
+            songPlayStatistics.printStats()
+            
         }
     }
 
