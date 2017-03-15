@@ -134,12 +134,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CS 193P Final Project/ArtistsDataTableViewController.swift"
-            timestampString = "510957211.934039"
+            timestampString = "511299922.765319"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "31"
-            endingLineNumber = "31"
+            startingLineNumber = "32"
+            endingLineNumber = "32"
             landmarkName = "updateUI()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CS 193P Final Project/ArtistStatisticsViewController.swift"
+            timestampString = "511300664.231056"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "57"
+            endingLineNumber = "57"
+            landmarkName = "updateGraphViewSettings()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

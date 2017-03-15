@@ -23,6 +23,7 @@ class ArtistsDataTableViewController: UITableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        print("In VWA")
         updateUI()
     }
     

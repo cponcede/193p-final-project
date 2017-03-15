@@ -49,6 +49,22 @@ class ArtistStatisticsViewController: UIViewController, UITableViewDataSource, U
         dataTableView.delegate = self
     }
     
+    private func updateGraphViewSettings() {
+        graphView!.drawValueAboveBarEnabled = false
+        graphView!.rightAxis.drawLabelsEnabled = false
+        graphView!.xAxis.drawGridLinesEnabled = false
+        graphView!.chartDescription?.text = ""
+        graphView!.xAxis.labelPosition = .bottom
+        graphView!.rightAxis.drawAxisLineEnabled = false
+        graphView!.backgroundColor = UIColor.darkGray
+        graphView!.zA
+        //graphView!.rightAxis.drawGridLinesEnabled = false
+        //graphView!.rightAxis.drawAxisLineEnabled = false
+        //graphView!.rightAxis.drawLabelsEnabled = false
+        //graphView?.xAxis.drawAxisLineEnabled = false
+        //graphView!.leftAxis.drawGridLinesEnabled = false
+    }
+    
     private func updateUI() {
         if graphView != nil && artist != nil {
             let (_, yVals, dates) = songPlayStatistics.getGraphStats()
@@ -59,8 +75,10 @@ class ArtistStatisticsViewController: UIViewController, UITableViewDataSource, U
             }
             let chartDataSet = BarChartDataSet(values: dataEntries, label: "Plays per month")
             let chartData = BarChartData.init(dataSets: [chartDataSet])
+            chartData.setDrawValues(false)
             graphView!.xAxis.valueFormatter = IndexAxisValueFormatter(values: dates)
             graphView!.xAxis.granularity = 1
+            updateGraphViewSettings()
             graphView!.data = chartData
             dataTableView.reloadData()
         }
