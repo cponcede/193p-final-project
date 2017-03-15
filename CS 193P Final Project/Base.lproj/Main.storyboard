@@ -222,20 +222,55 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7d9-WN-oxI" customClass="StatsGraphView" customModule="CS_193P_Final_Project" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7d9-WN-oxI" customClass="BarChartView" customModule="Charts">
+                                <rect key="frame" x="0.0" y="64" width="375" height="272"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="19k-0b-qeY">
+                                <rect key="frame" x="0.0" y="344" width="375" height="274"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="dateCount" textLabel="ORx-u6-Ylb" detailTextLabel="5yX-7F-9de" style="IBUITableViewCellStyleValue1" id="4gg-af-okf">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4gg-af-okf" id="b7u-uj-DWX">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ORx-u6-Ylb">
+                                                    <rect key="frame" x="15" y="11" width="34" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="5yX-7F-9de">
+                                                    <rect key="frame" x="316" y="11" width="44" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="7d9-WN-oxI" secondAttribute="trailing" id="7EX-1Q-VG3"/>
                             <constraint firstItem="7d9-WN-oxI" firstAttribute="top" secondItem="0WD-I6-jba" secondAttribute="bottom" id="NMd-av-Glm"/>
-                            <constraint firstItem="7d9-WN-oxI" firstAttribute="bottom" secondItem="beo-Bi-3wZ" secondAttribute="top" id="gSC-eU-lTX"/>
+                            <constraint firstItem="19k-0b-qeY" firstAttribute="leading" secondItem="hXy-tt-eug" secondAttribute="leadingMargin" id="NQg-7y-Azp"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="19k-0b-qeY" secondAttribute="trailing" id="OBD-xj-lj1"/>
                             <constraint firstItem="7d9-WN-oxI" firstAttribute="leading" secondItem="hXy-tt-eug" secondAttribute="leading" id="oMl-Us-VIZ"/>
+                            <constraint firstItem="19k-0b-qeY" firstAttribute="top" secondItem="7d9-WN-oxI" secondAttribute="bottom" id="sA3-m7-xty"/>
+                            <constraint firstItem="7d9-WN-oxI" firstAttribute="height" secondItem="hXy-tt-eug" secondAttribute="height" multiplier="0.5" id="sKk-Ks-jrc"/>
+                            <constraint firstItem="beo-Bi-3wZ" firstAttribute="top" secondItem="19k-0b-qeY" secondAttribute="bottom" id="usm-0F-4f7"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="dataTableView" destination="19k-0b-qeY" id="Ix4-Ra-yh8"/>
                         <outlet property="graphView" destination="7d9-WN-oxI" id="C3X-zg-e3e"/>
                     </connections>
                 </viewController>
@@ -262,16 +297,16 @@
                                 </constraints>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Ncx-to-dSm">
-                                <rect key="frame" x="166" y="313" width="566" height="12960000"/>
+                                <rect key="frame" x="166" y="313" width="566" height="18000000000"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="" textAlignment="center" lineBreakMode="clip" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="9jO-ag-uMe">
-                                        <rect key="frame" x="0.0" y="0.0" width="566" height="6480000"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="566" height="9000000000"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
                                         <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bjD-Af-Baa">
-                                        <rect key="frame" x="0.0" y="6480000" width="566" height="6480000"/>
+                                        <rect key="frame" x="0.0" y="9000000000" width="566" height="9000000000"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
                                         <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
                                         <nil key="highlightedColor"/>

@@ -40,12 +40,37 @@
 		95BCB1301E6916AE00C7DA38 /* SpotifyPlaySongViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95BCB12F1E6916AE00C7DA38 /* SpotifyPlaySongViewController.swift */; };
 		95BCB1321E691AA200C7DA38 /* SpotifyAuthenticationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95BCB1311E691AA200C7DA38 /* SpotifyAuthenticationData.swift */; };
 		95BFCED91E68DCAE00B15DB1 /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95BFCED81E68DCAE00B15DB1 /* Song.swift */; };
+		95D92ABC1E78FA9100BCCACE /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95D92AB71E78FA4900BCCACE /* Charts.framework */; };
 		95E870AC1E747AB000595476 /* SongPlayCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E870AB1E747AB000595476 /* SongPlayCount.swift */; };
 		95E870AE1E747AD200595476 /* Artist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E870AD1E747AD200595476 /* Artist.swift */; };
 		95E870B01E748CA400595476 /* ArtistsDataTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E870AF1E748CA400595476 /* ArtistsDataTableViewController.swift */; };
 		95E870B21E748EC700595476 /* FetchedResultsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E870B11E748EC700595476 /* FetchedResultsTableViewController.swift */; };
 		95E870B91E74967200595476 /* line-chart.png in Resources */ = {isa = PBXBuildFile; fileRef = 95E870B81E74967200595476 /* line-chart.png */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		95D92AB61E78FA4900BCCACE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 95D92AB01E78FA4800BCCACE /* Charts.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 06165F241D8110E600722320;
+			remoteInfo = Charts;
+		};
+		95D92AB81E78FA4900BCCACE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 95D92AB01E78FA4800BCCACE /* Charts.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 06B120D51D811E6200D14B02;
+			remoteInfo = ChartsRealm;
+		};
+		95D92ABA1E78FA4900BCCACE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 95D92AB01E78FA4800BCCACE /* Charts.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 06165F2E1D8110E600722320;
+			remoteInfo = ChartsTests;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		950822951E7624E700C3F37A /* ArtistStatisticsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArtistStatisticsViewController.swift; sourceTree = "<group>"; };
@@ -84,6 +109,7 @@
 		95BCB12F1E6916AE00C7DA38 /* SpotifyPlaySongViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotifyPlaySongViewController.swift; sourceTree = "<group>"; };
 		95BCB1311E691AA200C7DA38 /* SpotifyAuthenticationData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotifyAuthenticationData.swift; sourceTree = "<group>"; };
 		95BFCED81E68DCAE00B15DB1 /* Song.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
+		95D92AB01E78FA4800BCCACE /* Charts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Charts.xcodeproj; path = "Charts-master/Charts.xcodeproj"; sourceTree = "<group>"; };
 		95E870AB1E747AB000595476 /* SongPlayCount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongPlayCount.swift; sourceTree = "<group>"; };
 		95E870AD1E747AD200595476 /* Artist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Artist.swift; sourceTree = "<group>"; };
 		95E870AF1E748CA400595476 /* ArtistsDataTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArtistsDataTableViewController.swift; sourceTree = "<group>"; };
@@ -96,6 +122,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				95D92ABC1E78FA9100BCCACE /* Charts.framework in Frameworks */,
 				95204FF91E6687CC00EF62C0 /* SystemConfiguration.framework in Frameworks */,
 				95204FF71E6687BF00EF62C0 /* AVFoundation.framework in Frameworks */,
 				95204FF31E6685EE00EF62C0 /* SpotifyAudioPlayback.framework in Frameworks */,
@@ -110,6 +137,7 @@
 		95204FCE1E66750000EF62C0 = {
 			isa = PBXGroup;
 			children = (
+				95D92AB01E78FA4800BCCACE /* Charts.xcodeproj */,
 				95204FEF1E66859100EF62C0 /* Frameworks */,
 				95204FD91E66750100EF62C0 /* CS 193P Final Project */,
 				95204FD81E66750100EF62C0 /* Products */,
@@ -150,6 +178,16 @@
 				95204FF21E6685EE00EF62C0 /* SpotifyMetadata.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		95D92AB11E78FA4800BCCACE /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				95D92AB71E78FA4900BCCACE /* Charts.framework */,
+				95D92AB91E78FA4900BCCACE /* ChartsRealm.framework */,
+				95D92ABB1E78FA4900BCCACE /* ChartsTests.xctest */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		95E870B31E74925E00595476 /* Spotify */ = {
@@ -259,12 +297,42 @@
 			mainGroup = 95204FCE1E66750000EF62C0;
 			productRefGroup = 95204FD81E66750100EF62C0 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 95D92AB11E78FA4800BCCACE /* Products */;
+					ProjectRef = 95D92AB01E78FA4800BCCACE /* Charts.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				95204FD61E66750000EF62C0 /* CS 193P Final Project */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		95D92AB71E78FA4900BCCACE /* Charts.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Charts.framework;
+			remoteRef = 95D92AB61E78FA4900BCCACE /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		95D92AB91E78FA4900BCCACE /* ChartsRealm.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = ChartsRealm.framework;
+			remoteRef = 95D92AB81E78FA4900BCCACE /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		95D92ABB1E78FA4900BCCACE /* ChartsTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = ChartsTests.xctest;
+			remoteRef = 95D92ABA1E78FA4900BCCACE /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		95204FD51E66750000EF62C0 /* Resources */ = {
