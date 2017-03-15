@@ -10,6 +10,10 @@ import UIKit
 
 class ArtistStatisticsViewController: UIViewController {
     
+    @IBOutlet weak var graphView: StatsGraphView? {
+        didSet { updateUI() }
+    }
+    
     // Static dictionary for converting from int representation of month to the name of the month.
     static let intToMonth = [1: "January",
                      2: "February",
@@ -44,7 +48,13 @@ class ArtistStatisticsViewController: UIViewController {
                 }
             }
             songPlayStatistics.printStats()
-            
+            updateUI()            
+        }
+    }
+    
+    private func updateUI() {
+        if graphView != nil && artist != nil {
+            graphView!.songPlayStatistics = self.songPlayStatistics
         }
     }
 

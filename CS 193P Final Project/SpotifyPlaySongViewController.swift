@@ -95,15 +95,18 @@ class SpotifyPlaySongViewController: UIViewController {
                         let albumURL = self.audioPlayer.player?.metadata.currentTrack?.albumCoverArtURL
                         let artworkData = try? Data.init(contentsOf: URL.init(string: albumURL!)!)
                         let isPlaying = self.audioPlayer.isPlaying
+                        if self.audioPlayer.player == nil || self.audioPlayer.player!.metadata.currentTrack == nil {
+                            continue
+                        }
                         DispatchQueue.main.async {
-                            self.songTitleLabel.text = self.audioPlayer.player?.metadata.currentTrack?.name
-                            self.artistNameLabel.text = self.audioPlayer.player?.metadata.currentTrack?.artistName
+                            self.songTitleLabel.attributedText = NSAttributedString(string: self.audioPlayer.player!.metadata.currentTrack!.name, attributes: StyleConstants.labelStyleAttributes)
+                            self.artistNameLabel.attributedText = NSAttributedString(string: self.audioPlayer.player!.metadata.currentTrack!.artistName, attributes: StyleConstants.labelStyleAttributes)
                             
-                            self.maxTimeLabel.text = "\(minutes):\(seconds)"
+                            self.maxTimeLabel.attributedText = NSAttributedString(string: "\(minutes):\(seconds)", attributes: StyleConstants.labelStyleAttributes)
                             self.positionView.setProgress(Float(songProgress), animated: true)
                             minutes = self.sanitizeTimeString(String(Int(floor(songTime/60))))
                             seconds = self.sanitizeTimeString(String(Int(floor(songTime - Double(minutes)!*60))))
-                            self.currTimeLabel.text = "\(minutes):\(seconds)"
+                            self.currTimeLabel.attributedText = NSAttributedString(string: "\(minutes):\(seconds)", attributes: StyleConstants.labelStyleAttributes)
                             
                             if artworkData != nil {
                                 self.albumImageView.image = UIImage(data: artworkData!)
