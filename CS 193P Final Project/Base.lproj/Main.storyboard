@@ -262,16 +262,16 @@
                                 </constraints>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Ncx-to-dSm">
-                                <rect key="frame" x="166" y="313" width="566" height="36000"/>
+                                <rect key="frame" x="166" y="313" width="566" height="12960000"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="" textAlignment="center" lineBreakMode="clip" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="9jO-ag-uMe">
-                                        <rect key="frame" x="0.0" y="0.0" width="566" height="18000"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="566" height="6480000"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
                                         <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Artist" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bjD-Af-Baa">
-                                        <rect key="frame" x="250" y="18000" width="66" height="18000"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bjD-Af-Baa">
+                                        <rect key="frame" x="0.0" y="6480000" width="566" height="6480000"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
                                         <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
                                         <nil key="highlightedColor"/>

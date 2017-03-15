@@ -45,10 +45,6 @@
 		95E870B01E748CA400595476 /* ArtistsDataTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E870AF1E748CA400595476 /* ArtistsDataTableViewController.swift */; };
 		95E870B21E748EC700595476 /* FetchedResultsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E870B11E748EC700595476 /* FetchedResultsTableViewController.swift */; };
 		95E870B91E74967200595476 /* line-chart.png in Resources */ = {isa = PBXBuildFile; fileRef = 95E870B81E74967200595476 /* line-chart.png */; };
-		95FEBD561E6A494A00820C28 /* Circled Pause-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 95FEBD541E6A494A00820C28 /* Circled Pause-50.png */; };
-		95FEBD571E6A494A00820C28 /* Circled Play-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 95FEBD551E6A494A00820C28 /* Circled Play-50.png */; };
-		95FEBD5A1E6A4B2C00820C28 /* Skip to Start-64.png in Resources */ = {isa = PBXBuildFile; fileRef = 95FEBD581E6A4B2C00820C28 /* Skip to Start-64.png */; };
-		95FEBD5B1E6A4B2C00820C28 /* End-64.png in Resources */ = {isa = PBXBuildFile; fileRef = 95FEBD591E6A4B2C00820C28 /* End-64.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -93,10 +89,6 @@
 		95E870AF1E748CA400595476 /* ArtistsDataTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArtistsDataTableViewController.swift; sourceTree = "<group>"; };
 		95E870B11E748EC700595476 /* FetchedResultsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchedResultsTableViewController.swift; sourceTree = "<group>"; };
 		95E870B81E74967200595476 /* line-chart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "line-chart.png"; path = "../Images/line-chart.png"; sourceTree = "<group>"; };
-		95FEBD541E6A494A00820C28 /* Circled Pause-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Circled Pause-50.png"; path = "../Images/Circled Pause-50.png"; sourceTree = "<group>"; };
-		95FEBD551E6A494A00820C28 /* Circled Play-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Circled Play-50.png"; path = "../Images/Circled Play-50.png"; sourceTree = "<group>"; };
-		95FEBD581E6A4B2C00820C28 /* Skip to Start-64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Skip to Start-64.png"; path = "../Images/Skip to Start-64.png"; sourceTree = "<group>"; };
-		95FEBD591E6A4B2C00820C28 /* End-64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "End-64.png"; path = "../Images/End-64.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -207,17 +199,13 @@
 				957C50C81E7136F100FC1F0A /* spotify-icon.png */,
 				957C50C31E712C4B00FC1F0A /* spotify-icon@2x.png */,
 				957C50C41E712C4B00FC1F0A /* spotify-icon@3x.png */,
-				95FEBD581E6A4B2C00820C28 /* Skip to Start-64.png */,
 				9554A6BA1E78ECE8008D2A57 /* Skip to-51new.png */,
 				9554A6B81E78ECE0008D2A57 /* Skip to Start-51new.png */,
 				9554A6B61E78ECD7008D2A57 /* Circled Play-50new.png */,
 				95E870B81E74967200595476 /* line-chart.png */,
 				957C50CA1E71396600FC1F0A /* Music Record-50.png */,
-				95FEBD591E6A4B2C00820C28 /* End-64.png */,
-				95FEBD541E6A494A00820C28 /* Circled Pause-50.png */,
 				9554A6B41E78E9F4008D2A57 /* Circled Pause-50new.png */,
 				957C50CC1E713A9900FC1F0A /* music-record.png */,
-				95FEBD551E6A494A00820C28 /* Circled Play-50.png */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -285,18 +273,14 @@
 			files = (
 				957C50CD1E713A9900FC1F0A /* music-record.png in Resources */,
 				957C50C61E712C4B00FC1F0A /* spotify-icon@2x.png in Resources */,
-				95FEBD571E6A494A00820C28 /* Circled Play-50.png in Resources */,
 				95204FE81E66750100EF62C0 /* LaunchScreen.storyboard in Resources */,
-				95FEBD5A1E6A4B2C00820C28 /* Skip to Start-64.png in Resources */,
 				957C50CB1E71396600FC1F0A /* Music Record-50.png in Resources */,
 				9554A6B71E78ECD7008D2A57 /* Circled Play-50new.png in Resources */,
-				95FEBD5B1E6A4B2C00820C28 /* End-64.png in Resources */,
 				957C50C71E712C4B00FC1F0A /* spotify-icon@3x.png in Resources */,
 				9554A6BB1E78ECE8008D2A57 /* Skip to-51new.png in Resources */,
 				95204FE51E66750100EF62C0 /* Assets.xcassets in Resources */,
 				95204FE01E66750100EF62C0 /* Main.storyboard in Resources */,
 				9554A6B51E78E9F4008D2A57 /* Circled Pause-50new.png in Resources */,
-				95FEBD561E6A494A00820C28 /* Circled Pause-50.png in Resources */,
 				957C50C91E7136F100FC1F0A /* spotify-icon.png in Resources */,
 				95E870B91E74967200595476 /* line-chart.png in Resources */,
 				9554A6B91E78ECE0008D2A57 /* Skip to Start-51new.png in Resources */,
