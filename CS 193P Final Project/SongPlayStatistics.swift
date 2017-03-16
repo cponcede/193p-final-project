@@ -46,7 +46,11 @@ class SongPlayStatistics {
         if yearlyData[year]![month] == nil {
             yearlyData[year]![month] = [Int: Int]()
         }
-        yearlyData[year]![month]![day] = count
+        if yearlyData[year]![month]![day] == nil {
+            yearlyData[year]![month]![day] = count
+        } else {
+            yearlyData[year]![month]![day] = yearlyData[year]![month]![day]! + count
+        }
     }
     
     func getPlayCountForDate(year: Int, month: Int, day: Int) -> Int {
@@ -61,6 +65,7 @@ class SongPlayStatistics {
      * API. Returns (xValues, yValues, datesForEachXValue, label, granularity).
      */
     func getGraphStats() -> ([Int], [Int], [String], String, Int) {
+        print(yearlyData)
         var xVals : [Int] = []
         var yVals : [Int] = []
         var dates : [String] = []
