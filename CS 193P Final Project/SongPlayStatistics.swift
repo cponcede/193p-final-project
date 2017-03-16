@@ -56,14 +56,39 @@ class SongPlayStatistics {
             return yearlyData[year]![month]![day]!
         }
     }
-    
-    func getGraphStats() -> ([Int], [Int], [String]) {
+    /*
+     * Converts yearly stats into data that can be graphed by the ios-charts
+     * API. Returns (xValues, yValues, datesForEachXValue, label, granularity).
+     */
+    func getGraphStats() -> ([Int], [Int], [String], String, Int) {
         var xVals : [Int] = []
         var yVals : [Int] = []
         var dates : [String] = []
         let sortedYears = yearlyData.keys.sorted()
         let firstYear = sortedYears[0]
         let lastYear = sortedYears[sortedYears.count - 1]
+        // If data is only within a single month, display month instead of year.
+        if firstYear == lastYear {
+            let monthsWithData = yearlyData[firstYear]!
+            if monthsWithData.keys.count == 1 {
+                var dayCount = 1
+                for month in monthsWithData.keys {
+                    for day in 1...daysInMonth[month]! {
+                        if yearlyData[firstYear]![month]![day] != nil {
+                            xVals.append(dayCount)
+                            yVals.append(yearlyData[firstYear]![month]![day]!)
+                            dates.append("\(month)/\(day)/\(firstYear)")
+                        } else {
+                            xVals.append(dayCount)
+                            yVals.append(0)
+                            dates.append("\(month)/\(day)/\(firstYear)")
+                        }
+                        dayCount = dayCount + 1
+                    }
+                }
+            }
+            return (xVals, yVals, dates, "Number of plays", 10)
+        }
         var monthCount = 0
         for year in firstYear...lastYear {
             for month in 1...12 {
@@ -84,7 +109,7 @@ class SongPlayStatistics {
                 monthCount = monthCount + 1
             }
         }
-        return (xVals, yVals, dates)
+        return (xVals, yVals, dates, "Number of plays", 1)
     }
     
     private func getDateString(day : Int, month : Int, year : Int) -> String {

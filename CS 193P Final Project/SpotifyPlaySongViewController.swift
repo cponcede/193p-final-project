@@ -84,6 +84,14 @@ class SpotifyPlaySongViewController: UIViewController {
                 
                 if (self.audioPlayer.isPlaying != nil && self.audioPlayer.isPlaying == true) {
                     print("tracking")
+                    // In the following cases, do not track UI
+                    if self.audioPlayer.player == nil ||
+                        self.audioPlayer.player!.metadata.currentTrack == nil ||
+                        self.isViewLoaded == false ||
+                        self.view.window == nil {
+                        usleep(100)
+                        continue
+                    }
                     if let (songProgress, songTime) = self.audioPlayer.getSongProgress() {
                         if songProgress == nil || songTime == nil {
                             usleep(100)
@@ -95,9 +103,7 @@ class SpotifyPlaySongViewController: UIViewController {
                         let albumURL = self.audioPlayer.player?.metadata.currentTrack?.albumCoverArtURL
                         let artworkData = try? Data.init(contentsOf: URL.init(string: albumURL!)!)
                         let isPlaying = self.audioPlayer.isPlaying
-                        if self.audioPlayer.player == nil || self.audioPlayer.player!.metadata.currentTrack == nil {
-                            continue
-                        }
+                        
                         DispatchQueue.main.async {
                             self.songTitleLabel.attributedText = NSAttributedString(string: self.audioPlayer.player!.metadata.currentTrack!.name, attributes: StyleConstants.labelStyleAttributes)
                             self.artistNameLabel.attributedText = NSAttributedString(string: self.audioPlayer.player!.metadata.currentTrack!.artistName, attributes: StyleConstants.labelStyleAttributes)

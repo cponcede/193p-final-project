@@ -49,7 +49,7 @@ class ArtistStatisticsViewController: UIViewController, UITableViewDataSource, U
         dataTableView.delegate = self
     }
     
-    private func updateGraphViewSettings() {
+    private func updateGraphViewSettings(xAxisGranularity granularity : Double) {
         graphView!.drawValueAboveBarEnabled = false
         graphView!.rightAxis.drawLabelsEnabled = false
         graphView!.xAxis.drawGridLinesEnabled = false
@@ -57,28 +57,27 @@ class ArtistStatisticsViewController: UIViewController, UITableViewDataSource, U
         graphView!.xAxis.labelPosition = .bottom
         graphView!.rightAxis.drawAxisLineEnabled = false
         graphView!.backgroundColor = UIColor.darkGray
-        graphView!.zA
-        //graphView!.rightAxis.drawGridLinesEnabled = false
-        //graphView!.rightAxis.drawAxisLineEnabled = false
-        //graphView!.rightAxis.drawLabelsEnabled = false
-        //graphView?.xAxis.drawAxisLineEnabled = false
-        //graphView!.leftAxis.drawGridLinesEnabled = false
+        graphView!.leftAxis.axisMinimum = 0.0
+        graphView!.rightAxis.drawGridLinesEnabled = false
+        //graphView!.leftAxis.granularity = 2.0
+        graphView!.xAxis.granularity = granularity
     }
     
     private func updateUI() {
+        print("Updating UI")
         if graphView != nil && artist != nil {
-            let (_, yVals, dates) = songPlayStatistics.getGraphStats()
+            let (_, yVals, dates, label, granularity) = songPlayStatistics.getGraphStats()
             var dataEntries : [BarChartDataEntry] = []
             for i in 0..<yVals.count {
                 let dataEntry = BarChartDataEntry(x: Double(i), y: Double(yVals[i]))
                 dataEntries.append(dataEntry)
             }
-            let chartDataSet = BarChartDataSet(values: dataEntries, label: "Plays per month")
+            let chartDataSet = BarChartDataSet(values: dataEntries, label: label)
+            chartDataSet.setColor(NSUIColor.lightGray)
             let chartData = BarChartData.init(dataSets: [chartDataSet])
             chartData.setDrawValues(false)
             graphView!.xAxis.valueFormatter = IndexAxisValueFormatter(values: dates)
-            graphView!.xAxis.granularity = 1
-            updateGraphViewSettings()
+            updateGraphViewSettings(xAxisGranularity: Double(granularity))
             graphView!.data = chartData
             dataTableView.reloadData()
         }
