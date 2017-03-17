@@ -101,6 +101,17 @@ class ArtistStatisticsViewController: UIViewController, UITableViewDataSource, U
         return cell
     }
 
+    @IBAction func shareGraph(_ sender: UIButton) {
+        let graphImage = graphView!.getChartImage(transparent: false)
+        let postText = "My listening statistics for \(artist!.name!)"
+        let activityItems = [postText as AnyObject, graphImage] as [Any]
+        
+        let activityController = UIActivityViewController(activityItems:
+            activityItems, applicationActivities: nil)
+        
+        self.present(activityController, animated: true,
+                     completion: nil)
+    }
 
     
 
