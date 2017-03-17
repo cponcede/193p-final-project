@@ -7,6 +7,7 @@
 //  Copyright © 2017 Stanford University. All rights reserved.
 //
 
+import AVFoundation
 import CoreData
 import Foundation
 
@@ -299,6 +300,23 @@ class AudioPlayer : NSObject, SPTAudioStreamingDelegate, SPTAudioStreamingPlayba
     
     func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didReceiveError error: Error!) {
         print("Error: \(error)")
+    }
+    
+    func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didChangePlaybackStatus isPlaying: Bool) {
+        if isPlaying {
+            self.activateAudioSession()
+        } else {
+            self.deactivateAudioSession()
+        }
+    }
+    
+    func activateAudioSession() {
+        try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+        try? AVAudioSession.sharedInstance().setActive(true)
+    }
+    
+    func deactivateAudioSession() {
+        try? AVAudioSession.sharedInstance().setActive(false)
     }
     
     func getSongProgress() -> (Double, Double)? {
