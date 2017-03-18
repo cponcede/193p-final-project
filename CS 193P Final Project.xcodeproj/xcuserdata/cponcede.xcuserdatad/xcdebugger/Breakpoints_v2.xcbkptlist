@@ -102,11 +102,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CS 193P Final Project/SpotifyPlaySongViewController.swift"
-            timestampString = "511381200.596485"
+            timestampString = "511487589.109083"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "120"
-            endingLineNumber = "120"
+            startingLineNumber = "139"
+            endingLineNumber = "139"
             landmarkName = "trackProgress()"
             landmarkType = "7">
          </BreakpointContent>

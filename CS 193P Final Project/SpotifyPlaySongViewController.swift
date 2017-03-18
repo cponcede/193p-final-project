@@ -33,6 +33,8 @@ class SpotifyPlaySongViewController: UIViewController {
     
     var audioPlayer = AudioPlayer.sharedInstance
     
+    var viewDisplayed = true
+    
     var authData: SpotifyAuthenticationData!
     
     var playlistIndex : Int!
@@ -44,7 +46,12 @@ class SpotifyPlaySongViewController: UIViewController {
         }
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        self.viewDisplayed = true
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
+        print("SONG PLAY VWA")
         if (self.songs != nil && !self.songs!.isEmpty) || audioPlayer.currentlyPlaying != nil {
             print("Tracking progress in VWA")
             noSongPlayingView.isHidden = true
@@ -79,11 +86,16 @@ class SpotifyPlaySongViewController: UIViewController {
     }
     
     private func trackProgress() {
-        DispatchQueue.global(qos: .userInteractive).async {
+        DispatchQueue.global(qos: .background).async {
             while (true) {
                 
+                if !self.viewDisplayed || !self.isViewLoaded {
+                    print("Leaving trackProgress")
+                    return
+                }
+                
                 if (self.audioPlayer.isPlaying != nil && self.audioPlayer.isPlaying == true) {
-                    print("tracking")
+                    //print("tracking")
                     // In the following cases, do not track UI
                     if self.audioPlayer.player == nil ||
                         self.audioPlayer.player!.metadata.currentTrack == nil ||
@@ -97,6 +109,10 @@ class SpotifyPlaySongViewController: UIViewController {
                             usleep(100)
                             continue
                         }
+                        if self.audioPlayer.player == nil || self.audioPlayer.player!.metadata.currentTrack == nil {
+                            usleep(100)
+                            continue
+                        }
                         let duration = (self.audioPlayer.player?.metadata.currentTrack?.duration)!
                         var minutes = self.sanitizeTimeString(String(Int(floor(duration/60))))
                         var seconds = self.sanitizeTimeString(String(Int(round(duration - Double(minutes)! * 60))))
@@ -105,6 +121,9 @@ class SpotifyPlaySongViewController: UIViewController {
                         let isPlaying = self.audioPlayer.isPlaying
                         
                         DispatchQueue.main.async {
+                            if self.audioPlayer.player == nil || self.audioPlayer.player!.metadata.currentTrack == nil {
+                                return
+                            }
                             self.songTitleLabel.attributedText = NSAttributedString(string: self.audioPlayer.player!.metadata.currentTrack!.name, attributes: StyleConstants.labelStyleAttributes)
                             self.artistNameLabel.attributedText = NSAttributedString(string: self.audioPlayer.player!.metadata.currentTrack!.artistName, attributes: StyleConstants.labelStyleAttributes)
                             
@@ -135,7 +154,7 @@ class SpotifyPlaySongViewController: UIViewController {
                     usleep(1000)
                 }
                 else {
-                    print("Not tracking")
+                    //print("Not tracking")
                 }
             }
         }
