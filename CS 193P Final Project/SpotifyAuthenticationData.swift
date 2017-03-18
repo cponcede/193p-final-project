@@ -55,7 +55,7 @@ class SpotifyAuthenticationData {
             let sessionDataObj = sessionObj as? Data
             let session = NSKeyedUnarchiver.unarchiveObject(with: sessionDataObj!) as! SPTSession
             // TODO: Have this no longer always get a new session
-            if true || !session.isValid() {
+            if !session.isValid() {
                 
                 SPTAuth.defaultInstance().renewSession(session, callback: {
                     error, session in

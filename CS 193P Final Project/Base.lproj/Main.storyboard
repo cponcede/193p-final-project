@@ -70,11 +70,11 @@
                                     <segue destination="18f-sz-MIS" kind="show" id="IUT-6i-Rp6"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="recent" textLabel="qma-BG-Bxf" detailTextLabel="S6s-Ty-fSO" style="IBUITableViewCellStyleSubtitle" id="3v1-E7-NQw">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="recent" textLabel="qma-BG-Bxf" detailTextLabel="S6s-Ty-fSO" style="IBUITableViewCellStyleSubtitle" id="3v1-E7-NQw">
                                 <rect key="frame" x="0.0" y="116" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3v1-E7-NQw" id="bqB-Zk-LY8">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="342" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="qma-BG-Bxf">
@@ -214,7 +214,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IIs-Op-EXH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1204" y="1375"/>
+            <point key="canvasLocation" x="2161" y="1375"/>
         </scene>
         <!--Artist Statistics View Controller-->
         <scene sceneID="V5O-r4-vkd">
@@ -320,7 +320,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hhn-6l-coB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2160.8000000000002" y="1374.9625187406298"/>
+            <point key="canvasLocation" x="3140" y="1375"/>
         </scene>
         <!--Now Playing-->
         <scene sceneID="4mG-BU-rlI">
@@ -341,16 +341,16 @@
                                 </constraints>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Ncx-to-dSm">
-                                <rect key="frame" x="166" y="313" width="566" height="18000000000"/>
+                                <rect key="frame" x="166" y="313" width="566" height="2592000000"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="" textAlignment="center" lineBreakMode="clip" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="9jO-ag-uMe">
-                                        <rect key="frame" x="0.0" y="0.0" width="566" height="9000000000"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="566" height="1296000000"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
                                         <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bjD-Af-Baa">
-                                        <rect key="frame" x="0.0" y="9000000000" width="566" height="9000000000"/>
+                                        <rect key="frame" x="0.0" y="1296000000" width="566" height="1296000000"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
                                         <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
                                         <nil key="highlightedColor"/>
@@ -586,12 +586,103 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="fTC-3O-D72" kind="relationship" relationship="rootViewController" id="UqA-b2-cTn"/>
+                        <segue destination="u3Q-32-ywr" kind="relationship" relationship="rootViewController" id="mf3-Im-4ye"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sbS-Z5-mjg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="180" y="1375"/>
+        </scene>
+        <!--Statistics View Controller-->
+        <scene sceneID="cei-Sx-Ydu">
+            <objects>
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="u3Q-32-ywr" customClass="StatisticsViewController" customModule="CS_193P_Final_Project" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="lC9-dd-MrS"/>
+                        <viewControllerLayoutGuide type="bottom" id="vi7-xZ-aPd"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Dy4-oV-J1n">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0lt-40-5Xe">
+                                <rect key="frame" x="16" y="72" width="343" height="50"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
+                                <state key="normal" title="Artist Statistics">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
+                                <connections>
+                                    <segue destination="fTC-3O-D72" kind="show" identifier="showArtistStats" id="HPA-Pk-qJN"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hlk-Pa-ZTS">
+                                <rect key="frame" x="16" y="560" width="343" height="50"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
+                                <state key="normal" title="Show Date Statistics">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
+                                <connections>
+                                    <segue destination="VHo-gN-Ubm" kind="show" identifier="showDateStats" id="M9S-Hn-F4S"/>
+                                </connections>
+                            </button>
+                            <datePicker contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="OJN-Qr-Rmn">
+                                <rect key="frame" x="0.0" y="336" width="375" height="216"/>
+                                <date key="date" timeIntervalSinceReferenceDate="511569233.85909897">
+                                    <!--2017-03-18 22:33:53 +0000-->
+                                </date>
+                            </datePicker>
+                        </subviews>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="vi7-xZ-aPd" firstAttribute="top" secondItem="Hlk-Pa-ZTS" secondAttribute="bottom" constant="8" id="2FF-Qy-Tmj"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="Hlk-Pa-ZTS" secondAttribute="leading" id="4uU-Pd-OMX"/>
+                            <constraint firstItem="OJN-Qr-Rmn" firstAttribute="leading" secondItem="Dy4-oV-J1n" secondAttribute="leadingMargin" constant="-16" id="IqC-He-nWS"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="OJN-Qr-Rmn" secondAttribute="trailing" constant="-16" id="ZgW-Y2-Xyk"/>
+                            <constraint firstItem="0lt-40-5Xe" firstAttribute="top" secondItem="lC9-dd-MrS" secondAttribute="bottom" constant="8" id="bGs-7s-8yG"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="0lt-40-5Xe" secondAttribute="leading" id="kUb-EJ-ATz"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Hlk-Pa-ZTS" secondAttribute="trailing" id="pkj-Fu-1pS"/>
+                            <constraint firstItem="Hlk-Pa-ZTS" firstAttribute="top" secondItem="OJN-Qr-Rmn" secondAttribute="bottom" constant="8" id="pqD-Wp-gQw"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="0lt-40-5Xe" secondAttribute="trailing" id="vNc-8M-cQW"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="Vlx-eC-9JL"/>
+                    <connections>
+                        <outlet property="dateSelector" destination="OJN-Qr-Rmn" id="nZi-Wm-pMp"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Js8-Y5-Rg8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1204" y="1374.9625187406298"/>
+        </scene>
+        <!--Date Statistics Table View Controller-->
+        <scene sceneID="moq-Sd-fXp">
+            <objects>
+                <tableViewController id="VHo-gN-Ubm" customClass="DateStatisticsTableViewController" customModule="CS_193P_Final_Project" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="kcj-ko-Ehr">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="fKI-Ec-VRF">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fKI-Ec-VRF" id="2bZ-pD-d0d">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="VHo-gN-Ubm" id="D5c-Bc-DSK"/>
+                            <outlet property="delegate" destination="VHo-gN-Ubm" id="faK-dp-A8n"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dfE-gl-2T5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1204" y="2113"/>
         </scene>
     </scenes>
     <resources>
@@ -605,7 +696,7 @@
         <image name="upload-50.png" width="50" height="50"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="xja-Ot-mFu"/>
-        <segue reference="dby-x0-g84"/>
+        <segue reference="h6U-xj-eU3"/>
+        <segue reference="IUT-6i-Rp6"/>
     </inferredMetricsTieBreakers>
 </document>
