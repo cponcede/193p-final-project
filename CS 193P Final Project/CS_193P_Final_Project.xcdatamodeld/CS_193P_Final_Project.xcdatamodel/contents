@@ -16,7 +16,7 @@
         <relationship name="artist" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Artist" inverseName="songs" inverseEntity="Artist" syncable="YES"/>
     </entity>
     <elements>
-        <element name="SongPlayCount" positionX="306" positionY="-810" width="128" height="148"/>
         <element name="Artist" positionX="520" positionY="-792" width="128" height="103"/>
+        <element name="SongPlayCount" positionX="306" positionY="-810" width="128" height="148"/>
     </elements>
 </model>

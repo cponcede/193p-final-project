@@ -11,7 +11,7 @@ import UIKit
 class StatisticsViewController: UIViewController {
 
     @IBOutlet weak var dateSelector: UIDatePicker!
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Statistics"
@@ -32,7 +32,6 @@ class StatisticsViewController: UIViewController {
                 }
                 if let dateViewController = destinationViewController as? DateStatisticsTableViewController {
                     print("About to segue")
-                    dateViewController.title = date.description
                     dateViewController.date = date
                 }
             }

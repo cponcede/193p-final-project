@@ -45,6 +45,7 @@
 		95BFCED91E68DCAE00B15DB1 /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95BFCED81E68DCAE00B15DB1 /* Song.swift */; };
 		95CF80561E7DDE8100F1F0CF /* StatisticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CF80551E7DDE8100F1F0CF /* StatisticsViewController.swift */; };
 		95CF805A1E7DEF4E00F1F0CF /* DateStatisticsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CF80591E7DEF4E00F1F0CF /* DateStatisticsTableViewController.swift */; };
+		95CF805C1E7DF54700F1F0CF /* SongPlaycountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CF805B1E7DF54700F1F0CF /* SongPlaycountCell.swift */; };
 		95D92ABC1E78FA9100BCCACE /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95D92AB71E78FA4900BCCACE /* Charts.framework */; };
 		95E870AC1E747AB000595476 /* SongPlayCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E870AB1E747AB000595476 /* SongPlayCount.swift */; };
 		95E870AE1E747AD200595476 /* Artist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E870AD1E747AD200595476 /* Artist.swift */; };
@@ -138,6 +139,7 @@
 		95BFCED81E68DCAE00B15DB1 /* Song.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
 		95CF80551E7DDE8100F1F0CF /* StatisticsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatisticsViewController.swift; sourceTree = "<group>"; };
 		95CF80591E7DEF4E00F1F0CF /* DateStatisticsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateStatisticsTableViewController.swift; sourceTree = "<group>"; };
+		95CF805B1E7DF54700F1F0CF /* SongPlaycountCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongPlaycountCell.swift; sourceTree = "<group>"; };
 		95D92AB01E78FA4800BCCACE /* Charts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Charts.xcodeproj; path = "Charts-master/Charts.xcodeproj"; sourceTree = "<group>"; };
 		95E870AB1E747AB000595476 /* SongPlayCount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongPlayCount.swift; sourceTree = "<group>"; };
 		95E870AD1E747AD200595476 /* Artist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Artist.swift; sourceTree = "<group>"; };
@@ -258,6 +260,7 @@
 				957147801E77C6EE0040D1F6 /* AxesDrawer.swift */,
 				95E870AD1E747AD200595476 /* Artist.swift */,
 				95E870B11E748EC700595476 /* FetchedResultsTableViewController.swift */,
+				95CF805B1E7DF54700F1F0CF /* SongPlaycountCell.swift */,
 				95204FE11E66750100EF62C0 /* CS_193P_Final_Project.xcdatamodeld */,
 			);
 			name = Statistics;
@@ -411,6 +414,7 @@
 				957147811E77C6EE0040D1F6 /* AxesDrawer.swift in Sources */,
 				95BCB1301E6916AE00C7DA38 /* SpotifyPlaySongViewController.swift in Sources */,
 				95CF80561E7DDE8100F1F0CF /* StatisticsViewController.swift in Sources */,
+				95CF805C1E7DF54700F1F0CF /* SongPlaycountCell.swift in Sources */,
 				954EDC511E6784F90045B25E /* SpotifyPlaylistsTableViewController.swift in Sources */,
 				9554A6B31E78E902008D2A57 /* StatsGraphView.swift in Sources */,
 				95204FFF1E66C50900EF62C0 /* SpotifyTableViewController.swift in Sources */,

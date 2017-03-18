@@ -30,6 +30,7 @@ class SongPlayCount: NSManagedObject {
         }
         
         let songPlayCount = SongPlayCount(context: context)
+        songPlayCount.title = songPlayed.title!
         songPlayCount.identifier = songPlayed.spotifyURL!.absoluteString
         songPlayCount.month = Int64(month)
         songPlayCount.day = Int64(day)
