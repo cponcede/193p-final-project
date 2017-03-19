@@ -74,11 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CS 193P Final Project/SpotifyTableViewController.swift"
-            timestampString = "510208852.937148"
+            timestampString = "511655605.733552"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "13"
-            endingLineNumber = "13"
+            startingLineNumber = "16"
+            endingLineNumber = "16"
             landmarkName = "SpotifyTableViewController"
             landmarkType = "3">
          </BreakpointContent>

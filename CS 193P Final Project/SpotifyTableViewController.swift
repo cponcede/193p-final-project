@@ -8,14 +8,23 @@
 
 import UIKit
 
-class SpotifyTableViewController: UITableViewController {
+class SpotifyTableViewController: UITableViewController, UISearchBarDelegate {
     
+    @IBOutlet weak var searchBar: UISearchBar!
+    
+    let MAX_SEARCH_RESULTS = 5
     let numSections = 2
     let numShortcuts = 2
     
     var spotifyPlaylists: SPTPlaylistList?
     
     var authData = SpotifyAuthenticationData()
+    
+    var searching : Bool = false {
+        didSet {
+            print("searching = \(searching)")
+        }
+    }
     
     var recents : [Song] = [] {
         didSet {
@@ -27,6 +36,7 @@ class SpotifyTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Spotify"
+        searchBar.delegate = self
         if let returnVal =  UserDefaults.standard.value(forKey: "recents") as? Data {
             if let decodedRecents = NSKeyedUnarchiver.unarchiveObject(with: returnVal) as? [Song] {
                 self.recents = decodedRecents
@@ -263,50 +273,84 @@ class SpotifyTableViewController: UITableViewController {
             }
         }
     }
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        print("Searching")
+        var songSearchResults : [Song] = []
+        var numSongs = 0
+        if let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "SpotifySearchTableViewController") as? SpotifySearchTableViewController {
+            SPTSearch.perform(withQuery: searchBar.text!, queryType: SPTSearchQueryType.queryTypeTrack, accessToken: self.authData.getAccessToken(), callback: {
+                (error, data) in
+                if (error != nil) {
+                    print(error)
+                } else {
+                    for item in (data as! SPTListPage).items {
+                        if numSongs > self.MAX_SEARCH_RESULTS {
+                            break
+                        }
+                        if let song = item as? SPTPartialTrack {
+                            let title = song.name
+                            let album = (song.album as! SPTPartialAlbum).name
+                            var artists: [String] = []
+                            for artist in song.artists {
+                                let artistName = (artist as! SPTPartialArtist).name
+                                artists.append(artistName!)
+                            }
+                            let artistString = artists.joined(separator: " + ")
+                            let artistId = (song.artists[0] as! SPTPartialArtist).identifier
+                            
+                            let spotifyURL = song.playableUri
+                            songSearchResults.append(Song.init(title: title, artist: artistString, artistId: artistId, albumTitle: album, spotifyURL: spotifyURL))
+                            numSongs += 1
+                        }
+                    }
+                    viewController.songs = songSearchResults
+                }
+            })
+            var artistSearchResults : [ArtistData] = []
+            var numArtists = 0
+            SPTSearch.perform(withQuery: searchBar.text!, queryType: SPTSearchQueryType.queryTypeArtist, accessToken: self.authData.getAccessToken(), callback: {
+                (error, data) in
+                if (error != nil) {
+                    print(error)
+                } else {
+                    for item in (data as! SPTListPage).items {
+                        if numArtists > self.MAX_SEARCH_RESULTS {
+                            break
+                        }
+                        if let artist = item as? SPTPartialArtist {
+                            artistSearchResults.append(ArtistData(name: artist.name, spotifyURL: artist.uri.absoluteString))
+                            numArtists += 1
+                        }
+                    }
+                    viewController.artists = artistSearchResults
+                }
+            })
+            
+            SPTSearch.perform(withQuery: searchBar.text!, queryType: SPTSearchQueryType.queryTypeAlbum, accessToken: self.authData.getAccessToken(), callback: {
+                (error, data) in
+                if (error != nil) {
+                    print(error)
+                } else {
+                    var albumSearchResults : [Playlist] = []
+                    var numAlbums = 0
+                    for item in (data as! SPTListPage).items {
+                        if numAlbums > self.MAX_SEARCH_RESULTS {
+                            break
+                        }
+                        if let album = item as? SPTPartialAlbum {
+                            albumSearchResults.append(Playlist(title: album.name, spotifyUri: album.playableUri.absoluteString))
+                            numAlbums += 1
+                        }
+                    }
+                    viewController.albums = albumSearchResults
+                }
+            })
+            if let navigator = navigationController {
+                print("segue")
+                navigator.pushViewController(viewController, animated: true)
+            }
+        }
+        
     }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
