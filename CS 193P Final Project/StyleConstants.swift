@@ -12,7 +12,7 @@ import UIKit
 // Static style constants used by a variety of view controllers.
 class StyleConstants {
     static let headerColor = UIColor.init(red: 147.0/255, green: 215.0/255, blue: 188.0/255, alpha: 0.8)
-    static let headerBackgroundColor = UIColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.1)
+    static let headerBackgroundColor = UIColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.3)
     static let cellBackgroundColor = UIColor.darkGray
     static let cellTextColor = UIColor.lightText
     static let labelStyleAttributes : [String: Any] = [NSStrokeColorAttributeName : UIColor.black,
