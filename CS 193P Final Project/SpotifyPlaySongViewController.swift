@@ -20,6 +20,11 @@ class SpotifyPlaySongViewController: UIViewController {
     @IBOutlet weak var positionView: UIProgressView!
     @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var pauseButton: UIButton!
+    @IBOutlet weak var skipButton: UIButton!
+    @IBOutlet weak var prevButton: UIButton!
+    @IBOutlet weak var bottomBlackBar: UIView!
+    @IBOutlet weak var topBlackBar: UIView!
+
     
     // Songs to play
     var songs: [Song]? {
@@ -35,6 +40,8 @@ class SpotifyPlaySongViewController: UIViewController {
     var authData: SpotifyAuthenticationData!
     
     var playlistIndex : Int!
+    
+    var uiDisplayed = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,6 +58,7 @@ class SpotifyPlaySongViewController: UIViewController {
         self.viewDisplayed = true
         if (self.songs != nil && !self.songs!.isEmpty) || audioPlayer.currentlyPlaying != nil {
             noSongPlayingView.isHidden = true
+            /*
             if audioPlayer.isPlaying != nil && audioPlayer.isPlaying! {
                 self.pauseButton.isHidden = false
                 self.playButton.isHidden = true
@@ -58,7 +66,7 @@ class SpotifyPlaySongViewController: UIViewController {
                 self.pauseButton.isHidden = true
                 self.playButton.isHidden = false
             }
-            
+            */
             trackProgress()
         } else {
             noSongPlayingView.isHidden = false
@@ -78,6 +86,18 @@ class SpotifyPlaySongViewController: UIViewController {
             return "0\(input)"
         }
         return input
+    }
+    
+    private func displayBaseUI() {
+        self.pauseButton.isHidden = false
+        self.currTimeLabel.isHidden = false
+        self.maxTimeLabel.isHidden = false
+        self.positionView.isHidden = false
+        self.prevButton.isHidden = false
+        self.skipButton.isHidden = false
+        self.topBlackBar.isHidden = false
+        self.bottomBlackBar.isHidden = false
+        self.uiDisplayed = true
     }
     
     // Queries the AudioPlayer for song progress and updates UI accordingly.
@@ -117,6 +137,9 @@ class SpotifyPlaySongViewController: UIViewController {
                         DispatchQueue.main.async {
                             if self.audioPlayer.player == nil || self.audioPlayer.player!.metadata.currentTrack == nil {
                                 return
+                            }
+                            if !self.uiDisplayed {
+                                self.displayBaseUI()
                             }
                             self.songTitleLabel.attributedText = NSAttributedString(string: self.audioPlayer.player!.metadata.currentTrack!.name, attributes: StyleConstants.labelStyleAttributes)
                             self.artistNameLabel.attributedText = NSAttributedString(string: self.audioPlayer.player!.metadata.currentTrack!.artistName, attributes: StyleConstants.labelStyleAttributes)
