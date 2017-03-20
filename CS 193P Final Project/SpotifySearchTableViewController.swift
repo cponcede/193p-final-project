@@ -1,4 +1,4 @@
-//
+//  ViewController used to display Spotify search results.
 //  SpotifySearchTableViewController.swift
 //  CS 193P Final Project
 //
@@ -16,21 +16,18 @@ class SpotifySearchTableViewController: UITableViewController {
     
     var songs : [Song]? {
         didSet {
-            print("songs set")
             updateUI()
         }
     }
     
     var artists : [ArtistData]? {
         didSet {
-            print("artists set")
             updateUI()
         }
     }
     
     var albums : [Playlist]? {
         didSet {
-            print("albums set")
             updateUI()
         }
     }
@@ -141,9 +138,8 @@ class SpotifySearchTableViewController: UITableViewController {
         let albumUri = albums![row].spotifyUri
         SPTAlbum.album(withURI: URL(string: albumUri!), accessToken: self.authData!.getAccessToken(), market: "US", callback: {(error, data) in
             if error == nil {
-                print(data)
                 if let album = data as? SPTAlbum,
-                    let firstPage = (album.firstTrackPage as? SPTListPage) {
+                    let firstPage = album.firstTrackPage {
                     if firstPage.items == nil {
                         return
                     }
@@ -166,7 +162,7 @@ class SpotifySearchTableViewController: UITableViewController {
                     self.getMoreAlbumSongs(destinationViewController: destinationViewController, currentPage: firstPage, albumName: album.name)
                 }
             } else {
-                print("SpotifySearchTableViewController.Error: Getting getAlbumSongs returned error")
+                print("SpotifySearchTableViewController.Error: getAlbumSongs returned error")
             }
         })
     }
@@ -224,8 +220,8 @@ class SpotifySearchTableViewController: UITableViewController {
             if let navigationController = destinationViewController as? UINavigationController {
                 destinationViewController = navigationController.visibleViewController ?? destinationViewController
             }
+            // Segue to play songs
             if id == "subtitleCell" {
-                
                 if let playSongViewController = destinationViewController as? SpotifyPlaySongViewController {
                     playSongViewController.authData = self.authData
                     let row = tableView.indexPath(for: cell)!.row
@@ -233,6 +229,7 @@ class SpotifySearchTableViewController: UITableViewController {
                     playSongViewController.songs = self.songs
                     playSongViewController.title = self.title! + " songs"
                 }
+            // Segue to album
             } else if id == "basicCell" {
                 if tableView.indexPath(for: cell)!.section == 2 {
                     if let songsTableViewController = destinationViewController as? SpotifySongsTableViewController{
@@ -243,15 +240,14 @@ class SpotifySearchTableViewController: UITableViewController {
                         getAlbumSongs(destinationViewController: songsTableViewController, row: row)
                     }
                 }
+            // Segue to artist's albums
             } else if id == "artistCell" {
                 print("HERE")
                 if let playlistsTableViewController = destinationViewController as? SpotifyPlaylistsTableViewController {
-                    print("In segue")
                     playlistsTableViewController.authData = self.authData
                     playlistsTableViewController.title = artists![tableView.indexPath(for: cell)!.row].name! + " Albums"
                     playlistsTableViewController.displayingAlbums = true
                     getArtistAlbums(destinationViewController: playlistsTableViewController, artist: artists![tableView.indexPath(for: cell)!.row])
-                    print ("SEGUE WORKED!")
                 }
             }
         }

@@ -8,6 +8,7 @@
 
 import Foundation
 
+// Structure containing important information for an artist.
 struct ArtistData {
     var name: String?
     var spotifyURL : String?

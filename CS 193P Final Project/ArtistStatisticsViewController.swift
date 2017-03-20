@@ -18,10 +18,6 @@ class ArtistStatisticsViewController: UIViewController, UITableViewDataSource, U
     
     private var cachedPlaybackData : [String : Int]?
     
-    // Get American representatino of date as String
-    private static func getDateString(day : Int, month : Int, year : Int) -> String {
-        return "\(month)/\(day)/\(year)"
-    }
     
     // Map from year -> (Map from month -> (Map from day -> play count))
     var songPlayStatistics = SongPlayStatistics()
@@ -59,12 +55,10 @@ class ArtistStatisticsViewController: UIViewController, UITableViewDataSource, U
         graphView!.backgroundColor = UIColor.darkGray
         graphView!.leftAxis.axisMinimum = 0.0
         graphView!.rightAxis.drawGridLinesEnabled = false
-        //graphView!.leftAxis.granularity = 2.0
         graphView!.xAxis.granularity = granularity
     }
     
     private func updateUI() {
-        print("Updating UI")
         if graphView != nil && artist != nil {
             let (_, yVals, dates, label, granularity) = songPlayStatistics.getGraphStats()
             var dataEntries : [BarChartDataEntry] = []

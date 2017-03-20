@@ -17,16 +17,13 @@ class SpotifyPlaySongViewController: UIViewController {
     @IBOutlet weak var songTitleLabel: UILabel!
     @IBOutlet weak var maxTimeLabel: UILabel!
     @IBOutlet weak var artistNameLabel: UILabel!
-    
     @IBOutlet weak var positionView: UIProgressView!
-    
     @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var pauseButton: UIButton!
     
-    
+    // Songs to play
     var songs: [Song]? {
         didSet {
-            print("Songs was set")
             login()
         }
     }
@@ -47,13 +44,12 @@ class SpotifyPlaySongViewController: UIViewController {
     }
     
     override func viewDidDisappear(_ animated: Bool) {
-        self.viewDisplayed = true
+        self.viewDisplayed = false
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        print("SONG PLAY VWA")
+        self.viewDisplayed = true
         if (self.songs != nil && !self.songs!.isEmpty) || audioPlayer.currentlyPlaying != nil {
-            print("Tracking progress in VWA")
             noSongPlayingView.isHidden = true
             if audioPlayer.isPlaying != nil && audioPlayer.isPlaying! {
                 self.pauseButton.isHidden = false
@@ -65,7 +61,6 @@ class SpotifyPlaySongViewController: UIViewController {
             
             trackProgress()
         } else {
-            print("No currently playing track in VWA")
             noSongPlayingView.isHidden = false
         }
     }
@@ -85,6 +80,7 @@ class SpotifyPlaySongViewController: UIViewController {
         return input
     }
     
+    // Queries the AudioPlayer for song progress and updates UI accordingly.
     private func trackProgress() {
         DispatchQueue.global(qos: .background).async {
             while (true) {
@@ -93,24 +89,22 @@ class SpotifyPlaySongViewController: UIViewController {
                     print("Leaving trackProgress")
                     return
                 }
-                
                 if (self.audioPlayer.isPlaying != nil && self.audioPlayer.isPlaying == true) {
-                    //print("tracking")
                     // In the following cases, do not track UI
                     if self.audioPlayer.player == nil ||
                         self.audioPlayer.player!.metadata.currentTrack == nil ||
                         self.isViewLoaded == false ||
                         self.view.window == nil {
-                        usleep(100)
+                        usleep(1000)
                         continue
                     }
                     if let (songProgress, songTime) = self.audioPlayer.getSongProgress() {
                         if songProgress == nil || songTime == nil {
-                            usleep(100)
+                            usleep(1000)
                             continue
                         }
                         if self.audioPlayer.player == nil || self.audioPlayer.player!.metadata.currentTrack == nil {
-                            usleep(100)
+                            usleep(1000)
                             continue
                         }
                         let duration = (self.audioPlayer.player?.metadata.currentTrack?.duration)!
@@ -150,20 +144,16 @@ class SpotifyPlaySongViewController: UIViewController {
                     } else {
                         print("SpotifyPlaySongViewController: Error getting song progress")
                     }
-                    // TODO: figure out if this should be in a different queue
                     usleep(1000)
-                }
-                else {
-                    //print("Not tracking")
                 }
             }
         }
         
     }
     
-    
     @IBAction func skipSong(_ sender: UIButton) {
         audioPlayer.skipNext()
+        // Sleep to avoid multiple accidental clicks
         usleep(200)
     }
     
@@ -184,17 +174,5 @@ class SpotifyPlaySongViewController: UIViewController {
         self.pauseButton.isHidden = false
         self.playButton.isHidden = true
     }
-
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

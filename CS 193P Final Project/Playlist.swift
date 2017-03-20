@@ -9,8 +9,8 @@
 import Foundation
 import UIKit
 
+// Structure containing important information for a playlist.
 struct Playlist {
-    
     var title: String?
     var spotifyUri : String?
     

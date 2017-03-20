@@ -10,7 +10,8 @@ import Foundation
 
 class SongPlayStatistics {
     
-    private let daysInMonth = [1: 31,
+    // Static dictionary used for getting number of days in each month
+    private static let daysInMonth = [1: 31,
                                2: 28,
                                3: 31,
                                4: 30,
@@ -60,6 +61,7 @@ class SongPlayStatistics {
             return yearlyData[year]![month]![day]!
         }
     }
+    
     /*
      * Converts yearly stats into data that can be graphed by the ios-charts
      * API. Returns (xValues, yValues, datesForEachXValue, label, granularity).
@@ -78,7 +80,7 @@ class SongPlayStatistics {
             if monthsWithData.keys.count == 1 {
                 var dayCount = 1
                 for month in monthsWithData.keys {
-                    for day in 1...daysInMonth[month]! {
+                    for day in 1...SongPlayStatistics.daysInMonth[month]! {
                         if yearlyData[firstYear]![month]![day] != nil {
                             xVals.append(dayCount)
                             yVals.append(yearlyData[firstYear]![month]![day]!)

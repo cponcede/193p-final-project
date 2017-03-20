@@ -1,4 +1,4 @@
-//
+//  Provided by instructors for Smashtag assignment
 //  FetchedResultsTableViewController.swift
 //  SmashtagA5
 //

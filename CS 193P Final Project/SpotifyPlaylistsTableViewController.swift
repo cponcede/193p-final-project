@@ -15,15 +15,13 @@ class SpotifyPlaylistsTableViewController: UITableViewController {
     
     var playlists: [Playlist] = []
     
-    var imageViewConstraints: [NSLayoutConstraint]?
-    
     var numPlaylists = 0
     
+    // Boolean used to indicate whether the playlists being displayed are actually albums
     var displayingAlbums : Bool = false
     
     var doneSettingPlaylists = false {
         didSet {
-            print("In did set")
             self.tableView.tableHeaderView?.frame = CGRect(x: 0, y: 0, width: tableView.frame.width, height: 0)
             self.tableView.tableHeaderView = self.tableView.tableHeaderView // necessary to really set the frame
             tableView.separatorStyle = UITableViewCellSeparatorStyle.singleLine
@@ -40,19 +38,16 @@ class SpotifyPlaylistsTableViewController: UITableViewController {
         print(tableView.center)
     }
 
-    // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("Returning \(numPlaylists)")
         return playlists.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        print("Loading cell")
         let cell = tableView.dequeueReusableCell(withIdentifier: "playlistCell")
         cell?.textLabel?.text = playlists[indexPath.row].title
         return cell!
@@ -67,7 +62,6 @@ class SpotifyPlaylistsTableViewController: UITableViewController {
     
     
     func getMorePlaylistSongs(destinationViewController : SpotifySongsTableViewController, currentPage : SPTListPage) {
-        print("getMorePlaylistSongs")
         if currentPage.hasNextPage {
             currentPage.requestNextPage(withAccessToken: self.authData.getAccessToken(), callback: {
                 (error, data) in
@@ -95,22 +89,18 @@ class SpotifyPlaylistsTableViewController: UITableViewController {
                         self.getMorePlaylistSongs(destinationViewController: destinationViewController, currentPage: songs)
                     }
                 } else {
-                    print("Error retrieving saved tracks for user")
-                    print(error)
+                    print("SpotifyPlaylistsTableViewController.Error: Getting more playlist songs")
                     return
                 }
             })
             
             
         } else {
-            // Set flag to done
-            print("Done loading playlist songs")
             destinationViewController.songsDoneLoading = true
         }
     }
     
     func getPlaylistSongs(destinationViewController : SpotifySongsTableViewController, row: Int) {
-        print("getPlaylistSongs")
         let playlistUri = playlists[row].spotifyUri
         SPTPlaylistSnapshot.playlist(withURI: URL(string: playlistUri!), accessToken: self.authData.getAccessToken(), callback: {
             (error, data) in
@@ -142,13 +132,11 @@ class SpotifyPlaylistsTableViewController: UITableViewController {
                 }
             } else {
                 print("SpotifyPlaylistsTableViewController Error: playlist return error")
-                print(error)
             }
         })
     }
     
     func getMoreAlbumSongs(destinationViewController : SpotifySongsTableViewController, currentPage : SPTListPage, albumName: String) {
-        print("getMorePlaylistSongs")
         if currentPage.hasNextPage {
             currentPage.requestNextPage(withAccessToken: self.authData!.getAccessToken(), callback: {
                 (error, data) in
@@ -176,26 +164,21 @@ class SpotifyPlaylistsTableViewController: UITableViewController {
                         self.getMoreAlbumSongs(destinationViewController: destinationViewController, currentPage: songs, albumName: albumName)
                     }
                 } else {
-                    print(error)
-                    return
+                    print("SpotifyPlaylistsTableViewController.Error: getting more album songs returned error.")
                 }
             })
             
         } else {
-            // Set flag to done
-            print("Done loading album songs")
             destinationViewController.songsDoneLoading = true
         }
     }
     
     func getAlbumSongs(destinationViewController : SpotifySongsTableViewController, row: Int) {
-        print("getPlaylistSongs")
         let albumUri = playlists[row].spotifyUri
         SPTAlbum.album(withURI: URL(string: albumUri!), accessToken: self.authData!.getAccessToken(), market: "US", callback: {(error, data) in
             if error == nil {
-                print(data)
                 if let album = data as? SPTAlbum,
-                    let firstPage = (album.firstTrackPage as? SPTListPage) {
+                    let firstPage = album.firstTrackPage {
                     if firstPage.items == nil {
                         return
                     }
@@ -219,8 +202,7 @@ class SpotifyPlaylistsTableViewController: UITableViewController {
                     
                 }
             } else {
-                print("SpotifyPlaylistsTableViewController Error: album return error")
-                print(error)
+                print("SpotifyPlaylistsTableViewController.Error: album return error")
             }
         })
     }
@@ -235,7 +217,6 @@ class SpotifyPlaylistsTableViewController: UITableViewController {
                     destinationViewController = navigationController.visibleViewController ?? destinationViewController
                 }
                 if let songsTableViewController = destinationViewController as? SpotifySongsTableViewController {
-                    print("About to segue")
                     songsTableViewController.authData = self.authData
                     songsTableViewController.title = cell.textLabel?.text
                     songsTableViewController.songs = []

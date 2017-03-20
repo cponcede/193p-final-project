@@ -1,4 +1,4 @@
-//
+//  Base controller for navigating through Spotify.
 //  SpotifyTableTableViewController.swift
 //  CS 193P Final Project
 //
@@ -13,18 +13,10 @@ class SpotifyTableViewController: UITableViewController, UISearchBarDelegate {
     @IBOutlet weak var searchBar: UISearchBar!
     
     let MAX_SEARCH_RESULTS = 5
-    let numSections = 2
-    let numShortcuts = 2
-    
-    var spotifyPlaylists: SPTPlaylistList?
+    let NUM_SECTIONS = 2
+    let NUM_SHORTCUTS = 2
     
     var authData = SpotifyAuthenticationData()
-    
-    var searching : Bool = false {
-        didSet {
-            print("searching = \(searching)")
-        }
-    }
     
     var recents : [Song] = [] {
         didSet {
@@ -42,11 +34,6 @@ class SpotifyTableViewController: UITableViewController, UISearchBarDelegate {
                 self.recents = decodedRecents
             }
         }
-        if self.recents.isEmpty {
-            print("recents empty")
-        } else {
-            print(recents.count)
-        }
         authData.getNewSession()
     }
     
@@ -56,9 +43,6 @@ class SpotifyTableViewController: UITableViewController, UISearchBarDelegate {
             if let decodedRecents = NSKeyedUnarchiver.unarchiveObject(with: returnVal) as? [Song] {
                 self.recents = decodedRecents
             }
-        }
-        if self.recents.isEmpty {
-            print("recents empty")
         }
     }
     
@@ -73,15 +57,14 @@ class SpotifyTableViewController: UITableViewController, UISearchBarDelegate {
                         destinationViewController.numPlaylists += 1
                         destinationViewController.playlists.append(Playlist(title: title, spotifyUri: partialPlaylist.uri.absoluteString))
                     }
-                    print("Adding \(sptPlaylists.items.count) playlists")
                     //destinationViewController.playlists.append(newPlaylists)
                     if newPlaylists.hasNextPage {
                         self.getMorePlaylists(sptPlaylists: newPlaylists, destinationViewController: destinationViewController)
                     } else {
                         destinationViewController.doneSettingPlaylists = true
                     }
-                    } else {
-                    print("Error retrieving spotify playlists")
+                } else {
+                    print("SpotifyTableViewController.Error: Retrieving more Spotify playlists")
                 }
             })
         }
@@ -89,10 +72,9 @@ class SpotifyTableViewController: UITableViewController, UISearchBarDelegate {
     }
     
     func getUserPlaylists(destinationViewController: SpotifyPlaylistsTableViewController) {
-            SPTPlaylistList.playlists(forUser: authData.getCanonicalUsername(), withAccessToken: authData.getAccessToken(), callback: { (error, playlists) in
+        SPTPlaylistList.playlists(forUser: authData.getCanonicalUsername(), withAccessToken: authData.getAccessToken(), callback: { (error, playlists) in
                 if (error == nil) {
                     let sptPlaylists = playlists as! SPTListPage
-                    print("Adding \(sptPlaylists.items.count) playlists")
                     for playlist in sptPlaylists.items {
                         let partialPlaylist = playlist as! SPTPartialPlaylist
                         let title = partialPlaylist.name
@@ -107,7 +89,7 @@ class SpotifyTableViewController: UITableViewController, UISearchBarDelegate {
                     }
                     
                 } else {
-                    print("Error retrieving spotify playlists")
+                    print("SpotifyTableViewController.Error: Retrieving Spotify playlists")
                 }
             })
     }
@@ -138,8 +120,7 @@ class SpotifyTableViewController: UITableViewController, UISearchBarDelegate {
                         self.getMoreSongs(currentPage: songs, destinationViewController: destinationViewController)
                     }
                 } else {
-                    print("Error retrieving saved tracks for user")
-                    return
+                    print("SpotifyTableViewController.Error: Retrieving more saved tracks for user")
                 }
             })
             
@@ -151,7 +132,6 @@ class SpotifyTableViewController: UITableViewController, UISearchBarDelegate {
     }
     
     func retrieveUserLibrary(destinationViewController: SpotifySongsTableViewController) {
-        print("IN RETRIVE USER LIBRARY")
         SPTYourMusic.savedTracksForUser(withAccessToken: self.authData.getAccessToken(), callback: {
             (error, data) in
             if (error == nil) {
@@ -176,9 +156,7 @@ class SpotifyTableViewController: UITableViewController, UISearchBarDelegate {
                     self.getMoreSongs(currentPage: songs, destinationViewController: destinationViewController)
                 }
             } else {
-                print("Error retrieving saved tracks for user")
-                print(error)
-                return
+                print("SpotifyTableViewController.Error: Retrieving saved tracks for user")
             }
             
         })
@@ -188,7 +166,7 @@ class SpotifyTableViewController: UITableViewController, UISearchBarDelegate {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return numSections
+        return NUM_SECTIONS
     }
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 0 {
@@ -202,7 +180,7 @@ class SpotifyTableViewController: UITableViewController, UISearchBarDelegate {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
-            return numShortcuts
+            return NUM_SHORTCUTS
         } else if section == 1 {
             return recents.count
         } else {
@@ -251,9 +229,7 @@ class SpotifyTableViewController: UITableViewController, UISearchBarDelegate {
                     playlistsTableViewController.authData = self.authData
                     getUserPlaylists(destinationViewController: playlistsTableViewController)
                     destinationViewController.title = "Spotify Playlists"
-                    print ("SEGUE WORKED!")
                 }
-                
             } else if (id == "songs") {
                 if let songsTableViewController = destinationViewController as? SpotifySongsTableViewController {
                     //playlistsTableViewController.playlists = getUserPlaylists()
@@ -261,10 +237,8 @@ class SpotifyTableViewController: UITableViewController, UISearchBarDelegate {
                     songsTableViewController.authData = self.authData
                     retrieveUserLibrary(destinationViewController: songsTableViewController)
                 }
-                
             } else if (id == "recent") {
                 if let playSongViewController = destinationViewController as? SpotifyPlaySongViewController {
-                    print("in segue")
                     playSongViewController.authData = self.authData
                     let row = tableView.indexPath(for: cell)!.row
                     playSongViewController.playlistIndex = row
@@ -280,14 +254,13 @@ class SpotifyTableViewController: UITableViewController, UISearchBarDelegate {
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        print("Searching")
         var songSearchResults : [Song] = []
         var numSongs = 0
         if let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "SpotifySearchTableViewController") as? SpotifySearchTableViewController {
             SPTSearch.perform(withQuery: searchBar.text!, queryType: SPTSearchQueryType.queryTypeTrack, accessToken: self.authData.getAccessToken(), callback: {
                 (error, data) in
                 if (error != nil) {
-                    print(error)
+                    print("SpotifyTableViewController.Error: Searching for songs")
                 } else {
                     let page = data as? SPTListPage
                     if page != nil && page!.items != nil {
@@ -297,7 +270,7 @@ class SpotifyTableViewController: UITableViewController, UISearchBarDelegate {
                             }
                             if let song = item as? SPTPartialTrack {
                                 let title = song.name
-                                let album = (song.album as! SPTPartialAlbum).name
+                                let album = (song.album as SPTPartialAlbum).name
                                 var artists: [String] = []
                                 for artist in song.artists {
                                     let artistName = (artist as! SPTPartialArtist).name
@@ -320,7 +293,7 @@ class SpotifyTableViewController: UITableViewController, UISearchBarDelegate {
             SPTSearch.perform(withQuery: searchBar.text!, queryType: SPTSearchQueryType.queryTypeArtist, accessToken: self.authData.getAccessToken(), callback: {
                 (error, data) in
                 if (error != nil) {
-                    print(error)
+                    print("SpotifyTableViewController.Error: Searching for artists")
                 } else {
                     let page = data as? SPTListPage
                     if page != nil && page!.items != nil {
@@ -341,7 +314,7 @@ class SpotifyTableViewController: UITableViewController, UISearchBarDelegate {
             SPTSearch.perform(withQuery: searchBar.text!, queryType: SPTSearchQueryType.queryTypeAlbum, accessToken: self.authData.getAccessToken(), callback: {
                 (error, data) in
                 if (error != nil) {
-                    print(error)
+                    print("SpotifyTableViewController.Error: Searching for albums")
                 } else {
                     var albumSearchResults : [Playlist] = []
                     var numAlbums = 0

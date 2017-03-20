@@ -8,6 +8,7 @@
 
 import UIKit
 
+// Class used to display list of songs (could be an album, a playlist, or user's library
 class SpotifySongsTableViewController: UITableViewController, UIAlertViewDelegate {
     
     var authData: SpotifyAuthenticationData!
@@ -20,7 +21,6 @@ class SpotifySongsTableViewController: UITableViewController, UIAlertViewDelegat
     
     var songsDoneLoading = false {
         didSet {
-            print("In didSet of songsDoneLoading")
             tableView.separatorStyle = UITableViewCellSeparatorStyle.singleLine
             tableView.reloadData()
             return
@@ -31,8 +31,6 @@ class SpotifySongsTableViewController: UITableViewController, UIAlertViewDelegat
         super.viewDidLoad()
         tableView.separatorStyle = UITableViewCellSeparatorStyle.none
     }
-
-    // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -46,16 +44,14 @@ class SpotifySongsTableViewController: UITableViewController, UIAlertViewDelegat
         if buttonIndex == 0 {
             alertView.dismiss(withClickedButtonIndex: 0, animated: true)
             audioPlayer.queueSong(songToQueue!)
-            print("QUEUE")
         } else {
             alertView.dismiss(withClickedButtonIndex: 1, animated: true)
-            print("CANCEL")
             songToQueue = nil
         }
     }
     
+    // Allow users to queue songs by swiping left.
     func handleSwipe(recognizer: UISwipeGestureRecognizer) {
-        print("Queueing song")
         if let cell = recognizer.view as? UITableViewCell {
             songToQueue = songs[tableView.indexPath(for: cell)!.row]
             let alert = UIAlertView.init(title: "Queue song?", message: songToQueue!.title!, delegate: self, cancelButtonTitle: "OK", otherButtonTitles: "Cancel")

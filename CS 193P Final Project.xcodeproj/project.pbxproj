@@ -11,7 +11,6 @@
 		950822981E762FDB00C3F37A /* StyleConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 950822971E762FDB00C3F37A /* StyleConstants.swift */; };
 		951A8E3C1E7B55D2005B958D /* upload-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 951A8E3B1E7B55D2005B958D /* upload-50.png */; };
 		95204FDB1E66750100EF62C0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95204FDA1E66750100EF62C0 /* AppDelegate.swift */; };
-		95204FDD1E66750100EF62C0 /* SpotifyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95204FDC1E66750100EF62C0 /* SpotifyViewController.swift */; };
 		95204FE01E66750100EF62C0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 95204FDE1E66750100EF62C0 /* Main.storyboard */; };
 		95204FE31E66750100EF62C0 /* CS_193P_Final_Project.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 95204FE11E66750100EF62C0 /* CS_193P_Final_Project.xcdatamodeld */; };
 		95204FE51E66750100EF62C0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 95204FE41E66750100EF62C0 /* Assets.xcassets */; };
@@ -27,17 +26,16 @@
 		953C592B1E7F3A5200D5EC0F /* ArtistData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953C592A1E7F3A5200D5EC0F /* ArtistData.swift */; };
 		953C592D1E7F407300D5EC0F /* SpotifySearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953C592C1E7F407300D5EC0F /* SpotifySearchTableViewController.swift */; };
 		953C592F1E7F4FD300D5EC0F /* Album.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953C592E1E7F4FD300D5EC0F /* Album.swift */; };
+		953C59331E7F762B00D5EC0F /* AppIcon.appiconset in Resources */ = {isa = PBXBuildFile; fileRef = 953C59321E7F762B00D5EC0F /* AppIcon.appiconset */; };
 		954AFA2B1E67CB6B0085B378 /* Playlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954AFA2A1E67CB6B0085B378 /* Playlist.swift */; };
 		954EDC511E6784F90045B25E /* SpotifyPlaylistsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954EDC501E6784F90045B25E /* SpotifyPlaylistsTableViewController.swift */; };
 		954EDC551E67AFAC0045B25E /* SpotifySongsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954EDC541E67AFAC0045B25E /* SpotifySongsTableViewController.swift */; };
-		9554A6B31E78E902008D2A57 /* StatsGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9554A6B21E78E902008D2A57 /* StatsGraphView.swift */; };
 		9554A6B51E78E9F4008D2A57 /* Circled Pause-50new.png in Resources */ = {isa = PBXBuildFile; fileRef = 9554A6B41E78E9F4008D2A57 /* Circled Pause-50new.png */; };
 		9554A6B71E78ECD7008D2A57 /* Circled Play-50new.png in Resources */ = {isa = PBXBuildFile; fileRef = 9554A6B61E78ECD7008D2A57 /* Circled Play-50new.png */; };
 		9554A6B91E78ECE0008D2A57 /* Skip to Start-51new.png in Resources */ = {isa = PBXBuildFile; fileRef = 9554A6B81E78ECE0008D2A57 /* Skip to Start-51new.png */; };
 		9554A6BB1E78ECE8008D2A57 /* Skip to-51new.png in Resources */ = {isa = PBXBuildFile; fileRef = 9554A6BA1E78ECE8008D2A57 /* Skip to-51new.png */; };
 		9557B5651E6CE8E6003FF691 /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9557B5641E6CE8E6003FF691 /* AudioPlayer.swift */; };
 		9571477F1E77C1250040D1F6 /* SongPlayStatistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9571477E1E77C1250040D1F6 /* SongPlayStatistics.swift */; };
-		957147811E77C6EE0040D1F6 /* AxesDrawer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957147801E77C6EE0040D1F6 /* AxesDrawer.swift */; };
 		957C50C61E712C4B00FC1F0A /* spotify-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 957C50C31E712C4B00FC1F0A /* spotify-icon@2x.png */; };
 		957C50C71E712C4B00FC1F0A /* spotify-icon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 957C50C41E712C4B00FC1F0A /* spotify-icon@3x.png */; };
 		957C50C91E7136F100FC1F0A /* spotify-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 957C50C81E7136F100FC1F0A /* spotify-icon.png */; };
@@ -108,7 +106,6 @@
 		951A8E3B1E7B55D2005B958D /* upload-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "upload-50.png"; path = "Images/upload-50.png"; sourceTree = SOURCE_ROOT; };
 		95204FD71E66750100EF62C0 /* CS 193P Final Project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CS 193P Final Project.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		95204FDA1E66750100EF62C0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		95204FDC1E66750100EF62C0 /* SpotifyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyViewController.swift; sourceTree = "<group>"; };
 		95204FDF1E66750100EF62C0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		95204FE21E66750100EF62C0 /* CS_193P_Final_Project.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CS_193P_Final_Project.xcdatamodel; sourceTree = "<group>"; };
 		95204FE41E66750100EF62C0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -124,17 +121,16 @@
 		953C592A1E7F3A5200D5EC0F /* ArtistData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArtistData.swift; sourceTree = "<group>"; };
 		953C592C1E7F407300D5EC0F /* SpotifySearchTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotifySearchTableViewController.swift; sourceTree = "<group>"; };
 		953C592E1E7F4FD300D5EC0F /* Album.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Album.swift; sourceTree = "<group>"; };
+		953C59321E7F762B00D5EC0F /* AppIcon.appiconset */ = {isa = PBXFileReference; lastKnownFileType = folder; path = AppIcon.appiconset; sourceTree = "<group>"; };
 		954AFA2A1E67CB6B0085B378 /* Playlist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Playlist.swift; sourceTree = "<group>"; };
 		954EDC501E6784F90045B25E /* SpotifyPlaylistsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotifyPlaylistsTableViewController.swift; sourceTree = "<group>"; };
 		954EDC541E67AFAC0045B25E /* SpotifySongsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotifySongsTableViewController.swift; sourceTree = "<group>"; };
-		9554A6B21E78E902008D2A57 /* StatsGraphView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatsGraphView.swift; sourceTree = "<group>"; };
 		9554A6B41E78E9F4008D2A57 /* Circled Pause-50new.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Circled Pause-50new.png"; path = "Images/Circled Pause-50new.png"; sourceTree = SOURCE_ROOT; };
 		9554A6B61E78ECD7008D2A57 /* Circled Play-50new.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Circled Play-50new.png"; path = "Images/Circled Play-50new.png"; sourceTree = SOURCE_ROOT; };
 		9554A6B81E78ECE0008D2A57 /* Skip to Start-51new.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Skip to Start-51new.png"; path = "Images/Skip to Start-51new.png"; sourceTree = SOURCE_ROOT; };
 		9554A6BA1E78ECE8008D2A57 /* Skip to-51new.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Skip to-51new.png"; path = "Images/Skip to-51new.png"; sourceTree = SOURCE_ROOT; };
 		9557B5641E6CE8E6003FF691 /* AudioPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
 		9571477E1E77C1250040D1F6 /* SongPlayStatistics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongPlayStatistics.swift; sourceTree = "<group>"; };
-		957147801E77C6EE0040D1F6 /* AxesDrawer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AxesDrawer.swift; sourceTree = "<group>"; };
 		957C50C31E712C4B00FC1F0A /* spotify-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "spotify-icon@2x.png"; path = "../Images/spotify-icon@2x.png"; sourceTree = "<group>"; };
 		957C50C41E712C4B00FC1F0A /* spotify-icon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "spotify-icon@3x.png"; path = "../Images/spotify-icon@3x.png"; sourceTree = "<group>"; };
 		957C50C81E7136F100FC1F0A /* spotify-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "spotify-icon.png"; path = "../Images/spotify-icon.png"; sourceTree = "<group>"; };
@@ -199,6 +195,7 @@
 				95E870B41E74928900595476 /* Generic */,
 				95E870B31E74925E00595476 /* Spotify */,
 				95204FDE1E66750100EF62C0 /* Main.storyboard */,
+				953C59321E7F762B00D5EC0F /* AppIcon.appiconset */,
 				95204FE41E66750100EF62C0 /* Assets.xcassets */,
 				95204FE61E66750100EF62C0 /* LaunchScreen.storyboard */,
 				95204FE91E66750100EF62C0 /* Info.plist */,
@@ -234,7 +231,6 @@
 				95BCB12F1E6916AE00C7DA38 /* SpotifyPlaySongViewController.swift */,
 				953C59281E7F35C800D5EC0F /* SpotifyTableViewController.swift */,
 				953C592C1E7F407300D5EC0F /* SpotifySearchTableViewController.swift */,
-				95204FDC1E66750100EF62C0 /* SpotifyViewController.swift */,
 				95BCB1311E691AA200C7DA38 /* SpotifyAuthenticationData.swift */,
 				95204FFA1E6689E000EF62C0 /* CS 193P Final Project-Bridging-Header.h */,
 				954EDC541E67AFAC0045B25E /* SpotifySongsTableViewController.swift */,
@@ -264,9 +260,7 @@
 				95E870AF1E748CA400595476 /* ArtistsDataTableViewController.swift */,
 				9571477E1E77C1250040D1F6 /* SongPlayStatistics.swift */,
 				950822951E7624E700C3F37A /* ArtistStatisticsViewController.swift */,
-				9554A6B21E78E902008D2A57 /* StatsGraphView.swift */,
 				95E870AB1E747AB000595476 /* SongPlayCount.swift */,
-				957147801E77C6EE0040D1F6 /* AxesDrawer.swift */,
 				95E870AD1E747AD200595476 /* Artist.swift */,
 				95E870B11E748EC700595476 /* FetchedResultsTableViewController.swift */,
 				95CF805B1E7DF54700F1F0CF /* SongPlaycountCell.swift */,
@@ -391,6 +385,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				953C59331E7F762B00D5EC0F /* AppIcon.appiconset in Resources */,
 				957C50CD1E713A9900FC1F0A /* music-record.png in Resources */,
 				951A8E3C1E7B55D2005B958D /* upload-50.png in Resources */,
 				957C50C61E712C4B00FC1F0A /* spotify-icon@2x.png in Resources */,
@@ -420,14 +415,11 @@
 				95CF805A1E7DEF4E00F1F0CF /* DateStatisticsTableViewController.swift in Sources */,
 				953C592D1E7F407300D5EC0F /* SpotifySearchTableViewController.swift in Sources */,
 				95BFCED91E68DCAE00B15DB1 /* Song.swift in Sources */,
-				95204FDD1E66750100EF62C0 /* SpotifyViewController.swift in Sources */,
-				957147811E77C6EE0040D1F6 /* AxesDrawer.swift in Sources */,
 				95BCB1301E6916AE00C7DA38 /* SpotifyPlaySongViewController.swift in Sources */,
 				953C59291E7F35C800D5EC0F /* SpotifyTableViewController.swift in Sources */,
 				95CF80561E7DDE8100F1F0CF /* StatisticsViewController.swift in Sources */,
 				95CF805C1E7DF54700F1F0CF /* SongPlaycountCell.swift in Sources */,
 				954EDC511E6784F90045B25E /* SpotifyPlaylistsTableViewController.swift in Sources */,
-				9554A6B31E78E902008D2A57 /* StatsGraphView.swift in Sources */,
 				953C592F1E7F4FD300D5EC0F /* Album.swift in Sources */,
 				95E870AE1E747AD200595476 /* Artist.swift in Sources */,
 				954EDC551E67AFAC0045B25E /* SpotifySongsTableViewController.swift in Sources */,
@@ -571,7 +563,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = V986P5755S;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -593,7 +585,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = V986P5755S;
 				FRAMEWORK_SEARCH_PATHS = (

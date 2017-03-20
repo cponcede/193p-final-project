@@ -23,7 +23,6 @@ class ArtistsDataTableViewController: UITableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        print("In VWA")
         updateUI()
     }
     
@@ -40,7 +39,7 @@ class ArtistsDataTableViewController: UITableViewController {
             do {
                 try fetchedResultsController?.performFetch()
             } catch {
-                print ("PERFORM FETCH FAILED")
+                print ("ArtistsDataTableViewController.Error: Fetch request failed")
             }
             tableView.reloadData()
         }

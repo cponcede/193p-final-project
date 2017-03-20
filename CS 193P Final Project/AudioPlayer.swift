@@ -13,6 +13,7 @@ import Foundation
 
 private let sharedAudioPlayer = AudioPlayer()
 
+// Audio player used to play and control the playback of Spotify songs.
 class AudioPlayer : NSObject, SPTAudioStreamingDelegate, SPTAudioStreamingPlaybackDelegate {
     
     class var sharedInstance : AudioPlayer {
@@ -37,7 +38,6 @@ class AudioPlayer : NSObject, SPTAudioStreamingDelegate, SPTAudioStreamingPlayba
     var spotifyPlaying : Bool = false
     var player: SPTAudioStreamingController?
     var authData: SpotifyAuthenticationData!
-    var loggedIn = false
     var spotifyShouldStartPlaying = false
     
     var isPlaying : Bool? {
@@ -88,7 +88,6 @@ class AudioPlayer : NSObject, SPTAudioStreamingDelegate, SPTAudioStreamingPlayba
                         break
                     }
                     if item.spotifyURL == song?.spotifyURL {
-                        print("Removing")
                         decodedRecents.remove(at: index)
                         break
                     }
@@ -120,21 +119,6 @@ class AudioPlayer : NSObject, SPTAudioStreamingDelegate, SPTAudioStreamingPlayba
         return (day, month, year)
     }
     
-    private func printDatabaseStatistics() {
-        if let context = container?.viewContext {
-            context.perform {
-                print("STATS:")
-                let request: NSFetchRequest<Artist> = Artist.fetchRequest()
-                if let artistCount = (try? context.fetch(request))?.count {
-                    print("\(artistCount) unique artists")
-                }
-                if let songCount = try? context.count(for: SongPlayCount.fetchRequest()) {
-                    print ("\(songCount) unique SongPlayCount objects")
-                }
-            }
-        }
-    }
-    
     private func savePlaybackData() {
         container?.performBackgroundTask {[weak self] context in
             let (day, month, year) = self!.getCurrentDate()
@@ -145,18 +129,13 @@ class AudioPlayer : NSObject, SPTAudioStreamingDelegate, SPTAudioStreamingPlayba
     
     
     func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didStartPlayingTrack trackUri: String!) {
-        print("in didStartPlayingTrack for track \(playlist[playlistIndex].title) and index \(playlistIndex)")
-        if self.currentlyPlaying == nil {
-            print ("currentlyPlaying is nil")
-        }
         updateRecents(self.currentlyPlaying)
         savePlaybackData()
         if !queue.isEmpty {
             self.nextSongPlaying = queue[0]
             player?.queueSpotifyURI(queue.remove(at: 0).spotifyURL!.absoluteString, callback: {(error) in
                 if error != nil {
-                    print("Audio Player: Error while queueing")
-                    print(error)
+                    print("AudioPlayer.Error: while queueing next song")
                     self.nextSongPlaying = nil
                 }
             })
@@ -165,19 +144,13 @@ class AudioPlayer : NSObject, SPTAudioStreamingDelegate, SPTAudioStreamingPlayba
             player?.queueSpotifyURI(playlist[(self.playlistIndex! + 1)%playlist.count].spotifyURL!.absoluteString, callback: {
                 (error) in
                 if error != nil {
-                    print("Audio Player: Error while queueing from playlist")
-                    print(error)
+                    print("Audio Player.Error: queueing from playlist")
                     self.nextSongPlaying = nil
                 }
             })
             self.playlistIndex = (self.playlistIndex! + 1)%playlist.count
         }
     }
-    
-    func audioStreamingDidPopQueue(_ audioStreaming: SPTAudioStreamingController!) {
-        print("queue popped")
-    }
-    
     
     func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didStopPlayingTrack trackUri: String!) {
         print("In did Stop Playing Track")
@@ -191,9 +164,7 @@ class AudioPlayer : NSObject, SPTAudioStreamingDelegate, SPTAudioStreamingPlayba
             self.currentlyPlaying = self.nextSongPlaying
             player?.skipNext({(error) in
                 if error != nil {
-                    print (error)
-                } else {
-                    self.printStats()
+                    print ("AudioPlayer.Error: skipNext")
                 }
             })
         }
@@ -205,8 +176,6 @@ class AudioPlayer : NSObject, SPTAudioStreamingDelegate, SPTAudioStreamingPlayba
         if spotifyPlaying {
             let time = player?.playbackState.position
             if time != nil && time! < MAX_PREV_TIME {
-                
-                print("Skip to new song")
                 self.playlistIndex = (self.playlistIndex - 2)
                 if self.playlistIndex < 0 {
                     self.playlistIndex = self.playlist.count + self.playlistIndex
@@ -215,17 +184,16 @@ class AudioPlayer : NSObject, SPTAudioStreamingDelegate, SPTAudioStreamingPlayba
                 player?.playSpotifyURI(self.playlist[playlistIndex].spotifyURL!.absoluteString, startingWith: 0, startingWithPosition: TimeInterval.init(0), callback: {
                     (error) in
                     if error != nil {
-                        print("Error in skip prev (prev song) for Spotify song")
+                        print("AudioPlayer.Error: in skip prev (prev song) for Spotify song")
                     } else {
                         //self.printStats()
                     }
                 })
 
             } else {
-                print("seek")
                 player?.seek(to: TimeInterval.init(0), callback: { (error) in
                     if error != nil {
-                        print("AudioPlayer: Error in skipPrev (seek) for Spotify song.")
+                        print("AudioPlayer.Error: in skipPrev (seek) for Spotify song.")
                     } else {
                         //self.printStats()
                     }
@@ -239,8 +207,7 @@ class AudioPlayer : NSObject, SPTAudioStreamingDelegate, SPTAudioStreamingPlayba
         if spotifyPlaying {
             player?.setIsPlaying(false, callback: {(error) in
                 if error != nil {
-                    print("Error in pause")
-                    print(error)
+                    print("AudioPlayer.Error: Pause error")
                 }
             })
         }
@@ -251,8 +218,7 @@ class AudioPlayer : NSObject, SPTAudioStreamingDelegate, SPTAudioStreamingPlayba
         if spotifyPlaying {
             player?.setIsPlaying(true, callback: {(error) in
                 if error != nil {
-                    print("Error in pause")
-                    print(error)
+                    print("AudioPlayer.Error: Play error")
                 }
             })
         }
@@ -280,26 +246,20 @@ class AudioPlayer : NSObject, SPTAudioStreamingDelegate, SPTAudioStreamingPlayba
         player?.playSpotifyURI(playlist[playlistIndex].spotifyURL?.absoluteString, startingWith: 0, startingWithPosition: TimeInterval.init(0), callback: {
             (error) in
             if error != nil {
-                print("AudioPlayer: Error in playSpotifySong.")
+                print("AudioPlayer.Error: playSpotifySong.")
             }
         })
     }
     
     func audioStreamingDidLogin(_ audioStreaming: SPTAudioStreamingController!) {
-        print("login successful")
-        self.loggedIn = true
         if self.spotifyShouldStartPlaying {
             playSpotifySong()
         }
 
     }
     
-    func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didReceiveMessage message: String!) {
-        print("Message: \(message)")
-    }
-    
     func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didReceiveError error: Error!) {
-        print("Error: \(error)")
+        print("Spotify Player Error: \(error)")
     }
     
     func audioStreaming(_ audioStreaming: SPTAudioStreamingController!, didChangePlaybackStatus isPlaying: Bool) {
@@ -327,14 +287,5 @@ class AudioPlayer : NSObject, SPTAudioStreamingDelegate, SPTAudioStreamingPlayba
         } else {
             return nil
         }
-    }
-    
-    func printStats() {
-        if queue.isEmpty {
-            print ("EMPTY QUEUE")
-        } else {
-            print("\(queue[0].title) is next")
-        }
-        print("\(recents.count) RECENTS")
     }
 }

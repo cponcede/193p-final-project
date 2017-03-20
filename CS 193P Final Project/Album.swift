@@ -8,6 +8,7 @@
 
 import Foundation
 
+// Structure containing important information for an album.
 struct Album {
     var name : String?
     var artistName : String?

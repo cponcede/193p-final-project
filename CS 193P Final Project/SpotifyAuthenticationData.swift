@@ -8,6 +8,8 @@
 
 import Foundation
 
+/* Class used to keep track of authentication for the Spotify IOS SDK.
+ */
 class SpotifyAuthenticationData {
     
     let clientId = "4275d7c3c3864d7988c42a7d282aaaa4"
@@ -51,7 +53,6 @@ class SpotifyAuthenticationData {
         
         let userDefaults = UserDefaults.standard
         if let sessionObj = userDefaults.value(forKey: "spotifySession") {
-            print("FOUND SAVED SESSION")
             let sessionDataObj = sessionObj as? Data
             let session = NSKeyedUnarchiver.unarchiveObject(with: sessionDataObj!) as! SPTSession
             // TODO: Have this no longer always get a new session
@@ -64,9 +65,7 @@ class SpotifyAuthenticationData {
                         userDefaults.set(sessionDataObj, forKey: "spotifySession")
                         userDefaults.synchronize()
                         self.session = session
-                        print("Refreshed Spotify auth token successfully")
                     } else {
-                        print("Error refreshing Spotify auth token. Creating new one.")
                         SPTAuth.defaultInstance().clientID = self.clientId
                         SPTAuth.defaultInstance().redirectURL = URL.init(string: self.callbackURL)
                         SPTAuth.defaultInstance().requestedScopes = [SPTAuthUserLibraryReadScope]
@@ -75,13 +74,10 @@ class SpotifyAuthenticationData {
                     }
                 })
             } else {
-                print("Session valid")
-                // Display user's library
                 self.session = session
             }
             return
         } else {
-            print ("NO SAVED SESSION")
             SPTAuth.defaultInstance().clientID = clientId
             SPTAuth.defaultInstance().redirectURL = URL.init(string: callbackURL)
             SPTAuth.defaultInstance().requestedScopes = [SPTAuthUserLibraryReadScope]
