@@ -348,6 +348,8 @@ class SpotifyTableViewController: UITableViewController, UISearchBarDelegate {
             })
             if let navigator = navigationController {
                 print("segue")
+                viewController.authData = self.authData
+                viewController.title = searchBar.text
                 navigator.pushViewController(viewController, animated: true)
             }
         }

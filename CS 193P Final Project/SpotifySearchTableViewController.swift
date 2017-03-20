@@ -12,6 +12,8 @@ class SpotifySearchTableViewController: UITableViewController {
     
     let NUM_SECTIONS = 3
     
+    var authData: SpotifyAuthenticationData?
+    
     var songs : [Song]? {
         didSet {
             print("songs set")
@@ -135,14 +137,26 @@ class SpotifySearchTableViewController: UITableViewController {
     }
     */
 
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if let cell = sender as? UITableViewCell {
+            let id = cell.reuseIdentifier
+            if id == "subtitleCell" {
+                var destinationViewController = segue.destination
+                if let navigationController = destinationViewController as? UINavigationController {
+                    destinationViewController = navigationController.visibleViewController ?? destinationViewController
+                }
+                if let playSongViewController = destinationViewController as? SpotifyPlaySongViewController {
+                    playSongViewController.authData = self.authData
+                    let row = tableView.indexPath(for: cell)!.row
+                    playSongViewController.playlistIndex = row
+                    playSongViewController.songs = self.songs
+                    playSongViewController.title = self.title! + " songs"
+                }
+            }
+        }
     }
-    */
 
 }
