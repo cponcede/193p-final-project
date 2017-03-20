@@ -358,6 +358,9 @@
                                     <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <segue destination="18f-sz-MIS" kind="show" id="LAi-FM-8zA"/>
+                                </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="subtitleCell" textLabel="xDi-pj-UOa" detailTextLabel="DIi-kU-J1q" style="IBUITableViewCellStyleSubtitle" id="JNE-lb-4EY">
                                 <rect key="frame" x="0.0" y="72" width="375" height="44"/>
@@ -812,7 +815,7 @@
         <image name="upload-50.png" width="50" height="50"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="IUT-6i-Rp6"/>
+        <segue reference="LAi-FM-8zA"/>
         <segue reference="Wwf-0k-W6p"/>
     </inferredMetricsTieBreakers>
 </document>

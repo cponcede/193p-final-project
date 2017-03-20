@@ -101,59 +101,113 @@ class SpotifySearchTableViewController: UITableViewController {
             headerView.backgroundView?.backgroundColor = StyleConstants.headerBackgroundColor
         }
     }
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    
+    func getMoreAlbumSongs(destinationViewController : SpotifySongsTableViewController, currentPage : SPTListPage, albumName: String) {
+        print("getMorePlaylistSongs")
+        if currentPage.hasNextPage {
+            currentPage.requestNextPage(withAccessToken: self.authData!.getAccessToken(), callback: {
+                (error, data) in
+                if (error == nil) {
+                    if let songs = data as? SPTListPage {
+                        if songs.items == nil {
+                            return
+                        }
+                        for item in songs.items {
+                            if let song = item as? SPTPartialTrack {
+                                let title = song.name
+                                let album = albumName
+                                var artists: [String] = []
+                                for artist in song.artists {
+                                    let artistName = (artist as! SPTPartialArtist).name
+                                    artists.append(artistName!)
+                                }
+                                let artistString = artists.joined(separator: " + ")
+                                let artistId = (song.artists[0] as! SPTPartialArtist).identifier
+                                
+                                let spotifyURL = song.playableUri
+                                destinationViewController.songs.append((Song.init(title: title, artist: artistString, artistId: artistId, albumTitle: album, spotifyURL: spotifyURL)))
+                            }
+                        }
+                        self.getMoreAlbumSongs(destinationViewController: destinationViewController, currentPage: songs, albumName: albumName)
+                    }
+                } else {
+                    print("Error retrieving saved tracks for user")
+                    print(error)
+                    return
+                }
+            })
+            
+            
+        } else {
+            // Set flag to done
+            print("Done loading playlist songs")
+            destinationViewController.songsDoneLoading = true
+        }
     }
-    */
+    
+    func getAlbumSongs(destinationViewController : SpotifySongsTableViewController, row: Int) {
+        print("getPlaylistSongs")
+        let albumUri = albums![row].spotifyUri
+        SPTAlbum.album(withURI: URL(string: albumUri!), accessToken: self.authData!.getAccessToken(), market: "US", callback: {(error, data) in
+            if error == nil {
+                print(data)
+                if let album = data as? SPTAlbum,
+                    let firstPage = (album.firstTrackPage as? SPTListPage) {
+                    if firstPage.items == nil {
+                        return
+                    }
+                    for item in firstPage.items {
+                        if let song = item as? SPTPartialTrack {
+                            let title = song.name
+                            let album = album.name
+                            var artists: [String] = []
+                            for artist in song.artists {
+                                let artistName = (artist as! SPTPartialArtist).name
+                                artists.append(artistName!)
+                            }
+                            let artistString = artists.joined(separator: " + ")
+                            let artistId = (song.artists[0] as! SPTPartialArtist).identifier
+                            
+                            let spotifyURL = song.playableUri
+                            destinationViewController.songs.append(Song.init(title: title, artist: artistString, artistId: artistId, albumTitle: album, spotifyURL: spotifyURL))
+                        }
+                    }
+                    self.getMoreAlbumSongs(destinationViewController: destinationViewController, currentPage: firstPage, albumName: album.name)
 
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+                }
+            } else {
+                print("SpotifySearchTableViewController Error: album return error")
+                print(error)
+            }
+        })
     }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let cell = sender as? UITableViewCell {
             let id = cell.reuseIdentifier
+            var destinationViewController = segue.destination
+            if let navigationController = destinationViewController as? UINavigationController {
+                destinationViewController = navigationController.visibleViewController ?? destinationViewController
+            }
             if id == "subtitleCell" {
-                var destinationViewController = segue.destination
-                if let navigationController = destinationViewController as? UINavigationController {
-                    destinationViewController = navigationController.visibleViewController ?? destinationViewController
-                }
+                
                 if let playSongViewController = destinationViewController as? SpotifyPlaySongViewController {
                     playSongViewController.authData = self.authData
                     let row = tableView.indexPath(for: cell)!.row
                     playSongViewController.playlistIndex = row
                     playSongViewController.songs = self.songs
                     playSongViewController.title = self.title! + " songs"
+                }
+            } else if id == "basicCell" {
+                if tableView.indexPath(for: cell)!.section == 2 {
+                    if let songsTableViewController = destinationViewController as? SpotifySongsTableViewController{
+                        songsTableViewController.authData = self.authData
+                        songsTableViewController.title = cell.textLabel?.text
+                        songsTableViewController.songs = []
+                        let row = tableView.indexPath(for: cell)!.row
+                        getAlbumSongs(destinationViewController: songsTableViewController, row: row)
+                    }
                 }
             }
         }
