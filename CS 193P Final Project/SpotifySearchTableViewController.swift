@@ -102,7 +102,6 @@ class SpotifySearchTableViewController: UITableViewController {
     }
     
     func getMoreAlbumSongs(destinationViewController : SpotifySongsTableViewController, currentPage : SPTListPage, albumName: String) {
-        print("getMorePlaylistSongs")
         if currentPage.hasNextPage {
             currentPage.requestNextPage(withAccessToken: self.authData!.getAccessToken(), callback: {
                 (error, data) in
@@ -130,20 +129,15 @@ class SpotifySearchTableViewController: UITableViewController {
                         self.getMoreAlbumSongs(destinationViewController: destinationViewController, currentPage: songs, albumName: albumName)
                     }
                 } else {
-                    print(error)
-                    return
+                    print("SpotifySearchTableViewConroller.Error: Error requesting next page of album songs.")
                 }
             })
-            
         } else {
-            // Set flag to done
-            print("Done loading album songs")
             destinationViewController.songsDoneLoading = true
         }
     }
     
     func getAlbumSongs(destinationViewController : SpotifySongsTableViewController, row: Int) {
-        print("getPlaylistSongs")
         let albumUri = albums![row].spotifyUri
         SPTAlbum.album(withURI: URL(string: albumUri!), accessToken: self.authData!.getAccessToken(), market: "US", callback: {(error, data) in
             if error == nil {
@@ -170,20 +164,43 @@ class SpotifySearchTableViewController: UITableViewController {
                         }
                     }
                     self.getMoreAlbumSongs(destinationViewController: destinationViewController, currentPage: firstPage, albumName: album.name)
-
                 }
             } else {
-                print("SpotifySearchTableViewController Error: album return error")
-                print(error)
+                print("SpotifySearchTableViewController.Error: Getting getAlbumSongs returned error")
             }
         })
+    }
+    
+    func getMoreAlbums(destinationViewController : SpotifyPlaylistsTableViewController, currentPage : SPTListPage) {
+        if currentPage.hasNextPage {
+            currentPage.requestNextPage(withAccessToken: self.authData!.getAccessToken(), callback: {
+                (error, data) in
+                if (error == nil) {
+                    if let songs = data as? SPTListPage {
+                        if songs.items == nil {
+                            return
+                        }
+                        for item in songs.items {
+                            if let album = item as? SPTPartialAlbum {
+                                destinationViewController.playlists.append(Playlist(title: album.name, spotifyUri: album.playableUri.absoluteString))
+                            }
+                        }
+                        self.getMoreAlbums(destinationViewController: destinationViewController, currentPage: songs)
+                    }
+                } else {
+                    print("SpotifySearchTableViewConroller.Error: Error requesting next page of album songs.")
+                }
+            })
+        } else {
+            destinationViewController.doneSettingPlaylists = true
+        }
     }
     
     func getArtistAlbums(destinationViewController : SpotifyPlaylistsTableViewController, artist: ArtistData) {
         SPTSearch.perform(withQuery: artist.name!, queryType: SPTSearchQueryType.queryTypeAlbum, accessToken: self.authData!.getAccessToken(), callback: {
             (error, data) in
             if (error != nil) {
-                print(error)
+                print("SpotifySearchTableViewController.Error: Getting artist albums")
             } else {
                 if let page = data as? SPTListPage {
                     if page.items != nil {
@@ -192,10 +209,9 @@ class SpotifySearchTableViewController: UITableViewController {
                                 destinationViewController.playlists.append(Playlist(title: album.name, spotifyUri: album.playableUri.absoluteString))
                             }
                         }
+                        self.getMoreAlbums(destinationViewController: destinationViewController, currentPage: page)
                     }
                 }
-                destinationViewController.doneSettingPlaylists = true
-                
             }
         })
     }
