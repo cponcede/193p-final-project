@@ -250,6 +250,7 @@ class SpotifyTableViewController: UITableViewController, UISearchBarDelegate {
                     //playlistsTableViewController.playlists = getUserPlaylists()
                     playlistsTableViewController.authData = self.authData
                     getUserPlaylists(destinationViewController: playlistsTableViewController)
+                    destinationViewController.title = "Spotify Playlists"
                     print ("SEGUE WORKED!")
                 }
                 
@@ -274,6 +275,10 @@ class SpotifyTableViewController: UITableViewController, UISearchBarDelegate {
         }
     }
     
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        self.searchBar.endEditing(true)
+    }
+    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         print("Searching")
         var songSearchResults : [Song] = []
@@ -284,24 +289,27 @@ class SpotifyTableViewController: UITableViewController, UISearchBarDelegate {
                 if (error != nil) {
                     print(error)
                 } else {
-                    for item in (data as! SPTListPage).items {
-                        if numSongs > self.MAX_SEARCH_RESULTS {
-                            break
-                        }
-                        if let song = item as? SPTPartialTrack {
-                            let title = song.name
-                            let album = (song.album as! SPTPartialAlbum).name
-                            var artists: [String] = []
-                            for artist in song.artists {
-                                let artistName = (artist as! SPTPartialArtist).name
-                                artists.append(artistName!)
+                    let page = data as? SPTListPage
+                    if page != nil && page!.items != nil {
+                        for item in (data as! SPTListPage).items {
+                            if numSongs > self.MAX_SEARCH_RESULTS {
+                                break
                             }
-                            let artistString = artists.joined(separator: " + ")
-                            let artistId = (song.artists[0] as! SPTPartialArtist).identifier
-                            
-                            let spotifyURL = song.playableUri
-                            songSearchResults.append(Song.init(title: title, artist: artistString, artistId: artistId, albumTitle: album, spotifyURL: spotifyURL))
-                            numSongs += 1
+                            if let song = item as? SPTPartialTrack {
+                                let title = song.name
+                                let album = (song.album as! SPTPartialAlbum).name
+                                var artists: [String] = []
+                                for artist in song.artists {
+                                    let artistName = (artist as! SPTPartialArtist).name
+                                    artists.append(artistName!)
+                                }
+                                let artistString = artists.joined(separator: " + ")
+                                let artistId = (song.artists[0] as! SPTPartialArtist).identifier
+                                
+                                let spotifyURL = song.playableUri
+                                songSearchResults.append(Song.init(title: title, artist: artistString, artistId: artistId, albumTitle: album, spotifyURL: spotifyURL))
+                                numSongs += 1
+                            }
                         }
                     }
                     viewController.songs = songSearchResults
@@ -314,13 +322,16 @@ class SpotifyTableViewController: UITableViewController, UISearchBarDelegate {
                 if (error != nil) {
                     print(error)
                 } else {
-                    for item in (data as! SPTListPage).items {
-                        if numArtists > self.MAX_SEARCH_RESULTS {
-                            break
-                        }
-                        if let artist = item as? SPTPartialArtist {
-                            artistSearchResults.append(ArtistData(name: artist.name, spotifyURL: artist.uri.absoluteString))
-                            numArtists += 1
+                    let page = data as? SPTListPage
+                    if page != nil && page!.items != nil {
+                        for item in (data as! SPTListPage).items {
+                            if numArtists > self.MAX_SEARCH_RESULTS {
+                                break
+                            }
+                            if let artist = item as? SPTPartialArtist {
+                                artistSearchResults.append(ArtistData(name: artist.name, spotifyURL: artist.uri.absoluteString))
+                                numArtists += 1
+                            }
                         }
                     }
                     viewController.artists = artistSearchResults
@@ -334,13 +345,16 @@ class SpotifyTableViewController: UITableViewController, UISearchBarDelegate {
                 } else {
                     var albumSearchResults : [Playlist] = []
                     var numAlbums = 0
-                    for item in (data as! SPTListPage).items {
-                        if numAlbums > self.MAX_SEARCH_RESULTS {
-                            break
-                        }
-                        if let album = item as? SPTPartialAlbum {
-                            albumSearchResults.append(Playlist(title: album.name, spotifyUri: album.playableUri.absoluteString))
-                            numAlbums += 1
+                    let page = data as? SPTListPage
+                    if page != nil && page!.items != nil {
+                        for item in (data as! SPTListPage).items {
+                            if numAlbums > self.MAX_SEARCH_RESULTS {
+                                break
+                            }
+                            if let album = item as? SPTPartialAlbum {
+                                albumSearchResults.append(Playlist(title: album.name, spotifyUri: album.playableUri.absoluteString))
+                                numAlbums += 1
+                            }
                         }
                     }
                     viewController.albums = albumSearchResults

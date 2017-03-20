@@ -83,14 +83,13 @@ class SpotifySearchTableViewController: UITableViewController {
                 cell.detailTextLabel?.text = songs![indexPath.row].artist
             }
             return cell
+        } else if section == 1 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "artistCell", for: indexPath)
+            cell.textLabel?.text = artists![indexPath.row].name
+            return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "basicCell", for: indexPath)
-            if section == 1 {
-                cell.textLabel?.text = artists![indexPath.row].name
-                return cell
-            } else {
-                cell.textLabel?.text = albums![indexPath.row].title
-            }
+            cell.textLabel?.text = albums![indexPath.row].title
             return cell
         }
     }
@@ -131,16 +130,14 @@ class SpotifySearchTableViewController: UITableViewController {
                         self.getMoreAlbumSongs(destinationViewController: destinationViewController, currentPage: songs, albumName: albumName)
                     }
                 } else {
-                    print("Error retrieving saved tracks for user")
                     print(error)
                     return
                 }
             })
             
-            
         } else {
             // Set flag to done
-            print("Done loading playlist songs")
+            print("Done loading album songs")
             destinationViewController.songsDoneLoading = true
         }
     }
@@ -181,6 +178,27 @@ class SpotifySearchTableViewController: UITableViewController {
             }
         })
     }
+    
+    func getArtistAlbums(destinationViewController : SpotifyPlaylistsTableViewController, artist: ArtistData) {
+        SPTSearch.perform(withQuery: artist.name!, queryType: SPTSearchQueryType.queryTypeAlbum, accessToken: self.authData!.getAccessToken(), callback: {
+            (error, data) in
+            if (error != nil) {
+                print(error)
+            } else {
+                if let page = data as? SPTListPage {
+                    if page.items != nil {
+                        for item in page.items {
+                            if let album = item as? SPTPartialAlbum {
+                                destinationViewController.playlists.append(Playlist(title: album.name, spotifyUri: album.playableUri.absoluteString))
+                            }
+                        }
+                    }
+                }
+                destinationViewController.doneSettingPlaylists = true
+                
+            }
+        })
+    }
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -209,8 +227,18 @@ class SpotifySearchTableViewController: UITableViewController {
                         getAlbumSongs(destinationViewController: songsTableViewController, row: row)
                     }
                 }
+            } else if id == "artistCell" {
+                print("HERE")
+                if let playlistsTableViewController = destinationViewController as? SpotifyPlaylistsTableViewController {
+                    print("In segue")
+                    playlistsTableViewController.authData = self.authData
+                    playlistsTableViewController.title = artists![tableView.indexPath(for: cell)!.row].name! + " Albums"
+                    playlistsTableViewController.displayingAlbums = true
+                    getArtistAlbums(destinationViewController: playlistsTableViewController, artist: artists![tableView.indexPath(for: cell)!.row])
+                    print ("SEGUE WORKED!")
+                }
             }
         }
     }
-
 }
+
