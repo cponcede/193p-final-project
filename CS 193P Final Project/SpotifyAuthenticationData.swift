@@ -9,6 +9,7 @@
 import Foundation
 
 /* Class used to keep track of authentication for the Spotify IOS SDK.
+ * Much of the code controlling authentication is taken from the Spotify IOS SDK tutorial.
  */
 class SpotifyAuthenticationData {
     
