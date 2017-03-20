@@ -1,0 +1,141 @@
+ CS 193P Final Project.xcodeproj/project.pbxproj    | 330 +++++++-
+ .../xcdebugger/Breakpoints_v2.xcbkptlist           | 163 ++++
+ CS 193P Final Project/Album.swift                  |  16 +
+ CS 193P Final Project/AppDelegate.swift            |  33 +
+ .../AppIcon.appiconset/Contents.json               | 176 +++++
+ .../AppIcon.appiconset/Icon-App-20x20@1x.png       | Bin 0 -> 405 bytes
+ .../AppIcon.appiconset/Icon-App-20x20@2x.png       | Bin 0 -> 854 bytes
+ .../AppIcon.appiconset/Icon-App-20x20@3x.png       | Bin 0 -> 1427 bytes
+ .../AppIcon.appiconset/Icon-App-29x29@1x.png       | Bin 0 -> 595 bytes
+ .../AppIcon.appiconset/Icon-App-29x29@2x.png       | Bin 0 -> 1337 bytes
+ .../AppIcon.appiconset/Icon-App-29x29@3x.png       | Bin 0 -> 2339 bytes
+ .../AppIcon.appiconset/Icon-App-40x40@1x.png       | Bin 0 -> 854 bytes
+ .../AppIcon.appiconset/Icon-App-40x40@2x.png       | Bin 0 -> 2000 bytes
+ .../AppIcon.appiconset/Icon-App-40x40@3x.png       | Bin 0 -> 3796 bytes
+ .../AppIcon.appiconset/Icon-App-57x57@1x.png       | Bin 0 -> 1357 bytes
+ .../AppIcon.appiconset/Icon-App-57x57@2x.png       | Bin 0 -> 3530 bytes
+ .../AppIcon.appiconset/Icon-App-60x60@1x.png       | Bin 0 -> 1427 bytes
+ .../AppIcon.appiconset/Icon-App-60x60@2x.png       | Bin 0 -> 3796 bytes
+ .../AppIcon.appiconset/Icon-App-60x60@3x.png       | Bin 0 -> 7886 bytes
+ .../AppIcon.appiconset/Icon-App-72x72@1x.png       | Bin 0 -> 1761 bytes
+ .../AppIcon.appiconset/Icon-App-72x72@2x.png       | Bin 0 -> 5304 bytes
+ .../AppIcon.appiconset/Icon-App-76x76@1x.png       | Bin 0 -> 1891 bytes
+ .../AppIcon.appiconset/Icon-App-76x76@2x.png       | Bin 0 -> 5799 bytes
+ .../AppIcon.appiconset/Icon-App-76x76@3x.png       | Bin 0 -> 11581 bytes
+ .../AppIcon.appiconset/Icon-App-83.5x83.5@2x.png   | Bin 0 -> 6884 bytes
+ .../AppIcon.appiconset/Icon-Small-50x50@1x.png     | Bin 0 -> 1055 bytes
+ .../AppIcon.appiconset/Icon-Small-50x50@2x.png     | Bin 0 -> 1553 bytes
+ CS 193P Final Project/Artist.swift                 |  39 +
+ CS 193P Final Project/ArtistData.swift             |  15 +
+ .../ArtistStatisticsViewController.swift           | 112 +++
+ .../ArtistsDataTableViewController.swift           | 106 +++
+ .../AppIcon-1.appiconset/Contents.json             | 176 +++++
+ .../AppIcon-1.appiconset/Icon-App-20x20@1x.png     | Bin 0 -> 7314 bytes
+ .../AppIcon-1.appiconset/Icon-App-20x20@2x.png     | Bin 0 -> 9053 bytes
+ .../AppIcon-1.appiconset/Icon-App-20x20@3x.png     | Bin 0 -> 11382 bytes
+ .../AppIcon-1.appiconset/Icon-App-29x29@1x.png     | Bin 0 -> 8050 bytes
+ .../AppIcon-1.appiconset/Icon-App-29x29@2x.png     | Bin 0 -> 11052 bytes
+ .../AppIcon-1.appiconset/Icon-App-29x29@3x.png     | Bin 0 -> 14935 bytes
+ .../AppIcon-1.appiconset/Icon-App-40x40@1x.png     | Bin 0 -> 9053 bytes
+ .../AppIcon-1.appiconset/Icon-App-40x40@2x.png     | Bin 0 -> 13926 bytes
+ .../AppIcon-1.appiconset/Icon-App-40x40@3x.png     | Bin 0 -> 21602 bytes
+ .../AppIcon-1.appiconset/Icon-App-57x57@1x.png     | Bin 0 -> 11039 bytes
+ .../AppIcon-1.appiconset/Icon-App-57x57@2x.png     | Bin 0 -> 20201 bytes
+ .../AppIcon-1.appiconset/Icon-App-60x60@1x.png     | Bin 0 -> 11382 bytes
+ .../AppIcon-1.appiconset/Icon-App-60x60@2x.png     | Bin 0 -> 21602 bytes
+ .../AppIcon-1.appiconset/Icon-App-60x60@3x.png     | Bin 0 -> 34113 bytes
+ .../AppIcon-1.appiconset/Icon-App-72x72@1x.png     | Bin 0 -> 12732 bytes
+ .../AppIcon-1.appiconset/Icon-App-72x72@2x.png     | Bin 0 -> 25435 bytes
+ .../AppIcon-1.appiconset/Icon-App-76x76@1x.png     | Bin 0 -> 13250 bytes
+ .../AppIcon-1.appiconset/Icon-App-76x76@2x.png     | Bin 0 -> 27153 bytes
+ .../AppIcon-1.appiconset/Icon-App-76x76@3x.png     | Bin 0 -> 42780 bytes
+ .../AppIcon-1.appiconset/Icon-App-83.5x83.5@2x.png | Bin 0 -> 31189 bytes
+ .../AppIcon-1.appiconset/Icon-Small-50x50@1x.png   | Bin 0 -> 10109 bytes
+ .../AppIcon-1.appiconset/Icon-Small-50x50@2x.png   | Bin 0 -> 17487 bytes
+ .../AppIcon.appiconset/Contents.json               |  25 +
+ .../Assets.xcassets/Contents.json                  |   6 +
+ CS 193P Final Project/AudioPlayer.swift            | 291 +++++++
+ CS 193P Final Project/Base.lproj/Main.storyboard   | 840 ++++++++++++++++++++-
+ .../CS 193P Final Project-Bridging-Header.h        |   8 +
+ .../CS_193P_Final_Project.xcdatamodel/contents     |  22 +-
+ .../DateStatisticsTableViewController.swift        |  80 ++
+ .../FetchedResultsTableViewController.swift        |  43 ++
+ CS 193P Final Project/Info.plist                   |  19 +
+ CS 193P Final Project/Playlist.swift               |  17 +
+ CS 193P Final Project/Song.swift                   |  49 ++
+ CS 193P Final Project/SongPlayCount.swift          |  43 ++
+ CS 193P Final Project/SongPlayStatistics.swift     | 139 ++++
+ CS 193P Final Project/SongPlaycountCell.swift      |  22 +
+ .../SpotifyAuthenticationData.swift                |  91 +++
+ .../SpotifyPlaySongViewController.swift            | 178 +++++
+ .../SpotifyPlaylistsTableViewController.swift      | 235 ++++++
+ .../SpotifySearchTableViewController.swift         | 256 +++++++
+ .../SpotifySongsTableViewController.swift          | 102 +++
+ .../SpotifyTableViewController.swift               | 345 +++++++++
+ CS 193P Final Project/SpotifyViewController.swift  |  99 +++
+ .../StatisticsViewController.swift                 |  35 +
+ CS 193P Final Project/StyleConstants.swift         |  21 +
+ CS 193P Final Project/ViewController.swift         |  25 -
+ .../xcschemes/xcschememanagement.plist             |  24 +
+ Images/Circled Pause-50new.png                     | Bin 0 -> 4697 bytes
+ Images/Circled Play-50new.png                      | Bin 0 -> 4876 bytes
+ Images/Music Record-50.png                         | Bin 0 -> 1230 bytes
+ Images/NoPhotoDefault.png                          | Bin 0 -> 3506 bytes
+ Images/Skip to Start-51new.png                     | Bin 0 -> 1543 bytes
+ Images/Skip to-51new.png                           | Bin 0 -> 1421 bytes
+ Images/line-chart.png                              | Bin 0 -> 790 bytes
+ Images/music-record.png                            | Bin 0 -> 922 bytes
+ Images/spotify-icon.png                            | Bin 0 -> 3888 bytes
+ Images/spotify-icon@2x.png                         | Bin 0 -> 2449 bytes
+ Images/spotify-icon@3x.png                         | Bin 0 -> 3166 bytes
+ Images/upload-50.png                               | Bin 0 -> 231 bytes
+ .../Headers/SPTAudioPlaybackTypes.h                |  23 +
+ .../Headers/SPTAudioStreamingController.h          | 422 +++++++++++
+ .../SPTAudioStreamingController_ErrorCodes.h       |  71 ++
+ .../Headers/SPTCircularBuffer.h                    |  85 +++
+ .../Headers/SPTCoreAudioController.h               | 150 ++++
+ .../Headers/SPTDiskCache.h                         |  33 +
+ .../Headers/SPTDiskCaching.h                       |  80 ++
+ .../Headers/SPTPlaybackMetadata.h                  |  62 ++
+ .../Headers/SPTPlaybackState.h                     |  40 +
+ .../Headers/SpPlaybackEvent.h                      | 375 +++++++++
+ .../Headers/SpotifyAudioPlayback.h                 |  27 +
+ SpotifyAudioPlayback.framework/Info.plist          | Bin 0 -> 779 bytes
+ .../SpotifyAudioPlayback                           | Bin 0 -> 8597880 bytes
+ SpotifyAuthentication.framework/Headers/SPTAuth.h  | 263 +++++++
+ .../Headers/SPTAuthViewController.h                |  99 +++
+ .../Headers/SPTConnectButton.h                     |  20 +
+ .../Headers/SPTEmbeddedImages.h                    |  27 +
+ .../Headers/SPTSession.h                           |  86 +++
+ .../Headers/SPTStoreViewController.h               |  70 ++
+ .../Headers/SpotifyAuthentication.h                |  29 +
+ SpotifyAuthentication.framework/Info.plist         | Bin 0 -> 782 bytes
+ .../SpotifyAuthentication                          | Bin 0 -> 3539904 bytes
+ SpotifyMetadata.framework/Headers/SPTAlbum.h       | 230 ++++++
+ SpotifyMetadata.framework/Headers/SPTArtist.h      | 293 +++++++
+ SpotifyMetadata.framework/Headers/SPTBrowse.h      | 155 ++++
+ .../Headers/SPTFeaturedPlaylistList.h              |  55 ++
+ SpotifyMetadata.framework/Headers/SPTFollow.h      | 240 ++++++
+ SpotifyMetadata.framework/Headers/SPTImage.h       |  57 ++
+ .../Headers/SPTJSONDecoding.h                      |  86 +++
+ SpotifyMetadata.framework/Headers/SPTListPage.h    | 174 +++++
+ .../Headers/SPTMetadataTypes.h                     |  23 +
+ .../Headers/SPTPartialAlbum.h                      |  90 +++
+ .../Headers/SPTPartialArtist.h                     |  56 ++
+ .../Headers/SPTPartialObject.h                     |  32 +
+ .../Headers/SPTPartialPlaylist.h                   |  91 +++
+ .../Headers/SPTPartialTrack.h                      |  98 +++
+ .../Headers/SPTPlaylistList.h                      | 156 ++++
+ .../Headers/SPTPlaylistSnapshot.h                  | 386 ++++++++++
+ .../Headers/SPTPlaylistTrack.h                     |  29 +
+ SpotifyMetadata.framework/Headers/SPTRequest.h     | 176 +++++
+ SpotifyMetadata.framework/Headers/SPTSavedTrack.h  |  33 +
+ SpotifyMetadata.framework/Headers/SPTSearch.h      | 184 +++++
+ SpotifyMetadata.framework/Headers/SPTTrack.h       | 232 ++++++
+ .../Headers/SPTTrackProvider.h                     |  28 +
+ SpotifyMetadata.framework/Headers/SPTUser.h        | 183 +++++
+ SpotifyMetadata.framework/Headers/SPTYourMusic.h   | 131 ++++
+ .../Headers/SpotifyMetadata.h                      |  43 ++
+ SpotifyMetadata.framework/Info.plist               | Bin 0 -> 764 bytes
+ SpotifyMetadata.framework/SpotifyMetadata          | Bin 0 -> 8268544 bytes
+ 140 files changed, 9359 insertions(+), 45 deletions(-)
